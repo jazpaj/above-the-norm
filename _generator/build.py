@@ -47,6 +47,7 @@ ICON = {
     "lock": '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>',
     "truck": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 6h12v10H2zM14 10h4l3 3v3h-7"/><circle cx="6" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg>',
     "shield": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.4 8.2 8 9 4.6-.8 8-4.5 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>',
+    "instagram": '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg>',
     "mail": '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3 7 9 6 9-6"/></svg>',
 }
 
@@ -104,6 +105,7 @@ def footer(r):
       <img src="{r}assets/img/logo.png" alt="" width="64" height="86">
       <p class="ftr__tag">Refuse to be normal.</p>
       <p class="ftr__small">Independent streetwear, in small runs, since {BIZ['founded']}.</p>
+      <a class="ftr__follow" href="{BIZ['instagram']}" rel="noopener" target="_blank" aria-label="Follow us on Instagram">{ICON['instagram']}<span>Follow us</span></a>
     </div>
     <div class="ftr__col"><h3>Shop</h3><ul>
       <li><a href="{r}shop.html">Shop All</a></li>
@@ -120,7 +122,7 @@ def footer(r):
       <li><a href="{r}terms.html">Terms of Service</a></li>
       <li><a href="{r}about.html">About Us</a></li></ul></div>
     <div class="ftr__col"><h3>Company</h3><ul class="ftr__addr">
-      <li>{BIZ['legal']}<br>A {BIZ['state_of_org']} limited liability company</li>
+      <li>{BIZ['legal']}</li>
       <li>{BIZ['street']}<br>{BIZ['city']}, {BIZ['state']} {BIZ['zip']}<br>{BIZ['country']}</li>
       <li><a href="mailto:{BIZ['email']}">{BIZ['email']}</a></li>{phone}</ul></div>
   </div>
@@ -532,7 +534,7 @@ def build_policies():
 <p>If you have any questions about an item before ordering, please contact us. We're happy to help with fit and sizing.</p>{company_block()}""")
 
     prose("privacy.html", "Privacy Policy", "Legal", "How Above The Norm LLC collects, uses and protects your personal information.", f"""{upd}
-<p>{BIZ['legal']}, {BIZ['entity']} ("we", "us"), operates this website. This policy describes what personal information we collect, how we use it, and the choices you have.</p>
+<p>{BIZ['legal']} ("we", "us"), operates this website. This policy describes what personal information we collect, how we use it, and the choices you have.</p>
 <h2>Information we collect</h2>
 <ul>
 <li><strong>Order information:</strong> name, email, phone number, shipping and billing address, and the items you purchase.</li>
@@ -561,7 +563,7 @@ def build_policies():
 <h2>Contact</h2>{company_block()}""")
 
     prose("terms.html", "Terms of Service", "Legal", "The terms that govern use of the Above The Norm website and purchases from Above The Norm LLC.", f"""{upd}
-<p>These Terms of Service ("Terms") govern your use of this website and any purchase you make from {BIZ['legal']}, {BIZ['entity']} ("Above The Norm", "we", "us"). By using the site or placing an order, you agree to these Terms.</p>
+<p>These Terms of Service ("Terms") govern your use of this website and any purchase you make from {BIZ['legal']} ("Above The Norm", "we", "us"). By using the site or placing an order, you agree to these Terms.</p>
 <h2>1. Eligibility</h2>
 <p>You must be at least 18 years old, or the age of majority where you live, or have the consent of a parent or guardian, to place an order.</p>
 <h2>2. Products and pricing</h2>
@@ -617,7 +619,7 @@ def build_about():
 <h2>How we make things</h2>
 <p>Every design is drawn in-house. We print in small runs on heavyweight blanks, with screen printing, puff print and embroidery, and add our own sewn-in labels. Producing in limited quantities means less waste, and it's why most orders ship within {SHIP['processing_short']}: your piece is finished for you, not pulled from a warehouse of overstock.</p>
 <h2>Who we are</h2>
-<p>Above The Norm is a registered trademark of {BIZ['legal']}, {BIZ['entity']} (U.S. Reg. No. {BIZ['tm_reg']}). We're an independent, owner-operated brand: no investors, no licensing deals, just a small team and a community we call the #ATNFAMILY.</p>
+<p>Above The Norm is a registered trademark of {BIZ['legal']} (U.S. Reg. No. {BIZ['tm_reg']}). We're an independent, owner-operated brand: no investors, no licensing deals, just a small team and a community we call the #ATNFAMILY.</p>
 <div class="facts">
   <div><strong>{BIZ['founded']}</strong><span>First pieces released</span></div>
   <div><strong>®</strong><span>Federally registered trademark</span></div>

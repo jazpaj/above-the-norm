@@ -380,3 +380,6 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .contact__info strong { display: block; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
 .contact__note { font-size: 13px; color: var(--muted); }
 .notfound { padding-bottom: 80px; }
+.ftr__follow { display: inline-flex; align-items: center; gap: 10px; margin-top: 18px; font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+.ftr__follow svg { width: 22px; height: 22px; }
+.ftr__follow:hover { text-decoration: none !important; opacity: .75; }
