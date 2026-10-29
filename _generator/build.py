@@ -48,6 +48,7 @@ ICON = {
     "truck": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 6h12v10H2zM14 10h4l3 3v3h-7"/><circle cx="6" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg>',
     "shield": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.4 8.2 8 9 4.6-.8 8-4.5 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>',
     "instagram": '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg>',
+    "search": '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>',
     "mail": '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3 7 9 6 9-6"/></svg>',
 }
 
@@ -58,11 +59,10 @@ def header(r, active):
         return f'<a href="{r}{href}"{cur}>{label}</a>'
 
     cats = nav("shop.html", "Shop All", "shop") + "".join(nav(f"shop.html?c={k}", v, k) for k, v in CATS)
-    shop_cur = ' aria-current="page"' if active in ("shop",) + tuple(k for k, _ in CATS) else ""
-    main = (f'<div class="hdr__drop"><a href="{r}shop.html"{shop_cur} aria-haspopup="true">Shop</a>'
-            f'<div class="hdr__menu" role="menu">{cats}</div></div>'
-            + nav("shop.html?g=men", "Men", "men") + nav("shop.html?g=women", "Women", "women")
-            + nav("about.html", "About", "about") + nav("contact.html", "Contact", "contact"))
+    main = (nav("shop.html", "Shop All", "shop") + nav("shop.html?g=men", "Men", "men")
+            + nav("shop.html?g=women", "Women", "women")
+            + "".join(nav(f"shop.html?c={k}", v, k) for k, v in CATS)
+            + nav("about.html", "About", "about"))
     return f"""
 <div class="announce"><div class="announce__track">
   <span>Free U.S. shipping on orders over {money(SHIP['free_over'])}</span><span aria-hidden="true">✦</span>
@@ -76,10 +76,24 @@ def header(r, active):
       <img src="{r}assets/img/logo.png" alt="" width="34" height="46">
       <span>Above The Norm<sup>®</sup></span>
     </a>
-    <nav class="hdr__nav" aria-label="Main">{main}</nav>
-    <a class="hdr__cart" href="{r}cart.html" aria-label="Bag">{ICON['bag']}<span class="hdr__cart-label">Bag</span><span class="hdr__count" data-cart-count>0</span></a>
+    <div class="hdr__tools">
+      <button class="hdr__tool hdr__search-btn" type="button" aria-label="Search" data-search-open>{ICON['search']}<span>Search</span></button>
+      <a class="hdr__tool" href="{r}contact.html">{ICON['mail']}<span>Contact</span></a>
+      <a class="hdr__tool hdr__cart" href="{r}cart.html" aria-label="Bag">{ICON['bag']}<span>Bag</span><span class="hdr__count" data-cart-count>0</span></a>
+    </div>
   </div>
+  <nav class="hdr__nav" aria-label="Main"><div class="hdr__nav-in">{main}</div></nav>
 </header>
+<div class="search" data-search hidden>
+  <div class="search__panel" role="dialog" aria-modal="true" aria-label="Search products">
+    <form class="search__form wrap" action="{r}shop.html" role="search">
+      {ICON['search']}
+      <input type="search" name="q" placeholder="Search tees, hoodies, beanies…" autocomplete="off" aria-label="Search products" data-search-input>
+      <button class="search__close" type="button" aria-label="Close search" data-search-close>{ICON['close']}</button>
+    </form>
+    <div class="search__results wrap" data-search-results></div>
+  </div>
+</div>
 <div class="drawer" data-menu hidden>
   <div class="drawer__panel">
     <button class="drawer__close" type="button" aria-label="Close menu" data-menu-close>{ICON['close']}</button>
@@ -147,7 +161,7 @@ def page(path, title, desc, body, active="", cls=""):
 <link rel="icon" type="image/png" href="{r}assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,300..900;1,100,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{r}assets/css/style.css">
 </head>
 <body class="{cls}" data-root="{r}">
@@ -175,7 +189,7 @@ def card(p, r="", order=0):
     if len(p["images"]) > 1:
         second = f'<img class="card__alt" src="{r}{img(p, 1)}" alt="" loading="lazy" width="600" height="600">'
     ph = " is-ph" if p["placeholder"] else ""
-    return f"""<a class="card" href="{r}products/{p['id']}.html" data-cat="{p['cat']}" data-gender="{' '.join(p['gender'])}" data-price="{low(p)}" data-order="{order}">
+    return f"""<a class="card" href="{r}products/{p['id']}.html" data-cat="{p['cat']}" data-gender="{' '.join(p['gender'])}" data-price="{low(p)}" data-order="{order}" data-text="{e((p['name'] + ' ' + p['color'] + ' ' + CAT_NAME[p['cat']] + ' ' + p.get('type', '')).lower())}">
   <div class="card__img{ph}"><img src="{r}{img(p)}" alt="{e(p['name'])}{(' in ' + e(p['color'])) if p['color'] else ''}" loading="lazy" width="600" height="600">{second}</div>
   <div class="card__meta"><span class="card__name">{e(p['name'])}</span><span class="card__price">{money(low(p))}</span></div>
   <span class="card__sub">{e(p['color'] or CAT_NAME[p['cat']])} · {gender_label(p)}</span>
@@ -330,6 +344,7 @@ def build_shop():
     </div>
   </div>
   <div class="grid" data-grid>{cards}</div>
+  <p class="shop__query" data-query hidden>Showing results for <strong data-query-text></strong> · <button type="button" class="link-btn" data-clear-q>Clear search</button></p>
   <p class="empty" data-empty hidden>Nothing matches those filters yet. <button type="button" class="link-btn" data-reset>Clear filters</button></p>
 </section>
 """

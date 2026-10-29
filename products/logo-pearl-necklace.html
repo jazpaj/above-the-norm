@@ -11,7 +11,7 @@
 <link rel="icon" type="image/png" href="../assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,300..900;1,100,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body class="" data-root="../">
@@ -29,10 +29,24 @@
       <img src="../assets/img/logo.png" alt="" width="34" height="46">
       <span>Above The Norm<sup>®</sup></span>
     </a>
-    <nav class="hdr__nav" aria-label="Main"><div class="hdr__drop"><a href="../shop.html" aria-current="page" aria-haspopup="true">Shop</a><div class="hdr__menu" role="menu"><a href="../shop.html">Shop All</a><a href="../shop.html?c=tops">Tops</a><a href="../shop.html?c=bottoms">Bottoms</a><a href="../shop.html?c=headwear">Headwear</a><a href="../shop.html?c=accessories" aria-current="page">Accessories</a></div></div><a href="../shop.html?g=men">Men</a><a href="../shop.html?g=women">Women</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></nav>
-    <a class="hdr__cart" href="../cart.html" aria-label="Bag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="hdr__cart-label">Bag</span><span class="hdr__count" data-cart-count>0</span></a>
+    <div class="hdr__tools">
+      <button class="hdr__tool hdr__search-btn" type="button" aria-label="Search" data-search-open><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg><span>Search</span></button>
+      <a class="hdr__tool" href="../contact.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3 7 9 6 9-6"/></svg><span>Contact</span></a>
+      <a class="hdr__tool hdr__cart" href="../cart.html" aria-label="Bag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span>Bag</span><span class="hdr__count" data-cart-count>0</span></a>
+    </div>
   </div>
+  <nav class="hdr__nav" aria-label="Main"><div class="hdr__nav-in"><a href="../shop.html">Shop All</a><a href="../shop.html?g=men">Men</a><a href="../shop.html?g=women">Women</a><a href="../shop.html?c=tops">Tops</a><a href="../shop.html?c=bottoms">Bottoms</a><a href="../shop.html?c=headwear">Headwear</a><a href="../shop.html?c=accessories" aria-current="page">Accessories</a><a href="../about.html">About</a></div></nav>
 </header>
+<div class="search" data-search hidden>
+  <div class="search__panel" role="dialog" aria-modal="true" aria-label="Search products">
+    <form class="search__form wrap" action="../shop.html" role="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
+      <input type="search" name="q" placeholder="Search tees, hoodies, beanies…" autocomplete="off" aria-label="Search products" data-search-input>
+      <button class="search__close" type="button" aria-label="Close search" data-search-close><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </form>
+    <div class="search__results wrap" data-search-results></div>
+  </div>
+</div>
 <div class="drawer" data-menu hidden>
   <div class="drawer__panel">
     <button class="drawer__close" type="button" aria-label="Close menu" data-menu-close><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
@@ -70,19 +84,19 @@
 </section>
 <section class="wrap block">
   <div class="sec-head"><div><p class="kicker">You may also like</p><h2>More accessories</h2></div><a class="link-arrow" href="../shop.html?c=accessories">View all →</a></div>
-  <div class="grid"><a class="card" href="../products/angels-wallet-chain.html" data-cat="accessories" data-gender="men women" data-price="55.0" data-order="0">
+  <div class="grid"><a class="card" href="../products/angels-wallet-chain.html" data-cat="accessories" data-gender="men women" data-price="55.0" data-order="0" data-text="angels wallet chain  accessories jewelry">
   <div class="card__img"><img src="../assets/img/products/angels-wallet-chain-1.webp" alt="Angels Wallet Chain" loading="lazy" width="600" height="600"><img class="card__alt" src="../assets/img/products/angels-wallet-chain-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Angels Wallet Chain</span><span class="card__price">$55</span></div>
   <span class="card__sub">Accessories · Unisex</span>
-</a><a class="card" href="../products/angel-hoop-earrings.html" data-cat="accessories" data-gender="men women" data-price="50.0" data-order="0">
+</a><a class="card" href="../products/angel-hoop-earrings.html" data-cat="accessories" data-gender="men women" data-price="50.0" data-order="0" data-text="angel hoop earrings  accessories jewelry">
   <div class="card__img"><img src="../assets/img/products/angel-hoop-earrings-1.webp" alt="Angel Hoop Earrings" loading="lazy" width="600" height="600"><img class="card__alt" src="../assets/img/products/angel-hoop-earrings-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Angel Hoop Earrings</span><span class="card__price">$50</span></div>
   <span class="card__sub">Accessories · Unisex</span>
-</a><a class="card" href="../products/motel-atn-key-fob.html" data-cat="accessories" data-gender="men women" data-price="15.0" data-order="0">
+</a><a class="card" href="../products/motel-atn-key-fob.html" data-cat="accessories" data-gender="men women" data-price="15.0" data-order="0" data-text="motel atn key fob black accessories accessories">
   <div class="card__img"><img src="../assets/img/products/motel-atn-key-fob-1.webp" alt="Motel ATN Key Fob in Black" loading="lazy" width="600" height="600"><img class="card__alt" src="../assets/img/products/motel-atn-key-fob-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Motel ATN Key Fob</span><span class="card__price">$15</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="../products/basic-stacked-socks.html" data-cat="accessories" data-gender="men women" data-price="10.0" data-order="0">
+</a><a class="card" href="../products/basic-stacked-socks.html" data-cat="accessories" data-gender="men women" data-price="10.0" data-order="0" data-text="basic stacked socks white accessories socks">
   <div class="card__img"><img src="../assets/img/products/basic-stacked-socks-1.webp" alt="Basic Stacked Socks in White" loading="lazy" width="600" height="600"><img class="card__alt" src="../assets/img/products/basic-stacked-socks-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Basic Stacked Socks</span><span class="card__price">$10</span></div>
   <span class="card__sub">White · Unisex</span>

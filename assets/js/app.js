@@ -58,20 +58,55 @@
     document.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && !drawer.hidden) closeMenu(); });
   }
 
+  /* search */
+  var CAT_LABEL = { tops: "Tops", bottoms: "Bottoms", headwear: "Headwear", accessories: "Accessories" };
+  function tokens(q) { return q.toLowerCase().split(/\s+/).filter(Boolean); }
+  function matches(text, toks) { return toks.every(function (t) { return text.indexOf(t) > -1; }); }
+  var search = document.querySelector("[data-search]");
+  if (search) {
+    var sInput = search.querySelector("[data-search-input]");
+    var sResults = search.querySelector("[data-search-results]");
+    var index = Object.keys(CAT.products).map(function (id) {
+      var p = CAT.products[id];
+      return { id: id, p: p, text: (p.n + " " + p.c + " " + CAT_LABEL[p.k]).toLowerCase() };
+    });
+    function openSearch() { search.hidden = false; document.body.style.overflow = "hidden"; sInput.focus(); render(); }
+    function closeSearch() { search.hidden = true; document.body.style.overflow = ""; }
+    function render() {
+      var q = sInput.value.trim(), toks = tokens(q);
+      if (!toks.length) { sResults.innerHTML = '<p class="search__hint">Try “hoodie”, “angel”, “beanie” or “black”.</p>'; return; }
+      var hits = index.filter(function (x) { return matches(x.text, toks); });
+      if (!hits.length) { sResults.innerHTML = '<p class="search__hint">No products match “' + esc(q) + '”.</p>'; return; }
+      sResults.innerHTML = '<div class="search__grid">' + hits.slice(0, 8).map(function (x) {
+        var low = Math.min.apply(null, Object.keys(x.p.p).map(function (k) { return x.p.p[k]; }));
+        return '<a class="sres" href="' + ROOT + "products/" + x.id + '.html"><img src="' + ROOT + x.p.i + '" alt="" loading="lazy"><strong>' +
+          esc(x.p.n) + "</strong><span>" + esc(x.p.c || CAT_LABEL[x.p.k]) + " · " + money(low) + "</span></a>";
+      }).join("") + "</div>" +
+        '<a class="link-arrow search__all" href="' + ROOT + "shop.html?q=" + encodeURIComponent(q) + '">' + (hits.length === 1 ? "See 1 result" : "See all " + hits.length + " results") + " →</a>";
+    }
+    document.querySelectorAll("[data-search-open]").forEach(function (b) { b.addEventListener("click", openSearch); });
+    search.querySelector("[data-search-close]").addEventListener("click", closeSearch);
+    search.addEventListener("click", function (ev) { if (ev.target === search) closeSearch(); });
+    document.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && !search.hidden) closeSearch(); });
+    sInput.addEventListener("input", render);
+  }
+
   /* shop filters */
   var grid = document.querySelector("[data-grid]");
   if (grid) {
     var params = new URLSearchParams(location.search);
-    var state = { g: params.get("g") || "all", c: params.get("c") || "all", sort: "featured" };
+    var state = { g: params.get("g") || "all", c: params.get("c") || "all", q: (params.get("q") || "").trim(), sort: "featured" };
+    var qBox = document.querySelector("[data-query]");
     var cards = Array.prototype.slice.call(grid.children);
     var title = document.querySelector("[data-shop-title]");
     var labels = { all: "", men: "Men", women: "Women", tops: "Tops", bottoms: "Bottoms", headwear: "Headwear", accessories: "Accessories" };
 
     function apply(push) {
-      var shown = 0;
+      var shown = 0, toks = tokens(state.q);
       cards.forEach(function (c) {
         var ok = (state.g === "all" || c.dataset.gender.split(" ").indexOf(state.g) > -1) &&
-                 (state.c === "all" || c.dataset.cat === state.c);
+                 (state.c === "all" || c.dataset.cat === state.c) &&
+                 matches(c.dataset.text, toks);
         c.hidden = !ok;
         if (ok) shown++;
       });
@@ -86,12 +121,15 @@
       document.querySelector("[data-count]").textContent = shown + (shown === 1 ? " product" : " products");
       document.querySelector("[data-empty]").hidden = shown > 0;
       var t = [labels[state.g], labels[state.c]].filter(Boolean).join(" ");
-      title.textContent = t ? (state.g !== "all" && state.c !== "all" ? labels[state.g] + "'s " + labels[state.c] : t) : "Shop All";
+      title.textContent = t ? (state.g !== "all" && state.c !== "all" ? labels[state.g] + "'s " + labels[state.c] : t) : (state.q ? "Search" : "Shop All");
       document.title = title.textContent + " | Above The Norm";
+      qBox.hidden = !state.q;
+      qBox.querySelector("[data-query-text]").textContent = "“" + state.q + "”";
       if (push) {
         var q = new URLSearchParams();
         if (state.g !== "all") q.set("g", state.g);
         if (state.c !== "all") q.set("c", state.c);
+        if (state.q) q.set("q", state.q);
         history.replaceState(null, "", location.pathname + (q.toString() ? "?" + q : ""));
       }
       document.querySelectorAll(".hdr__nav a").forEach(function (a) {
@@ -108,7 +146,8 @@
       b.addEventListener("click", function () { state.c = b.dataset.c; apply(true); });
     });
     document.querySelector("[data-sort]").addEventListener("change", function (ev) { state.sort = ev.target.value; apply(false); });
-    document.querySelector("[data-reset]").addEventListener("click", function () { state.g = state.c = "all"; apply(true); });
+    document.querySelector("[data-reset]").addEventListener("click", function () { state.g = state.c = "all"; state.q = ""; apply(true); });
+    document.querySelector("[data-clear-q]").addEventListener("click", function () { state.q = ""; apply(true); });
     apply(false);
   }
 

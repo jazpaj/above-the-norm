@@ -11,7 +11,7 @@
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,300..900;1,100,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="" data-root="">
@@ -29,10 +29,24 @@
       <img src="assets/img/logo.png" alt="" width="34" height="46">
       <span>Above The Norm<sup>®</sup></span>
     </a>
-    <nav class="hdr__nav" aria-label="Main"><div class="hdr__drop"><a href="shop.html" aria-current="page" aria-haspopup="true">Shop</a><div class="hdr__menu" role="menu"><a href="shop.html" aria-current="page">Shop All</a><a href="shop.html?c=tops">Tops</a><a href="shop.html?c=bottoms">Bottoms</a><a href="shop.html?c=headwear">Headwear</a><a href="shop.html?c=accessories">Accessories</a></div></div><a href="shop.html?g=men">Men</a><a href="shop.html?g=women">Women</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
-    <a class="hdr__cart" href="cart.html" aria-label="Bag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="hdr__cart-label">Bag</span><span class="hdr__count" data-cart-count>0</span></a>
+    <div class="hdr__tools">
+      <button class="hdr__tool hdr__search-btn" type="button" aria-label="Search" data-search-open><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg><span>Search</span></button>
+      <a class="hdr__tool" href="contact.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3 7 9 6 9-6"/></svg><span>Contact</span></a>
+      <a class="hdr__tool hdr__cart" href="cart.html" aria-label="Bag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span>Bag</span><span class="hdr__count" data-cart-count>0</span></a>
+    </div>
   </div>
+  <nav class="hdr__nav" aria-label="Main"><div class="hdr__nav-in"><a href="shop.html" aria-current="page">Shop All</a><a href="shop.html?g=men">Men</a><a href="shop.html?g=women">Women</a><a href="shop.html?c=tops">Tops</a><a href="shop.html?c=bottoms">Bottoms</a><a href="shop.html?c=headwear">Headwear</a><a href="shop.html?c=accessories">Accessories</a><a href="about.html">About</a></div></nav>
 </header>
+<div class="search" data-search hidden>
+  <div class="search__panel" role="dialog" aria-modal="true" aria-label="Search products">
+    <form class="search__form wrap" action="shop.html" role="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
+      <input type="search" name="q" placeholder="Search tees, hoodies, beanies…" autocomplete="off" aria-label="Search products" data-search-input>
+      <button class="search__close" type="button" aria-label="Close search" data-search-close><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </form>
+    <div class="search__results wrap" data-search-results></div>
+  </div>
+</div>
 <div class="drawer" data-menu hidden>
   <div class="drawer__panel">
     <button class="drawer__close" type="button" aria-label="Close menu" data-menu-close><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
@@ -64,987 +78,988 @@
       </label>
     </div>
   </div>
-  <div class="grid" data-grid><a class="card" href="products/atn-angels-hoodie-sky-blue.html" data-cat="tops" data-gender="men women" data-price="75.0" data-order="0">
+  <div class="grid" data-grid><a class="card" href="products/atn-angels-hoodie-sky-blue.html" data-cat="tops" data-gender="men women" data-price="75.0" data-order="0" data-text="atn angels hoodie sky blue tops hoodies">
   <div class="card__img"><img src="assets/img/products/atn-angels-hoodie-sky-blue-1.webp" alt="ATN Angels Hoodie in Sky Blue" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/atn-angels-hoodie-sky-blue-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">ATN Angels Hoodie</span><span class="card__price">$75</span></div>
   <span class="card__sub">Sky Blue · Unisex</span>
-</a><a class="card" href="products/sent-from-above-hoodie-black.html" data-cat="tops" data-gender="men women" data-price="50.0" data-order="1">
+</a><a class="card" href="products/sent-from-above-hoodie-black.html" data-cat="tops" data-gender="men women" data-price="50.0" data-order="1" data-text="sent from above hoodie black tops ">
   <div class="card__img"><img src="assets/img/products/sent-from-above-hoodie-black-1.webp" alt="Sent From Above Hoodie in Black" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/sent-from-above-hoodie-black-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Sent From Above Hoodie</span><span class="card__price">$50</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="products/may-the-angels-crewneck.html" data-cat="tops" data-gender="men women" data-price="40.0" data-order="2">
+</a><a class="card" href="products/may-the-angels-crewneck.html" data-cat="tops" data-gender="men women" data-price="40.0" data-order="2" data-text="may the angels crewneck  tops ">
   <div class="card__img"><img src="assets/img/products/may-the-angels-crewneck-1.webp" alt="May The Angels Crewneck" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/may-the-angels-crewneck-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">May The Angels Crewneck</span><span class="card__price">$40</span></div>
   <span class="card__sub">Tops · Unisex</span>
-</a><a class="card" href="products/sent-from-above-l-s-charcoal-grey.html" data-cat="tops" data-gender="men women" data-price="50.0" data-order="3">
+</a><a class="card" href="products/sent-from-above-l-s-charcoal-grey.html" data-cat="tops" data-gender="men women" data-price="50.0" data-order="3" data-text="sent from above l/s charcoal grey tops ">
   <div class="card__img"><img src="assets/img/products/sent-from-above-l-s-charcoal-grey-1.webp" alt="Sent From Above L/S in Charcoal Grey" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/sent-from-above-l-s-charcoal-grey-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Sent From Above L/S</span><span class="card__price">$50</span></div>
   <span class="card__sub">Charcoal Grey · Unisex</span>
-</a><a class="card" href="products/why-can-t-you-just-be-normal-l-s-black.html" data-cat="tops" data-gender="men women" data-price="50.0" data-order="4">
+</a><a class="card" href="products/why-can-t-you-just-be-normal-l-s-black.html" data-cat="tops" data-gender="men women" data-price="50.0" data-order="4" data-text="why can&#x27;t you just be normal l/s black tops ">
   <div class="card__img"><img src="assets/img/products/why-can-t-you-just-be-normal-l-s-black-1.webp" alt="Why Can&#x27;t You Just Be Normal L/S in Black" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/why-can-t-you-just-be-normal-l-s-black-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Why Can&#x27;t You Just Be Normal L/S</span><span class="card__price">$50</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="products/inner-demons-tee-white.html" data-cat="tops" data-gender="men women" data-price="40.0" data-order="5">
+</a><a class="card" href="products/inner-demons-tee-white.html" data-cat="tops" data-gender="men women" data-price="40.0" data-order="5" data-text="inner demons tee white tops tees">
   <div class="card__img"><img src="assets/img/products/inner-demons-tee-white-1.webp" alt="Inner Demons Tee in White" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/inner-demons-tee-white-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Inner Demons Tee</span><span class="card__price">$40</span></div>
   <span class="card__sub">White · Unisex</span>
-</a><a class="card" href="products/guardian-angel-tee.html" data-cat="tops" data-gender="men women" data-price="35.0" data-order="6">
+</a><a class="card" href="products/guardian-angel-tee.html" data-cat="tops" data-gender="men women" data-price="35.0" data-order="6" data-text="guardian angel tee  tops tees">
   <div class="card__img"><img src="assets/img/products/guardian-angel-tee-1.webp" alt="Guardian Angel Tee" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/guardian-angel-tee-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Guardian Angel Tee</span><span class="card__price">$35</span></div>
   <span class="card__sub">Tops · Unisex</span>
-</a><a class="card" href="products/most-high-tee.html" data-cat="tops" data-gender="men women" data-price="35.0" data-order="7">
+</a><a class="card" href="products/most-high-tee.html" data-cat="tops" data-gender="men women" data-price="35.0" data-order="7" data-text="most high tee  tops tees">
   <div class="card__img"><img src="assets/img/products/most-high-tee-1.webp" alt="Most High Tee" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/most-high-tee-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Most High Tee</span><span class="card__price">$35</span></div>
   <span class="card__sub">Tops · Unisex</span>
-</a><a class="card" href="products/brain-on-atn-tee.html" data-cat="tops" data-gender="men women" data-price="50.0" data-order="8">
+</a><a class="card" href="products/brain-on-atn-tee.html" data-cat="tops" data-gender="men women" data-price="50.0" data-order="8" data-text="brain on atn tee  tops tees">
   <div class="card__img"><img src="assets/img/products/brain-on-atn-tee-1.webp" alt="Brain on ATN Tee" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/brain-on-atn-tee-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Brain on ATN Tee</span><span class="card__price">$50</span></div>
   <span class="card__sub">Tops · Unisex</span>
-</a><a class="card" href="products/s-o-s-tee.html" data-cat="tops" data-gender="men women" data-price="50.0" data-order="9">
+</a><a class="card" href="products/s-o-s-tee.html" data-cat="tops" data-gender="men women" data-price="50.0" data-order="9" data-text="s.o.s. tee  tops tees">
   <div class="card__img"><img src="assets/img/products/s-o-s-tee-1.webp" alt="S.O.S. Tee" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/s-o-s-tee-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">S.O.S. Tee</span><span class="card__price">$50</span></div>
   <span class="card__sub">Tops · Unisex</span>
-</a><a class="card" href="products/norm-the-alien-crewneck-blue.html" data-cat="tops" data-gender="men women" data-price="65.0" data-order="10">
+</a><a class="card" href="products/norm-the-alien-crewneck-blue.html" data-cat="tops" data-gender="men women" data-price="65.0" data-order="10" data-text="norm the alien crewneck blue tops ">
   <div class="card__img"><img src="assets/img/products/norm-the-alien-crewneck-blue-1.webp" alt="Norm The Alien Crewneck in Blue" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/norm-the-alien-crewneck-blue-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Norm The Alien Crewneck</span><span class="card__price">$65</span></div>
   <span class="card__sub">Blue · Unisex</span>
-</a><a class="card" href="products/red-stripped-l-s-red-white.html" data-cat="tops" data-gender="men women" data-price="50.0" data-order="11">
+</a><a class="card" href="products/red-stripped-l-s-red-white.html" data-cat="tops" data-gender="men women" data-price="50.0" data-order="11" data-text="red stripped l/s red/white tops ">
   <div class="card__img"><img src="assets/img/products/red-stripped-l-s-red-white-1.webp" alt="Red Stripped L/S in Red/White" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/red-stripped-l-s-red-white-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Red Stripped L/S</span><span class="card__price">$50</span></div>
   <span class="card__sub">Red/White · Unisex</span>
-</a><a class="card" href="products/children-are-the-future-tee-black.html" data-cat="tops" data-gender="men women" data-price="42.0" data-order="12">
+</a><a class="card" href="products/children-are-the-future-tee-black.html" data-cat="tops" data-gender="men women" data-price="42.0" data-order="12" data-text="children are the future tee black tops ">
   <div class="card__img"><img src="assets/img/products/children-are-the-future-tee-black-1.webp" alt="Children Are The Future Tee in Black" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/children-are-the-future-tee-black-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Children Are The Future Tee</span><span class="card__price">$42</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="products/hollywood-cowboy-tee-brown.html" data-cat="tops" data-gender="men women" data-price="35.0" data-order="13">
+</a><a class="card" href="products/hollywood-cowboy-tee-brown.html" data-cat="tops" data-gender="men women" data-price="35.0" data-order="13" data-text="hollywood cowboy tee brown tops ">
   <div class="card__img"><img src="assets/img/products/hollywood-cowboy-tee-brown-1.webp" alt="Hollywood Cowboy Tee in Brown" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/hollywood-cowboy-tee-brown-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Hollywood Cowboy Tee</span><span class="card__price">$35</span></div>
   <span class="card__sub">Brown · Unisex</span>
-</a><a class="card" href="products/normans-816-tee-sand.html" data-cat="tops" data-gender="men women" data-price="35.0" data-order="14">
+</a><a class="card" href="products/normans-816-tee-sand.html" data-cat="tops" data-gender="men women" data-price="35.0" data-order="14" data-text="normans 816 tee natural tops ">
   <div class="card__img"><img src="assets/img/products/normans-816-tee-sand-1.webp" alt="Normans 816 Tee in Natural" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/normans-816-tee-sand-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Normans 816 Tee</span><span class="card__price">$35</span></div>
   <span class="card__sub">Natural · Unisex</span>
-</a><a class="card" href="products/crash-landing-hoodie-yellow.html" data-cat="tops" data-gender="men women" data-price="77.0" data-order="15">
+</a><a class="card" href="products/crash-landing-hoodie-yellow.html" data-cat="tops" data-gender="men women" data-price="77.0" data-order="15" data-text="crash landing hoodie yellow tops ">
   <div class="card__img"><img src="assets/img/products/crash-landing-hoodie-yellow-1.webp" alt="Crash Landing Hoodie in Yellow" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/crash-landing-hoodie-yellow-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Crash Landing Hoodie</span><span class="card__price">$77</span></div>
   <span class="card__sub">Yellow · Unisex</span>
-</a><a class="card" href="products/lone-angel-crewneck-grey.html" data-cat="tops" data-gender="men women" data-price="67.0" data-order="16">
+</a><a class="card" href="products/lone-angel-crewneck-grey.html" data-cat="tops" data-gender="men women" data-price="67.0" data-order="16" data-text="lone angel crewneck grey tops ">
   <div class="card__img"><img src="assets/img/products/lone-angel-crewneck-grey-1.webp" alt="Lone Angel Crewneck in Grey" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/lone-angel-crewneck-grey-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Lone Angel Crewneck</span><span class="card__price">$67</span></div>
   <span class="card__sub">Grey · Unisex</span>
-</a><a class="card" href="products/adoption-center-tee-black.html" data-cat="tops" data-gender="men women" data-price="35.0" data-order="17">
+</a><a class="card" href="products/adoption-center-tee-black.html" data-cat="tops" data-gender="men women" data-price="35.0" data-order="17" data-text="adoption center tee black tops tees">
   <div class="card__img"><img src="assets/img/products/adoption-center-tee-black-1.webp" alt="Adoption Center Tee in Black" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/adoption-center-tee-black-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Adoption Center Tee</span><span class="card__price">$35</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="products/norm-splatter-tee.html" data-cat="tops" data-gender="men women" data-price="35.0" data-order="18">
+</a><a class="card" href="products/norm-splatter-tee.html" data-cat="tops" data-gender="men women" data-price="35.0" data-order="18" data-text="norm splatter tee brown tops ">
   <div class="card__img"><img src="assets/img/products/norm-splatter-tee-1.webp" alt="Norm Splatter Tee in Brown" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/norm-splatter-tee-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Norm Splatter Tee</span><span class="card__price">$35</span></div>
   <span class="card__sub">Brown · Unisex</span>
-</a><a class="card" href="products/wing-tee-white.html" data-cat="tops" data-gender="men women" data-price="35.0" data-order="19">
+</a><a class="card" href="products/wing-tee-white.html" data-cat="tops" data-gender="men women" data-price="35.0" data-order="19" data-text="wings tee white tops ">
   <div class="card__img"><img src="assets/img/products/wing-tee-white-1.webp" alt="Wings Tee in White" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/wing-tee-white-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Wings Tee</span><span class="card__price">$35</span></div>
   <span class="card__sub">White · Unisex</span>
-</a><a class="card" href="products/black-jesus-hoodie-black.html" data-cat="tops" data-gender="men women" data-price="100.0" data-order="20">
+</a><a class="card" href="products/black-jesus-hoodie-black.html" data-cat="tops" data-gender="men women" data-price="100.0" data-order="20" data-text="black jesus hoodie black tops hoodies">
   <div class="card__img"><img src="assets/img/products/black-jesus-hoodie-black-1.webp" alt="Black Jesus Hoodie in Black" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/black-jesus-hoodie-black-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Black Jesus Hoodie</span><span class="card__price">$100</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="products/inhale-exhale-full-zip-jacket-brown.html" data-cat="tops" data-gender="men women" data-price="90.0" data-order="21">
+</a><a class="card" href="products/inhale-exhale-full-zip-jacket-brown.html" data-cat="tops" data-gender="men women" data-price="90.0" data-order="21" data-text="inhale exhale full zip jacket brown tops ">
   <div class="card__img"><img src="assets/img/products/inhale-exhale-full-zip-jacket-brown-1.webp" alt="Inhale Exhale Full Zip Jacket in Brown" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/inhale-exhale-full-zip-jacket-brown-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Inhale Exhale Full Zip Jacket</span><span class="card__price">$90</span></div>
   <span class="card__sub">Brown · Unisex</span>
-</a><a class="card" href="products/rated-atn-tee-black.html" data-cat="tops" data-gender="men women" data-price="35.0" data-order="22">
+</a><a class="card" href="products/rated-atn-tee-black.html" data-cat="tops" data-gender="men women" data-price="35.0" data-order="22" data-text="rated atn tee black tops ">
   <div class="card__img"><img src="assets/img/products/rated-atn-tee-black-1.webp" alt="Rated ATN Tee in Black" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/rated-atn-tee-black-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Rated ATN Tee</span><span class="card__price">$35</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="products/not-normal-tee-white.html" data-cat="tops" data-gender="men women" data-price="35.0" data-order="23">
+</a><a class="card" href="products/not-normal-tee-white.html" data-cat="tops" data-gender="men women" data-price="35.0" data-order="23" data-text="not normal tee white tops ">
   <div class="card__img"><img src="assets/img/products/not-normal-tee-white-1.webp" alt="Not Normal Tee in White" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/not-normal-tee-white-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Not Normal Tee</span><span class="card__price">$35</span></div>
   <span class="card__sub">White · Unisex</span>
-</a><a class="card" href="products/not-your-average-work-shirt-sky-blue.html" data-cat="tops" data-gender="men women" data-price="75.0" data-order="24">
+</a><a class="card" href="products/not-your-average-work-shirt-sky-blue.html" data-cat="tops" data-gender="men women" data-price="75.0" data-order="24" data-text="not your average work shirt - no name sky blue tops ">
   <div class="card__img"><img src="assets/img/products/not-your-average-work-shirt-sky-blue-1.webp" alt="Not Your Average Work Shirt - No Name in Sky Blue" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/not-your-average-work-shirt-sky-blue-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Not Your Average Work Shirt - No Name</span><span class="card__price">$75</span></div>
   <span class="card__sub">Sky Blue · Unisex</span>
-</a><a class="card" href="products/levitate-above-the-norm-hoodie-white.html" data-cat="tops" data-gender="men women" data-price="100.0" data-order="25">
+</a><a class="card" href="products/levitate-above-the-norm-hoodie-white.html" data-cat="tops" data-gender="men women" data-price="100.0" data-order="25" data-text="levitate above the norm hoodie white tops ">
   <div class="card__img"><img src="assets/img/products/levitate-above-the-norm-hoodie-white-1.webp" alt="Levitate Above The Norm Hoodie in White" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/levitate-above-the-norm-hoodie-white-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Levitate Above The Norm Hoodie</span><span class="card__price">$100</span></div>
   <span class="card__sub">White · Unisex</span>
-</a><a class="card" href="products/your-desires-tee.html" data-cat="tops" data-gender="men women" data-price="100.0" data-order="26">
+</a><a class="card" href="products/your-desires-tee.html" data-cat="tops" data-gender="men women" data-price="100.0" data-order="26" data-text="your desires tee purple tops tees">
   <div class="card__img"><img src="assets/img/products/your-desires-tee-1.webp" alt="Your Desires Tee in Purple" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/your-desires-tee-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Your Desires Tee</span><span class="card__price">$100</span></div>
   <span class="card__sub">Purple · Unisex</span>
-</a><a class="card" href="products/nn-cult-ringer-tee.html" data-cat="tops" data-gender="men women" data-price="115.0" data-order="27">
+</a><a class="card" href="products/nn-cult-ringer-tee.html" data-cat="tops" data-gender="men women" data-price="115.0" data-order="27" data-text="nn cult ringer tee yellow tops tees">
   <div class="card__img"><img src="assets/img/products/nn-cult-ringer-tee-1.webp" alt="NN Cult Ringer Tee in Yellow" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/nn-cult-ringer-tee-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">NN Cult Ringer Tee</span><span class="card__price">$115</span></div>
   <span class="card__sub">Yellow · Unisex</span>
-</a><a class="card" href="products/nn-cult-crewneck.html" data-cat="tops" data-gender="men women" data-price="130.0" data-order="28">
+</a><a class="card" href="products/nn-cult-crewneck.html" data-cat="tops" data-gender="men women" data-price="130.0" data-order="28" data-text="nn cult crewneck navy tops crewnecks">
   <div class="card__img"><img src="assets/img/products/nn-cult-crewneck-1.webp" alt="NN Cult Crewneck in Navy" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/nn-cult-crewneck-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">NN Cult Crewneck</span><span class="card__price">$130</span></div>
   <span class="card__sub">Navy · Unisex</span>
-</a><a class="card" href="products/biohazard-tee.html" data-cat="tops" data-gender="men women" data-price="60.0" data-order="29">
+</a><a class="card" href="products/biohazard-tee.html" data-cat="tops" data-gender="men women" data-price="60.0" data-order="29" data-text="hazard tee  tops tees">
   <div class="card__img"><img src="assets/img/products/biohazard-tee-1.webp" alt="Hazard Tee" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/biohazard-tee-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Hazard Tee</span><span class="card__price">$60</span></div>
   <span class="card__sub">Tops · Unisex</span>
-</a><a class="card" href="products/atn-travel-agency-zip-up.html" data-cat="tops" data-gender="men women" data-price="125.0" data-order="30">
+</a><a class="card" href="products/atn-travel-agency-zip-up.html" data-cat="tops" data-gender="men women" data-price="125.0" data-order="30" data-text="atn travel agency zip up  tops zip up jacket">
   <div class="card__img"><img src="assets/img/products/atn-travel-agency-zip-up-1.webp" alt="ATN Travel Agency Zip Up" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/atn-travel-agency-zip-up-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">ATN Travel Agency Zip Up</span><span class="card__price">$125</span></div>
   <span class="card__sub">Tops · Unisex</span>
-</a><a class="card" href="products/my-mama-says-tee.html" data-cat="tops" data-gender="men women" data-price="50.0" data-order="31">
+</a><a class="card" href="products/my-mama-says-tee.html" data-cat="tops" data-gender="men women" data-price="50.0" data-order="31" data-text="my mama says tee  tops tees">
   <div class="card__img"><img src="assets/img/products/my-mama-says-tee-1.webp" alt="My Mama Says Tee" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/my-mama-says-tee-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">My Mama Says Tee</span><span class="card__price">$50</span></div>
   <span class="card__sub">Tops · Unisex</span>
-</a><a class="card" href="products/path-to-ascension-hoodie.html" data-cat="tops" data-gender="men women" data-price="100.0" data-order="32">
+</a><a class="card" href="products/path-to-ascension-hoodie.html" data-cat="tops" data-gender="men women" data-price="100.0" data-order="32" data-text="path to ascension hoodie  tops hoodies">
   <div class="card__img"><img src="assets/img/products/path-to-ascension-hoodie-1.webp" alt="Path To Ascension Hoodie" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/path-to-ascension-hoodie-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Path To Ascension Hoodie</span><span class="card__price">$100</span></div>
   <span class="card__sub">Tops · Unisex</span>
-</a><a class="card" href="products/no-ceilings-tee.html" data-cat="tops" data-gender="men women" data-price="50.0" data-order="33">
+</a><a class="card" href="products/no-ceilings-tee.html" data-cat="tops" data-gender="men women" data-price="50.0" data-order="33" data-text="no ceilings tee  tops tees">
   <div class="card__img"><img src="assets/img/products/no-ceilings-tee-1.webp" alt="No Ceilings Tee" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/no-ceilings-tee-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">No Ceilings Tee</span><span class="card__price">$50</span></div>
   <span class="card__sub">Tops · Unisex</span>
-</a><a class="card" href="products/too-cool-tee.html" data-cat="tops" data-gender="men women" data-price="60.0" data-order="34">
+</a><a class="card" href="products/too-cool-tee.html" data-cat="tops" data-gender="men women" data-price="60.0" data-order="34" data-text="too cool tee  tops tees">
   <div class="card__img"><img src="assets/img/products/too-cool-tee-1.webp" alt="Too Cool Tee" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/too-cool-tee-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Too Cool Tee</span><span class="card__price">$60</span></div>
   <span class="card__sub">Tops · Unisex</span>
-</a><a class="card" href="products/lord-protect-me-tee.html" data-cat="tops" data-gender="men women" data-price="75.0" data-order="35">
+</a><a class="card" href="products/lord-protect-me-tee.html" data-cat="tops" data-gender="men women" data-price="75.0" data-order="35" data-text="lord protect me tee  tops tees">
   <div class="card__img"><img src="assets/img/products/lord-protect-me-tee-1.webp" alt="Lord Protect Me Tee" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/lord-protect-me-tee-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Lord Protect Me Tee</span><span class="card__price">$75</span></div>
   <span class="card__sub">Tops · Unisex</span>
-</a><a class="card" href="products/digital-logo-l-s-jersey.html" data-cat="tops" data-gender="men women" data-price="50.0" data-order="36">
+</a><a class="card" href="products/digital-logo-l-s-jersey.html" data-cat="tops" data-gender="men women" data-price="50.0" data-order="36" data-text="digital logo l/s jersey  tops jersey">
   <div class="card__img"><img src="assets/img/products/digital-logo-l-s-jersey-1.webp" alt="Digital Logo L/S Jersey" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/digital-logo-l-s-jersey-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Digital Logo L/S Jersey</span><span class="card__price">$50</span></div>
   <span class="card__sub">Tops · Unisex</span>
-</a><a class="card" href="products/atn-board-shorts-black.html" data-cat="bottoms" data-gender="men women" data-price="50.0" data-order="37">
+</a><a class="card" href="products/atn-board-shorts-black.html" data-cat="bottoms" data-gender="men women" data-price="50.0" data-order="37" data-text="atn board shorts black bottoms shorts">
   <div class="card__img"><img src="assets/img/products/atn-board-shorts-black-1.webp" alt="ATN Board Shorts in Black" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/atn-board-shorts-black-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">ATN Board Shorts</span><span class="card__price">$50</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="products/atn-board-shorts-yellow.html" data-cat="bottoms" data-gender="men women" data-price="50.0" data-order="38">
+</a><a class="card" href="products/atn-board-shorts-yellow.html" data-cat="bottoms" data-gender="men women" data-price="50.0" data-order="38" data-text="atn board shorts yellow bottoms shorts">
   <div class="card__img"><img src="assets/img/products/atn-board-shorts-yellow-1.webp" alt="ATN Board Shorts in Yellow" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/atn-board-shorts-yellow-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">ATN Board Shorts</span><span class="card__price">$50</span></div>
   <span class="card__sub">Yellow · Unisex</span>
-</a><a class="card" href="products/atn-logo-joggers-black.html" data-cat="bottoms" data-gender="men women" data-price="50.0" data-order="39">
+</a><a class="card" href="products/atn-logo-joggers-black.html" data-cat="bottoms" data-gender="men women" data-price="50.0" data-order="39" data-text="atn logo joggers black bottoms sweatpants">
   <div class="card__img"><img src="assets/img/products/atn-logo-joggers-black-1.webp" alt="ATN Logo Joggers in Black" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/atn-logo-joggers-black-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">ATN Logo Joggers</span><span class="card__price">$50</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="products/inhale-exhale-sweats-brown.html" data-cat="bottoms" data-gender="men women" data-price="60.0" data-order="40">
+</a><a class="card" href="products/inhale-exhale-sweats-brown.html" data-cat="bottoms" data-gender="men women" data-price="60.0" data-order="40" data-text="inhale exhale sweats brown bottoms ">
   <div class="card__img"><img src="assets/img/products/inhale-exhale-sweats-brown-1.webp" alt="Inhale Exhale Sweats in Brown" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/inhale-exhale-sweats-brown-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Inhale Exhale Sweats</span><span class="card__price">$60</span></div>
   <span class="card__sub">Brown · Unisex</span>
-</a><a class="card" href="products/atn-track-joggers-red.html" data-cat="bottoms" data-gender="men women" data-price="50.0" data-order="41">
+</a><a class="card" href="products/atn-track-joggers-red.html" data-cat="bottoms" data-gender="men women" data-price="50.0" data-order="41" data-text="atn track joggers red bottoms joggers">
   <div class="card__img"><img src="assets/img/products/atn-track-joggers-red-1.webp" alt="ATN Track Joggers in Red" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/atn-track-joggers-red-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">ATN Track Joggers</span><span class="card__price">$50</span></div>
   <span class="card__sub">Red · Unisex</span>
-</a><a class="card" href="products/retired-hoop-dream-sweats-grey.html" data-cat="bottoms" data-gender="men women" data-price="100.0" data-order="42">
+</a><a class="card" href="products/retired-hoop-dream-sweats-grey.html" data-cat="bottoms" data-gender="men women" data-price="100.0" data-order="42" data-text="retired hoop dream sweats grey bottoms sweatpants">
   <div class="card__img"><img src="assets/img/products/retired-hoop-dream-sweats-grey-1.webp" alt="Retired Hoop Dream Sweats in Grey" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/retired-hoop-dream-sweats-grey-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Retired Hoop Dream Sweats</span><span class="card__price">$100</span></div>
   <span class="card__sub">Grey · Unisex</span>
-</a><a class="card" href="products/retired-hoop-dream-sweats-black.html" data-cat="bottoms" data-gender="men women" data-price="115.0" data-order="43">
+</a><a class="card" href="products/retired-hoop-dream-sweats-black.html" data-cat="bottoms" data-gender="men women" data-price="115.0" data-order="43" data-text="retired hoop dream sweats black bottoms sweatpants">
   <div class="card__img"><img src="assets/img/products/retired-hoop-dream-sweats-black-1.webp" alt="Retired Hoop Dream Sweats in Black" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/retired-hoop-dream-sweats-black-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Retired Hoop Dream Sweats</span><span class="card__price">$115</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="products/retired-hoop-dream-sweats-camo.html" data-cat="bottoms" data-gender="men women" data-price="100.0" data-order="44">
+</a><a class="card" href="products/retired-hoop-dream-sweats-camo.html" data-cat="bottoms" data-gender="men women" data-price="100.0" data-order="44" data-text="retired hoop dream sweats camo bottoms sweatpants">
   <div class="card__img"><img src="assets/img/products/retired-hoop-dream-sweats-camo-1.webp" alt="Retired Hoop Dream Sweats in Camo" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/retired-hoop-dream-sweats-camo-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Retired Hoop Dream Sweats</span><span class="card__price">$100</span></div>
   <span class="card__sub">Camo · Unisex</span>
-</a><a class="card" href="products/convertible-hoop-dream-sweats-grey.html" data-cat="bottoms" data-gender="men women" data-price="125.0" data-order="45">
+</a><a class="card" href="products/convertible-hoop-dream-sweats-grey.html" data-cat="bottoms" data-gender="men women" data-price="125.0" data-order="45" data-text="convertible hoop dream sweats 2.0 grey bottoms sweatpants">
   <div class="card__img"><img src="assets/img/products/convertible-hoop-dream-sweats-grey-1.webp" alt="Convertible Hoop Dream Sweats 2.0 in Grey" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/convertible-hoop-dream-sweats-grey-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Convertible Hoop Dream Sweats 2.0</span><span class="card__price">$125</span></div>
   <span class="card__sub">Grey · Unisex</span>
-</a><a class="card" href="products/logo-flared-track-pants.html" data-cat="bottoms" data-gender="men women" data-price="80.0" data-order="46">
+</a><a class="card" href="products/logo-flared-track-pants.html" data-cat="bottoms" data-gender="men women" data-price="80.0" data-order="46" data-text="logo flared track pants  bottoms tees">
   <div class="card__img"><img src="assets/img/products/logo-flared-track-pants-1.webp" alt="Logo Flared Track Pants" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/logo-flared-track-pants-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Logo Flared Track Pants</span><span class="card__price">$80</span></div>
   <span class="card__sub">Bottoms · Unisex</span>
-</a><a class="card" href="products/sent-from-above-trucker-hat-blue.html" data-cat="headwear" data-gender="men women" data-price="40.0" data-order="47">
+</a><a class="card" href="products/sent-from-above-trucker-hat-blue.html" data-cat="headwear" data-gender="men women" data-price="40.0" data-order="47" data-text="sent from above trucker hat blue headwear ">
   <div class="card__img"><img src="assets/img/products/sent-from-above-trucker-hat-blue-1.webp" alt="Sent From Above Trucker Hat in Blue" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/sent-from-above-trucker-hat-blue-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Sent From Above Trucker Hat</span><span class="card__price">$40</span></div>
   <span class="card__sub">Blue · Unisex</span>
-</a><a class="card" href="products/sent-from-above-trucker-hat-black.html" data-cat="headwear" data-gender="men women" data-price="40.0" data-order="48">
+</a><a class="card" href="products/sent-from-above-trucker-hat-black.html" data-cat="headwear" data-gender="men women" data-price="40.0" data-order="48" data-text="sent from above trucker hat black headwear ">
   <div class="card__img"><img src="assets/img/products/sent-from-above-trucker-hat-black-1.webp" alt="Sent From Above Trucker Hat in Black" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/sent-from-above-trucker-hat-black-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Sent From Above Trucker Hat</span><span class="card__price">$40</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="products/black-jesus-trucker-hat-black.html" data-cat="headwear" data-gender="men women" data-price="40.0" data-order="49">
+</a><a class="card" href="products/black-jesus-trucker-hat-black.html" data-cat="headwear" data-gender="men women" data-price="40.0" data-order="49" data-text="black jesus trucker hat black headwear hats">
   <div class="card__img"><img src="assets/img/products/black-jesus-trucker-hat-black-1.webp" alt="Black Jesus Trucker Hat in Black" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/black-jesus-trucker-hat-black-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Black Jesus Trucker Hat</span><span class="card__price">$40</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="products/black-jesus-trucker-hat-red.html" data-cat="headwear" data-gender="men women" data-price="40.0" data-order="50">
+</a><a class="card" href="products/black-jesus-trucker-hat-red.html" data-cat="headwear" data-gender="men women" data-price="40.0" data-order="50" data-text="black jesus trucker hat red headwear ">
   <div class="card__img"><img src="assets/img/products/black-jesus-trucker-hat-red-1.webp" alt="Black Jesus Trucker Hat in Red" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/black-jesus-trucker-hat-red-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Black Jesus Trucker Hat</span><span class="card__price">$40</span></div>
   <span class="card__sub">Red · Unisex</span>
-</a><a class="card" href="products/basic-logo-beanie-black.html" data-cat="headwear" data-gender="men women" data-price="25.0" data-order="51">
+</a><a class="card" href="products/basic-logo-beanie-black.html" data-cat="headwear" data-gender="men women" data-price="25.0" data-order="51" data-text="basic logo beanie black headwear beanies">
   <div class="card__img"><img src="assets/img/products/basic-logo-beanie-black-1.webp" alt="Basic Logo Beanie in Black" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/basic-logo-beanie-black-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Basic Logo Beanie</span><span class="card__price">$25</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="products/basic-logo-beanie-grey.html" data-cat="headwear" data-gender="men women" data-price="25.0" data-order="52">
+</a><a class="card" href="products/basic-logo-beanie-grey.html" data-cat="headwear" data-gender="men women" data-price="25.0" data-order="52" data-text="basic logo beanie grey headwear beanies">
   <div class="card__img"><img src="assets/img/products/basic-logo-beanie-grey-1.webp" alt="Basic Logo Beanie in Grey" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/basic-logo-beanie-grey-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Basic Logo Beanie</span><span class="card__price">$25</span></div>
   <span class="card__sub">Grey · Unisex</span>
-</a><a class="card" href="products/basic-logo-beanie-blue.html" data-cat="headwear" data-gender="men women" data-price="25.0" data-order="53">
+</a><a class="card" href="products/basic-logo-beanie-blue.html" data-cat="headwear" data-gender="men women" data-price="25.0" data-order="53" data-text="basic logo beanie blue headwear beanies">
   <div class="card__img"><img src="assets/img/products/basic-logo-beanie-blue-1.webp" alt="Basic Logo Beanie in Blue" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/basic-logo-beanie-blue-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Basic Logo Beanie</span><span class="card__price">$25</span></div>
   <span class="card__sub">Blue · Unisex</span>
-</a><a class="card" href="products/basic-logo-beanie-red.html" data-cat="headwear" data-gender="men women" data-price="25.0" data-order="54">
+</a><a class="card" href="products/basic-logo-beanie-red.html" data-cat="headwear" data-gender="men women" data-price="25.0" data-order="54" data-text="basic logo beanie red headwear beanies">
   <div class="card__img"><img src="assets/img/products/basic-logo-beanie-red-1.webp" alt="Basic Logo Beanie in Red" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/basic-logo-beanie-red-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Basic Logo Beanie</span><span class="card__price">$25</span></div>
   <span class="card__sub">Red · Unisex</span>
-</a><a class="card" href="products/basic-logo-beanie-brown.html" data-cat="headwear" data-gender="men women" data-price="25.0" data-order="55">
+</a><a class="card" href="products/basic-logo-beanie-brown.html" data-cat="headwear" data-gender="men women" data-price="25.0" data-order="55" data-text="basic logo beanie brown headwear beanies">
   <div class="card__img"><img src="assets/img/products/basic-logo-beanie-brown-1.webp" alt="Basic Logo Beanie in Brown" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/basic-logo-beanie-brown-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Basic Logo Beanie</span><span class="card__price">$25</span></div>
   <span class="card__sub">Brown · Unisex</span>
-</a><a class="card" href="products/atn-corduroy-snapback-hat-black.html" data-cat="headwear" data-gender="men women" data-price="40.0" data-order="56">
+</a><a class="card" href="products/atn-corduroy-snapback-hat-black.html" data-cat="headwear" data-gender="men women" data-price="40.0" data-order="56" data-text="atn corduroy snapback hat black headwear hats">
   <div class="card__img"><img src="assets/img/products/atn-corduroy-snapback-hat-black-1.webp" alt="ATN Corduroy Snapback Hat in Black" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/atn-corduroy-snapback-hat-black-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">ATN Corduroy Snapback Hat</span><span class="card__price">$40</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="products/badge-logo-dad-hat-blue.html" data-cat="headwear" data-gender="men women" data-price="50.0" data-order="57">
+</a><a class="card" href="products/badge-logo-dad-hat-blue.html" data-cat="headwear" data-gender="men women" data-price="50.0" data-order="57" data-text="badge logo dad hat blue headwear hats">
   <div class="card__img"><img src="assets/img/products/badge-logo-dad-hat-blue-1.webp" alt="Badge Logo Dad Hat in Blue" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/badge-logo-dad-hat-blue-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Badge Logo Dad Hat</span><span class="card__price">$50</span></div>
   <span class="card__sub">Blue · Unisex</span>
-</a><a class="card" href="products/cozy-gradient-beanie.html" data-cat="headwear" data-gender="men women" data-price="50.0" data-order="58">
+</a><a class="card" href="products/cozy-gradient-beanie.html" data-cat="headwear" data-gender="men women" data-price="50.0" data-order="58" data-text="cozy gradient beanie  headwear ">
   <div class="card__img"><img src="assets/img/products/cozy-gradient-beanie-1.webp" alt="Cozy Gradient Beanie" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/cozy-gradient-beanie-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Cozy Gradient Beanie</span><span class="card__price">$50</span></div>
   <span class="card__sub">Headwear · Unisex</span>
-</a><a class="card" href="products/atn-hazard-dad-hat.html" data-cat="headwear" data-gender="men women" data-price="65.0" data-order="59">
+</a><a class="card" href="products/atn-hazard-dad-hat.html" data-cat="headwear" data-gender="men women" data-price="65.0" data-order="59" data-text="hazard dad hat black headwear hats">
   <div class="card__img"><img src="assets/img/products/atn-hazard-dad-hat-1.webp" alt="Hazard Dad Hat in Black" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/atn-hazard-dad-hat-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Hazard Dad Hat</span><span class="card__price">$65</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="products/angels-wallet-chain.html" data-cat="accessories" data-gender="men women" data-price="55.0" data-order="60">
+</a><a class="card" href="products/angels-wallet-chain.html" data-cat="accessories" data-gender="men women" data-price="55.0" data-order="60" data-text="angels wallet chain  accessories jewelry">
   <div class="card__img"><img src="assets/img/products/angels-wallet-chain-1.webp" alt="Angels Wallet Chain" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/angels-wallet-chain-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Angels Wallet Chain</span><span class="card__price">$55</span></div>
   <span class="card__sub">Accessories · Unisex</span>
-</a><a class="card" href="products/angel-hoop-earrings.html" data-cat="accessories" data-gender="men women" data-price="50.0" data-order="61">
+</a><a class="card" href="products/angel-hoop-earrings.html" data-cat="accessories" data-gender="men women" data-price="50.0" data-order="61" data-text="angel hoop earrings  accessories jewelry">
   <div class="card__img"><img src="assets/img/products/angel-hoop-earrings-1.webp" alt="Angel Hoop Earrings" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/angel-hoop-earrings-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Angel Hoop Earrings</span><span class="card__price">$50</span></div>
   <span class="card__sub">Accessories · Unisex</span>
-</a><a class="card" href="products/logo-pearl-necklace.html" data-cat="accessories" data-gender="men women" data-price="70.0" data-order="62">
+</a><a class="card" href="products/logo-pearl-necklace.html" data-cat="accessories" data-gender="men women" data-price="70.0" data-order="62" data-text="logo pearl necklace  accessories ">
   <div class="card__img"><img src="assets/img/products/logo-pearl-necklace-1.webp" alt="Logo Pearl Necklace" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/logo-pearl-necklace-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Logo Pearl Necklace</span><span class="card__price">$70</span></div>
   <span class="card__sub">Accessories · Unisex</span>
-</a><a class="card" href="products/motel-atn-key-fob.html" data-cat="accessories" data-gender="men women" data-price="15.0" data-order="63">
+</a><a class="card" href="products/motel-atn-key-fob.html" data-cat="accessories" data-gender="men women" data-price="15.0" data-order="63" data-text="motel atn key fob black accessories accessories">
   <div class="card__img"><img src="assets/img/products/motel-atn-key-fob-1.webp" alt="Motel ATN Key Fob in Black" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/motel-atn-key-fob-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Motel ATN Key Fob</span><span class="card__price">$15</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="products/basic-stacked-socks.html" data-cat="accessories" data-gender="men women" data-price="10.0" data-order="64">
+</a><a class="card" href="products/basic-stacked-socks.html" data-cat="accessories" data-gender="men women" data-price="10.0" data-order="64" data-text="basic stacked socks white accessories socks">
   <div class="card__img"><img src="assets/img/products/basic-stacked-socks-1.webp" alt="Basic Stacked Socks in White" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/basic-stacked-socks-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Basic Stacked Socks</span><span class="card__price">$10</span></div>
   <span class="card__sub">White · Unisex</span>
-</a><a class="card" href="products/gold-wings-tee-navy.html" data-cat="tops" data-gender="men women" data-price="55.0" data-order="65">
+</a><a class="card" href="products/gold-wings-tee-navy.html" data-cat="tops" data-gender="men women" data-price="55.0" data-order="65" data-text="gold wings tee navy tops tee">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Gold Wings Tee in Navy" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Gold Wings Tee</span><span class="card__price">$55</span></div>
   <span class="card__sub">Navy · Unisex</span>
-</a><a class="card" href="products/fly-safe-l-s-tee-olive.html" data-cat="tops" data-gender="men women" data-price="50.0" data-order="66">
+</a><a class="card" href="products/fly-safe-l-s-tee-olive.html" data-cat="tops" data-gender="men women" data-price="50.0" data-order="66" data-text="fly safe l/s tee olive tops l/s tee">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Fly Safe L/S Tee in Olive" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Fly Safe L/S Tee</span><span class="card__price">$50</span></div>
   <span class="card__sub">Olive · Unisex</span>
-</a><a class="card" href="products/hollywood-angels-crewneck-olive.html" data-cat="tops" data-gender="men women" data-price="65.0" data-order="67">
+</a><a class="card" href="products/hollywood-angels-crewneck-olive.html" data-cat="tops" data-gender="men women" data-price="65.0" data-order="67" data-text="hollywood angels crewneck olive tops crewneck">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Hollywood Angels Crewneck in Olive" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Hollywood Angels Crewneck</span><span class="card__price">$65</span></div>
   <span class="card__sub">Olive · Unisex</span>
-</a><a class="card" href="products/outer-limits-hoodie-washed-black.html" data-cat="tops" data-gender="men women" data-price="95.0" data-order="68">
+</a><a class="card" href="products/outer-limits-hoodie-washed-black.html" data-cat="tops" data-gender="men women" data-price="95.0" data-order="68" data-text="outer limits hoodie washed black tops hoodie">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Outer Limits Hoodie in Washed Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Outer Limits Hoodie</span><span class="card__price">$95</span></div>
   <span class="card__sub">Washed Black · Unisex</span>
-</a><a class="card" href="products/higher-ground-zip-hoodie-white.html" data-cat="tops" data-gender="men women" data-price="115.0" data-order="69">
+</a><a class="card" href="products/higher-ground-zip-hoodie-white.html" data-cat="tops" data-gender="men women" data-price="115.0" data-order="69" data-text="higher ground zip hoodie white tops zip hoodie">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Higher Ground Zip Hoodie in White" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Higher Ground Zip Hoodie</span><span class="card__price">$115</span></div>
   <span class="card__sub">White · Unisex</span>
-</a><a class="card" href="products/signal-lost-work-shirt-sand.html" data-cat="tops" data-gender="men" data-price="85.0" data-order="70">
+</a><a class="card" href="products/signal-lost-work-shirt-sand.html" data-cat="tops" data-gender="men" data-price="85.0" data-order="70" data-text="signal lost work shirt sand tops work shirt">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Signal Lost Work Shirt in Sand" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Signal Lost Work Shirt</span><span class="card__price">$85</span></div>
   <span class="card__sub">Sand · Men</span>
-</a><a class="card" href="products/lone-angel-mesh-jersey-heather-grey.html" data-cat="tops" data-gender="men" data-price="85.0" data-order="71">
+</a><a class="card" href="products/lone-angel-mesh-jersey-heather-grey.html" data-cat="tops" data-gender="men" data-price="85.0" data-order="71" data-text="lone angel mesh jersey heather grey tops mesh jersey">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Lone Angel Mesh Jersey in Heather Grey" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Lone Angel Mesh Jersey</span><span class="card__price">$85</span></div>
   <span class="card__sub">Heather Grey · Men</span>
-</a><a class="card" href="products/not-normal-ringer-tee-brown.html" data-cat="tops" data-gender="men women" data-price="65.0" data-order="72">
+</a><a class="card" href="products/not-normal-ringer-tee-brown.html" data-cat="tops" data-gender="men women" data-price="65.0" data-order="72" data-text="not normal ringer tee brown tops ringer tee">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Not Normal Ringer Tee in Brown" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Not Normal Ringer Tee</span><span class="card__price">$65</span></div>
   <span class="card__sub">Brown · Unisex</span>
-</a><a class="card" href="products/above-all-baby-tee-navy.html" data-cat="tops" data-gender="women" data-price="38.0" data-order="73">
+</a><a class="card" href="products/above-all-baby-tee-navy.html" data-cat="tops" data-gender="women" data-price="38.0" data-order="73" data-text="above all baby tee navy tops baby tee">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Above All Baby Tee in Navy" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Above All Baby Tee</span><span class="card__price">$38</span></div>
   <span class="card__sub">Navy · Women</span>
-</a><a class="card" href="products/zero-gravity-cropped-hoodie-black.html" data-cat="tops" data-gender="women" data-price="85.0" data-order="74">
+</a><a class="card" href="products/zero-gravity-cropped-hoodie-black.html" data-cat="tops" data-gender="women" data-price="85.0" data-order="74" data-text="zero gravity cropped hoodie black tops cropped hoodie">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Zero Gravity Cropped Hoodie in Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Zero Gravity Cropped Hoodie</span><span class="card__price">$85</span></div>
   <span class="card__sub">Black · Women</span>
-</a><a class="card" href="products/cloud-nine-ribbed-tank-white.html" data-cat="tops" data-gender="women" data-price="35.0" data-order="75">
+</a><a class="card" href="products/cloud-nine-ribbed-tank-white.html" data-cat="tops" data-gender="women" data-price="35.0" data-order="75" data-text="cloud nine ribbed tank white tops ribbed tank">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Cloud Nine Ribbed Tank in White" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Cloud Nine Ribbed Tank</span><span class="card__price">$35</span></div>
   <span class="card__sub">White · Women</span>
-</a><a class="card" href="products/stay-strange-cropped-l-s-heather-grey.html" data-cat="tops" data-gender="women" data-price="58.0" data-order="76">
+</a><a class="card" href="products/stay-strange-cropped-l-s-heather-grey.html" data-cat="tops" data-gender="women" data-price="58.0" data-order="76" data-text="stay strange cropped l/s heather grey tops cropped l/s">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Stay Strange Cropped L/S in Heather Grey" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Stay Strange Cropped L/S</span><span class="card__price">$58</span></div>
   <span class="card__sub">Heather Grey · Women</span>
-</a><a class="card" href="products/halo-tee-black.html" data-cat="tops" data-gender="men women" data-price="50.0" data-order="77">
+</a><a class="card" href="products/halo-tee-black.html" data-cat="tops" data-gender="men women" data-price="50.0" data-order="77" data-text="halo tee black tops tee">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Halo Tee in Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Halo Tee</span><span class="card__price">$50</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="products/signal-lost-l-s-tee-olive.html" data-cat="tops" data-gender="men women" data-price="60.0" data-order="78">
+</a><a class="card" href="products/signal-lost-l-s-tee-olive.html" data-cat="tops" data-gender="men women" data-price="60.0" data-order="78" data-text="signal lost l/s tee olive tops l/s tee">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Signal Lost L/S Tee in Olive" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Signal Lost L/S Tee</span><span class="card__price">$60</span></div>
   <span class="card__sub">Olive · Unisex</span>
-</a><a class="card" href="products/not-normal-crewneck-olive.html" data-cat="tops" data-gender="men women" data-price="70.0" data-order="79">
+</a><a class="card" href="products/not-normal-crewneck-olive.html" data-cat="tops" data-gender="men women" data-price="70.0" data-order="79" data-text="not normal crewneck olive tops crewneck">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Not Normal Crewneck in Olive" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Not Normal Crewneck</span><span class="card__price">$70</span></div>
   <span class="card__sub">Olive · Unisex</span>
-</a><a class="card" href="products/stay-strange-hoodie-sand.html" data-cat="tops" data-gender="men women" data-price="100.0" data-order="80">
+</a><a class="card" href="products/stay-strange-hoodie-sand.html" data-cat="tops" data-gender="men women" data-price="100.0" data-order="80" data-text="stay strange hoodie sand tops hoodie">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Stay Strange Hoodie in Sand" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Stay Strange Hoodie</span><span class="card__price">$100</span></div>
   <span class="card__sub">Sand · Unisex</span>
-</a><a class="card" href="products/above-all-zip-hoodie-heather-grey.html" data-cat="tops" data-gender="men women" data-price="110.0" data-order="81">
+</a><a class="card" href="products/above-all-zip-hoodie-heather-grey.html" data-cat="tops" data-gender="men women" data-price="110.0" data-order="81" data-text="above all zip hoodie heather grey tops zip hoodie">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Above All Zip Hoodie in Heather Grey" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Above All Zip Hoodie</span><span class="card__price">$110</span></div>
   <span class="card__sub">Heather Grey · Unisex</span>
-</a><a class="card" href="products/star-child-work-shirt-red.html" data-cat="tops" data-gender="men" data-price="80.0" data-order="82">
+</a><a class="card" href="products/star-child-work-shirt-red.html" data-cat="tops" data-gender="men" data-price="80.0" data-order="82" data-text="star child work shirt red tops work shirt">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Star Child Work Shirt in Red" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Star Child Work Shirt</span><span class="card__price">$80</span></div>
   <span class="card__sub">Red · Men</span>
-</a><a class="card" href="products/hollywood-angels-mesh-jersey-black.html" data-cat="tops" data-gender="men" data-price="75.0" data-order="83">
+</a><a class="card" href="products/hollywood-angels-mesh-jersey-black.html" data-cat="tops" data-gender="men" data-price="75.0" data-order="83" data-text="hollywood angels mesh jersey black tops mesh jersey">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Hollywood Angels Mesh Jersey in Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Hollywood Angels Mesh Jersey</span><span class="card__price">$75</span></div>
   <span class="card__sub">Black · Men</span>
-</a><a class="card" href="products/lone-angel-ringer-tee-white.html" data-cat="tops" data-gender="men women" data-price="55.0" data-order="84">
+</a><a class="card" href="products/lone-angel-ringer-tee-white.html" data-cat="tops" data-gender="men women" data-price="55.0" data-order="84" data-text="lone angel ringer tee white tops ringer tee">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Lone Angel Ringer Tee in White" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Lone Angel Ringer Tee</span><span class="card__price">$55</span></div>
   <span class="card__sub">White · Unisex</span>
-</a><a class="card" href="products/sent-from-above-baby-tee-charcoal.html" data-cat="tops" data-gender="women" data-price="38.0" data-order="85">
+</a><a class="card" href="products/sent-from-above-baby-tee-charcoal.html" data-cat="tops" data-gender="women" data-price="38.0" data-order="85" data-text="sent from above baby tee charcoal tops baby tee">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Sent From Above Baby Tee in Charcoal" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Sent From Above Baby Tee</span><span class="card__price">$38</span></div>
   <span class="card__sub">Charcoal · Women</span>
-</a><a class="card" href="products/night-shift-cropped-hoodie-white.html" data-cat="tops" data-gender="women" data-price="95.0" data-order="86">
+</a><a class="card" href="products/night-shift-cropped-hoodie-white.html" data-cat="tops" data-gender="women" data-price="95.0" data-order="86" data-text="night shift cropped hoodie white tops cropped hoodie">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Night Shift Cropped Hoodie in White" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Night Shift Cropped Hoodie</span><span class="card__price">$95</span></div>
   <span class="card__sub">White · Women</span>
-</a><a class="card" href="products/stay-strange-ribbed-tank-white.html" data-cat="tops" data-gender="women" data-price="35.0" data-order="87">
+</a><a class="card" href="products/stay-strange-ribbed-tank-white.html" data-cat="tops" data-gender="women" data-price="35.0" data-order="87" data-text="stay strange ribbed tank white tops ribbed tank">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Stay Strange Ribbed Tank in White" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Stay Strange Ribbed Tank</span><span class="card__price">$35</span></div>
   <span class="card__sub">White · Women</span>
-</a><a class="card" href="products/sent-from-above-cropped-l-s-black.html" data-cat="tops" data-gender="women" data-price="48.0" data-order="88">
+</a><a class="card" href="products/sent-from-above-cropped-l-s-black.html" data-cat="tops" data-gender="women" data-price="48.0" data-order="88" data-text="sent from above cropped l/s black tops cropped l/s">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Sent From Above Cropped L/S in Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Sent From Above Cropped L/S</span><span class="card__price">$48</span></div>
   <span class="card__sub">Black · Women</span>
-</a><a class="card" href="products/weird-is-good-tee-navy.html" data-cat="tops" data-gender="men women" data-price="55.0" data-order="89">
+</a><a class="card" href="products/weird-is-good-tee-navy.html" data-cat="tops" data-gender="men women" data-price="55.0" data-order="89" data-text="weird is good tee navy tops tee">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Weird Is Good Tee in Navy" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Weird Is Good Tee</span><span class="card__price">$55</span></div>
   <span class="card__sub">Navy · Unisex</span>
-</a><a class="card" href="products/gold-wings-l-s-tee-brown.html" data-cat="tops" data-gender="men women" data-price="55.0" data-order="90">
+</a><a class="card" href="products/gold-wings-l-s-tee-brown.html" data-cat="tops" data-gender="men women" data-price="55.0" data-order="90" data-text="gold wings l/s tee brown tops l/s tee">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Gold Wings L/S Tee in Brown" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Gold Wings L/S Tee</span><span class="card__price">$55</span></div>
   <span class="card__sub">Brown · Unisex</span>
-</a><a class="card" href="products/lone-angel-crewneck-sky-blue.html" data-cat="tops" data-gender="men women" data-price="70.0" data-order="91">
+</a><a class="card" href="products/lone-angel-crewneck-sky-blue.html" data-cat="tops" data-gender="men women" data-price="70.0" data-order="91" data-text="lone angel crewneck sky blue tops crewneck">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Lone Angel Crewneck in Sky Blue" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Lone Angel Crewneck</span><span class="card__price">$70</span></div>
   <span class="card__sub">Sky Blue · Unisex</span>
-</a><a class="card" href="products/816-forever-hoodie-heather-grey.html" data-cat="tops" data-gender="men women" data-price="95.0" data-order="92">
+</a><a class="card" href="products/816-forever-hoodie-heather-grey.html" data-cat="tops" data-gender="men women" data-price="95.0" data-order="92" data-text="816 forever hoodie heather grey tops hoodie">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="816 Forever Hoodie in Heather Grey" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">816 Forever Hoodie</span><span class="card__price">$95</span></div>
   <span class="card__sub">Heather Grey · Unisex</span>
-</a><a class="card" href="products/stay-strange-zip-hoodie-olive.html" data-cat="tops" data-gender="men women" data-price="110.0" data-order="93">
+</a><a class="card" href="products/stay-strange-zip-hoodie-olive.html" data-cat="tops" data-gender="men women" data-price="110.0" data-order="93" data-text="stay strange zip hoodie olive tops zip hoodie">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Stay Strange Zip Hoodie in Olive" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Stay Strange Zip Hoodie</span><span class="card__price">$110</span></div>
   <span class="card__sub">Olive · Unisex</span>
-</a><a class="card" href="products/zero-gravity-work-shirt-black.html" data-cat="tops" data-gender="men" data-price="80.0" data-order="94">
+</a><a class="card" href="products/zero-gravity-work-shirt-black.html" data-cat="tops" data-gender="men" data-price="80.0" data-order="94" data-text="zero gravity work shirt black tops work shirt">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Zero Gravity Work Shirt in Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Zero Gravity Work Shirt</span><span class="card__price">$80</span></div>
   <span class="card__sub">Black · Men</span>
-</a><a class="card" href="products/above-all-mesh-jersey-heather-grey.html" data-cat="tops" data-gender="men" data-price="75.0" data-order="95">
+</a><a class="card" href="products/above-all-mesh-jersey-heather-grey.html" data-cat="tops" data-gender="men" data-price="75.0" data-order="95" data-text="above all mesh jersey heather grey tops mesh jersey">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Above All Mesh Jersey in Heather Grey" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Above All Mesh Jersey</span><span class="card__price">$75</span></div>
   <span class="card__sub">Heather Grey · Men</span>
-</a><a class="card" href="products/816-forever-ringer-tee-charcoal.html" data-cat="tops" data-gender="men women" data-price="60.0" data-order="96">
+</a><a class="card" href="products/816-forever-ringer-tee-charcoal.html" data-cat="tops" data-gender="men women" data-price="60.0" data-order="96" data-text="816 forever ringer tee charcoal tops ringer tee">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="816 Forever Ringer Tee in Charcoal" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">816 Forever Ringer Tee</span><span class="card__price">$60</span></div>
   <span class="card__sub">Charcoal · Unisex</span>
-</a><a class="card" href="products/hollywood-angels-baby-tee-cream.html" data-cat="tops" data-gender="women" data-price="38.0" data-order="97">
+</a><a class="card" href="products/hollywood-angels-baby-tee-cream.html" data-cat="tops" data-gender="women" data-price="38.0" data-order="97" data-text="hollywood angels baby tee cream tops baby tee">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Hollywood Angels Baby Tee in Cream" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Hollywood Angels Baby Tee</span><span class="card__price">$38</span></div>
   <span class="card__sub">Cream · Women</span>
-</a><a class="card" href="products/off-world-cropped-hoodie-sky-blue.html" data-cat="tops" data-gender="women" data-price="90.0" data-order="98">
+</a><a class="card" href="products/off-world-cropped-hoodie-sky-blue.html" data-cat="tops" data-gender="women" data-price="90.0" data-order="98" data-text="off world cropped hoodie sky blue tops cropped hoodie">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Off World Cropped Hoodie in Sky Blue" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Off World Cropped Hoodie</span><span class="card__price">$90</span></div>
   <span class="card__sub">Sky Blue · Women</span>
-</a><a class="card" href="products/not-normal-ribbed-tank-washed-black.html" data-cat="tops" data-gender="women" data-price="35.0" data-order="99">
+</a><a class="card" href="products/not-normal-ribbed-tank-washed-black.html" data-cat="tops" data-gender="women" data-price="35.0" data-order="99" data-text="not normal ribbed tank washed black tops ribbed tank">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Not Normal Ribbed Tank in Washed Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Not Normal Ribbed Tank</span><span class="card__price">$35</span></div>
   <span class="card__sub">Washed Black · Women</span>
-</a><a class="card" href="products/ascension-cropped-l-s-charcoal.html" data-cat="tops" data-gender="women" data-price="58.0" data-order="100">
+</a><a class="card" href="products/ascension-cropped-l-s-charcoal.html" data-cat="tops" data-gender="women" data-price="58.0" data-order="100" data-text="ascension cropped l/s charcoal tops cropped l/s">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Ascension Cropped L/S in Charcoal" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Ascension Cropped L/S</span><span class="card__price">$58</span></div>
   <span class="card__sub">Charcoal · Women</span>
-</a><a class="card" href="products/heaven-sent-tee-white.html" data-cat="tops" data-gender="men women" data-price="45.0" data-order="101">
+</a><a class="card" href="products/heaven-sent-tee-white.html" data-cat="tops" data-gender="men women" data-price="45.0" data-order="101" data-text="heaven sent tee white tops tee">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Heaven Sent Tee in White" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Heaven Sent Tee</span><span class="card__price">$45</span></div>
   <span class="card__sub">White · Unisex</span>
-</a><a class="card" href="products/halo-l-s-tee-black.html" data-cat="tops" data-gender="men women" data-price="50.0" data-order="102">
+</a><a class="card" href="products/halo-l-s-tee-black.html" data-cat="tops" data-gender="men women" data-price="50.0" data-order="102" data-text="halo l/s tee black tops l/s tee">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Halo L/S Tee in Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Halo L/S Tee</span><span class="card__price">$50</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="products/beam-me-up-crewneck-brown.html" data-cat="tops" data-gender="men women" data-price="75.0" data-order="103">
+</a><a class="card" href="products/beam-me-up-crewneck-brown.html" data-cat="tops" data-gender="men women" data-price="75.0" data-order="103" data-text="beam me up crewneck brown tops crewneck">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Beam Me Up Crewneck in Brown" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Beam Me Up Crewneck</span><span class="card__price">$75</span></div>
   <span class="card__sub">Brown · Unisex</span>
-</a><a class="card" href="products/star-child-hoodie-sky-blue.html" data-cat="tops" data-gender="men women" data-price="95.0" data-order="104">
+</a><a class="card" href="products/star-child-hoodie-sky-blue.html" data-cat="tops" data-gender="men women" data-price="95.0" data-order="104" data-text="star child hoodie sky blue tops hoodie">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Star Child Hoodie in Sky Blue" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Star Child Hoodie</span><span class="card__price">$95</span></div>
   <span class="card__sub">Sky Blue · Unisex</span>
-</a><a class="card" href="products/close-encounter-zip-hoodie-sand.html" data-cat="tops" data-gender="men women" data-price="120.0" data-order="105">
+</a><a class="card" href="products/close-encounter-zip-hoodie-sand.html" data-cat="tops" data-gender="men women" data-price="120.0" data-order="105" data-text="close encounter zip hoodie sand tops zip hoodie">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Close Encounter Zip Hoodie in Sand" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Close Encounter Zip Hoodie</span><span class="card__price">$120</span></div>
   <span class="card__sub">Sand · Unisex</span>
-</a><a class="card" href="products/weird-is-good-work-shirt-white.html" data-cat="tops" data-gender="men" data-price="75.0" data-order="106">
+</a><a class="card" href="products/weird-is-good-work-shirt-white.html" data-cat="tops" data-gender="men" data-price="75.0" data-order="106" data-text="weird is good work shirt white tops work shirt">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Weird Is Good Work Shirt in White" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Weird Is Good Work Shirt</span><span class="card__price">$75</span></div>
   <span class="card__sub">White · Men</span>
-</a><a class="card" href="products/night-shift-mesh-jersey-washed-black.html" data-cat="tops" data-gender="men" data-price="85.0" data-order="107">
+</a><a class="card" href="products/night-shift-mesh-jersey-washed-black.html" data-cat="tops" data-gender="men" data-price="85.0" data-order="107" data-text="night shift mesh jersey washed black tops mesh jersey">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Night Shift Mesh Jersey in Washed Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Night Shift Mesh Jersey</span><span class="card__price">$85</span></div>
   <span class="card__sub">Washed Black · Men</span>
-</a><a class="card" href="products/night-shift-ringer-tee-sand.html" data-cat="tops" data-gender="men women" data-price="55.0" data-order="108">
+</a><a class="card" href="products/night-shift-ringer-tee-sand.html" data-cat="tops" data-gender="men women" data-price="55.0" data-order="108" data-text="night shift ringer tee sand tops ringer tee">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Night Shift Ringer Tee in Sand" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Night Shift Ringer Tee</span><span class="card__price">$55</span></div>
   <span class="card__sub">Sand · Unisex</span>
-</a><a class="card" href="products/fly-safe-baby-tee-heather-grey.html" data-cat="tops" data-gender="women" data-price="38.0" data-order="109">
+</a><a class="card" href="products/fly-safe-baby-tee-heather-grey.html" data-cat="tops" data-gender="women" data-price="38.0" data-order="109" data-text="fly safe baby tee heather grey tops baby tee">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Fly Safe Baby Tee in Heather Grey" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Fly Safe Baby Tee</span><span class="card__price">$38</span></div>
   <span class="card__sub">Heather Grey · Women</span>
-</a><a class="card" href="products/not-normal-joggers-red.html" data-cat="bottoms" data-gender="men women" data-price="60.0" data-order="110">
+</a><a class="card" href="products/not-normal-joggers-red.html" data-cat="bottoms" data-gender="men women" data-price="60.0" data-order="110" data-text="not normal joggers red bottoms joggers">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Not Normal Joggers in Red" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Not Normal Joggers</span><span class="card__price">$60</span></div>
   <span class="card__sub">Red · Unisex</span>
-</a><a class="card" href="products/ufo-sweatpants-cream.html" data-cat="bottoms" data-gender="men women" data-price="75.0" data-order="111">
+</a><a class="card" href="products/ufo-sweatpants-cream.html" data-cat="bottoms" data-gender="men women" data-price="75.0" data-order="111" data-text="ufo sweatpants cream bottoms sweatpants">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="UFO Sweatpants in Cream" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">UFO Sweatpants</span><span class="card__price">$75</span></div>
   <span class="card__sub">Cream · Unisex</span>
-</a><a class="card" href="products/stargazer-track-pants-brown.html" data-cat="bottoms" data-gender="men women" data-price="85.0" data-order="112">
+</a><a class="card" href="products/stargazer-track-pants-brown.html" data-cat="bottoms" data-gender="men women" data-price="85.0" data-order="112" data-text="stargazer track pants brown bottoms track pants">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Stargazer Track Pants in Brown" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Stargazer Track Pants</span><span class="card__price">$85</span></div>
   <span class="card__sub">Brown · Unisex</span>
-</a><a class="card" href="products/ascension-board-shorts-brown.html" data-cat="bottoms" data-gender="men" data-price="55.0" data-order="113">
+</a><a class="card" href="products/ascension-board-shorts-brown.html" data-cat="bottoms" data-gender="men" data-price="55.0" data-order="113" data-text="ascension board shorts brown bottoms board shorts">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Ascension Board Shorts in Brown" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Ascension Board Shorts</span><span class="card__price">$55</span></div>
   <span class="card__sub">Brown · Men</span>
-</a><a class="card" href="products/ufo-fleece-shorts-washed-black.html" data-cat="bottoms" data-gender="men women" data-price="50.0" data-order="114">
+</a><a class="card" href="products/ufo-fleece-shorts-washed-black.html" data-cat="bottoms" data-gender="men women" data-price="50.0" data-order="114" data-text="ufo fleece shorts washed black bottoms fleece shorts">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="UFO Fleece Shorts in Washed Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">UFO Fleece Shorts</span><span class="card__price">$50</span></div>
   <span class="card__sub">Washed Black · Unisex</span>
-</a><a class="card" href="products/halo-cargo-pants-brown.html" data-cat="bottoms" data-gender="men" data-price="95.0" data-order="115">
+</a><a class="card" href="products/halo-cargo-pants-brown.html" data-cat="bottoms" data-gender="men" data-price="95.0" data-order="115" data-text="halo cargo pants brown bottoms cargo pants">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Halo Cargo Pants in Brown" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Halo Cargo Pants</span><span class="card__price">$95</span></div>
   <span class="card__sub">Brown · Men</span>
-</a><a class="card" href="products/beam-flared-sweats-red.html" data-cat="bottoms" data-gender="men women" data-price="90.0" data-order="116">
+</a><a class="card" href="products/beam-flared-sweats-red.html" data-cat="bottoms" data-gender="men women" data-price="90.0" data-order="116" data-text="beam flared sweats red bottoms flared sweats">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Beam Flared Sweats in Red" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Beam Flared Sweats</span><span class="card__price">$90</span></div>
   <span class="card__sub">Red · Unisex</span>
-</a><a class="card" href="products/beam-denim-sky-blue.html" data-cat="bottoms" data-gender="men" data-price="115.0" data-order="117">
+</a><a class="card" href="products/beam-denim-sky-blue.html" data-cat="bottoms" data-gender="men" data-price="115.0" data-order="117" data-text="beam denim sky blue bottoms denim">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Beam Denim in Sky Blue" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Beam Denim</span><span class="card__price">$115</span></div>
   <span class="card__sub">Sky Blue · Men</span>
-</a><a class="card" href="products/star-flare-leggings-black.html" data-cat="bottoms" data-gender="women" data-price="65.0" data-order="118">
+</a><a class="card" href="products/star-flare-leggings-black.html" data-cat="bottoms" data-gender="women" data-price="65.0" data-order="118" data-text="star flare leggings black bottoms flare leggings">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Star Flare Leggings in Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Star Flare Leggings</span><span class="card__price">$65</span></div>
   <span class="card__sub">Black · Women</span>
-</a><a class="card" href="products/motel-atn-mini-skirt-brown.html" data-cat="bottoms" data-gender="women" data-price="55.0" data-order="119">
+</a><a class="card" href="products/motel-atn-mini-skirt-brown.html" data-cat="bottoms" data-gender="women" data-price="55.0" data-order="119" data-text="motel atn mini skirt brown bottoms mini skirt">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Motel ATN Mini Skirt in Brown" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Motel ATN Mini Skirt</span><span class="card__price">$55</span></div>
   <span class="card__sub">Brown · Women</span>
-</a><a class="card" href="products/stargazer-biker-shorts-cream.html" data-cat="bottoms" data-gender="women" data-price="35.0" data-order="120">
+</a><a class="card" href="products/stargazer-biker-shorts-cream.html" data-cat="bottoms" data-gender="women" data-price="35.0" data-order="120" data-text="stargazer biker shorts cream bottoms biker shorts">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Stargazer Biker Shorts in Cream" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Stargazer Biker Shorts</span><span class="card__price">$35</span></div>
   <span class="card__sub">Cream · Women</span>
-</a><a class="card" href="products/ascension-wide-leg-sweats-heather-grey.html" data-cat="bottoms" data-gender="women" data-price="85.0" data-order="121">
+</a><a class="card" href="products/ascension-wide-leg-sweats-heather-grey.html" data-cat="bottoms" data-gender="women" data-price="85.0" data-order="121" data-text="ascension wide-leg sweats heather grey bottoms wide-leg sweats">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Ascension Wide-Leg Sweats in Heather Grey" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Ascension Wide-Leg Sweats</span><span class="card__price">$85</span></div>
   <span class="card__sub">Heather Grey · Women</span>
-</a><a class="card" href="products/mothership-joggers-cream.html" data-cat="bottoms" data-gender="men women" data-price="60.0" data-order="122">
+</a><a class="card" href="products/mothership-joggers-cream.html" data-cat="bottoms" data-gender="men women" data-price="60.0" data-order="122" data-text="mothership joggers cream bottoms joggers">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Mothership Joggers in Cream" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Mothership Joggers</span><span class="card__price">$60</span></div>
   <span class="card__sub">Cream · Unisex</span>
-</a><a class="card" href="products/not-normal-sweatpants-sky-blue.html" data-cat="bottoms" data-gender="men women" data-price="85.0" data-order="123">
+</a><a class="card" href="products/not-normal-sweatpants-sky-blue.html" data-cat="bottoms" data-gender="men women" data-price="85.0" data-order="123" data-text="not normal sweatpants sky blue bottoms sweatpants">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Not Normal Sweatpants in Sky Blue" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Not Normal Sweatpants</span><span class="card__price">$85</span></div>
   <span class="card__sub">Sky Blue · Unisex</span>
-</a><a class="card" href="products/cloud-track-pants-brown.html" data-cat="bottoms" data-gender="men women" data-price="80.0" data-order="124">
+</a><a class="card" href="products/cloud-track-pants-brown.html" data-cat="bottoms" data-gender="men women" data-price="80.0" data-order="124" data-text="cloud track pants brown bottoms track pants">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Cloud Track Pants in Brown" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Cloud Track Pants</span><span class="card__price">$80</span></div>
   <span class="card__sub">Brown · Unisex</span>
-</a><a class="card" href="products/ufo-board-shorts-red.html" data-cat="bottoms" data-gender="men" data-price="50.0" data-order="125">
+</a><a class="card" href="products/ufo-board-shorts-red.html" data-cat="bottoms" data-gender="men" data-price="50.0" data-order="125" data-text="ufo board shorts red bottoms board shorts">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="UFO Board Shorts in Red" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">UFO Board Shorts</span><span class="card__price">$50</span></div>
   <span class="card__sub">Red · Men</span>
-</a><a class="card" href="products/orbit-fleece-shorts-sky-blue.html" data-cat="bottoms" data-gender="men women" data-price="45.0" data-order="126">
+</a><a class="card" href="products/orbit-fleece-shorts-sky-blue.html" data-cat="bottoms" data-gender="men women" data-price="45.0" data-order="126" data-text="orbit fleece shorts sky blue bottoms fleece shorts">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Orbit Fleece Shorts in Sky Blue" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Orbit Fleece Shorts</span><span class="card__price">$45</span></div>
   <span class="card__sub">Sky Blue · Unisex</span>
-</a><a class="card" href="products/not-normal-cargo-pants-sky-blue.html" data-cat="bottoms" data-gender="men" data-price="105.0" data-order="127">
+</a><a class="card" href="products/not-normal-cargo-pants-sky-blue.html" data-cat="bottoms" data-gender="men" data-price="105.0" data-order="127" data-text="not normal cargo pants sky blue bottoms cargo pants">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Not Normal Cargo Pants in Sky Blue" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Not Normal Cargo Pants</span><span class="card__price">$105</span></div>
   <span class="card__sub">Sky Blue · Men</span>
-</a><a class="card" href="products/motel-atn-flared-sweats-white.html" data-cat="bottoms" data-gender="men women" data-price="90.0" data-order="128">
+</a><a class="card" href="products/motel-atn-flared-sweats-white.html" data-cat="bottoms" data-gender="men women" data-price="90.0" data-order="128" data-text="motel atn flared sweats white bottoms flared sweats">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Motel ATN Flared Sweats in White" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Motel ATN Flared Sweats</span><span class="card__price">$90</span></div>
   <span class="card__sub">White · Unisex</span>
-</a><a class="card" href="products/star-denim-cream.html" data-cat="bottoms" data-gender="men" data-price="120.0" data-order="129">
+</a><a class="card" href="products/star-denim-cream.html" data-cat="bottoms" data-gender="men" data-price="120.0" data-order="129" data-text="star denim cream bottoms denim">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Star Denim in Cream" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Star Denim</span><span class="card__price">$120</span></div>
   <span class="card__sub">Cream · Men</span>
-</a><a class="card" href="products/angel-flare-leggings-washed-black.html" data-cat="bottoms" data-gender="women" data-price="55.0" data-order="130">
+</a><a class="card" href="products/angel-flare-leggings-washed-black.html" data-cat="bottoms" data-gender="women" data-price="55.0" data-order="130" data-text="angel flare leggings washed black bottoms flare leggings">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Angel Flare Leggings in Washed Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Angel Flare Leggings</span><span class="card__price">$55</span></div>
   <span class="card__sub">Washed Black · Women</span>
-</a><a class="card" href="products/angel-mini-skirt-white.html" data-cat="bottoms" data-gender="women" data-price="55.0" data-order="131">
+</a><a class="card" href="products/angel-mini-skirt-white.html" data-cat="bottoms" data-gender="women" data-price="55.0" data-order="131" data-text="angel mini skirt white bottoms mini skirt">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Angel Mini Skirt in White" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Angel Mini Skirt</span><span class="card__price">$55</span></div>
   <span class="card__sub">White · Women</span>
-</a><a class="card" href="products/atn-logo-biker-shorts-washed-black.html" data-cat="bottoms" data-gender="women" data-price="35.0" data-order="132">
+</a><a class="card" href="products/atn-logo-biker-shorts-washed-black.html" data-cat="bottoms" data-gender="women" data-price="35.0" data-order="132" data-text="atn logo biker shorts washed black bottoms biker shorts">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="ATN Logo Biker Shorts in Washed Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">ATN Logo Biker Shorts</span><span class="card__price">$35</span></div>
   <span class="card__sub">Washed Black · Women</span>
-</a><a class="card" href="products/star-wide-leg-sweats-navy.html" data-cat="bottoms" data-gender="women" data-price="85.0" data-order="133">
+</a><a class="card" href="products/star-wide-leg-sweats-navy.html" data-cat="bottoms" data-gender="women" data-price="85.0" data-order="133" data-text="star wide-leg sweats navy bottoms wide-leg sweats">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Star Wide-Leg Sweats in Navy" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Star Wide-Leg Sweats</span><span class="card__price">$85</span></div>
   <span class="card__sub">Navy · Women</span>
-</a><a class="card" href="products/ascension-joggers-charcoal.html" data-cat="bottoms" data-gender="men women" data-price="70.0" data-order="134">
+</a><a class="card" href="products/ascension-joggers-charcoal.html" data-cat="bottoms" data-gender="men women" data-price="70.0" data-order="134" data-text="ascension joggers charcoal bottoms joggers">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Ascension Joggers in Charcoal" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Ascension Joggers</span><span class="card__price">$70</span></div>
   <span class="card__sub">Charcoal · Unisex</span>
-</a><a class="card" href="products/star-sweatpants-olive.html" data-cat="bottoms" data-gender="men women" data-price="75.0" data-order="135">
+</a><a class="card" href="products/star-sweatpants-olive.html" data-cat="bottoms" data-gender="men women" data-price="75.0" data-order="135" data-text="star sweatpants olive bottoms sweatpants">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Star Sweatpants in Olive" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Star Sweatpants</span><span class="card__price">$75</span></div>
   <span class="card__sub">Olive · Unisex</span>
-</a><a class="card" href="products/ufo-track-pants-white.html" data-cat="bottoms" data-gender="men women" data-price="80.0" data-order="136">
+</a><a class="card" href="products/ufo-track-pants-white.html" data-cat="bottoms" data-gender="men women" data-price="80.0" data-order="136" data-text="ufo track pants white bottoms track pants">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="UFO Track Pants in White" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">UFO Track Pants</span><span class="card__price">$80</span></div>
   <span class="card__sub">White · Unisex</span>
-</a><a class="card" href="products/mothership-board-shorts-sky-blue.html" data-cat="bottoms" data-gender="men" data-price="50.0" data-order="137">
+</a><a class="card" href="products/mothership-board-shorts-sky-blue.html" data-cat="bottoms" data-gender="men" data-price="50.0" data-order="137" data-text="mothership board shorts sky blue bottoms board shorts">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Mothership Board Shorts in Sky Blue" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Mothership Board Shorts</span><span class="card__price">$50</span></div>
   <span class="card__sub">Sky Blue · Men</span>
-</a><a class="card" href="products/angel-fleece-shorts-sand.html" data-cat="bottoms" data-gender="men women" data-price="50.0" data-order="138">
+</a><a class="card" href="products/angel-fleece-shorts-sand.html" data-cat="bottoms" data-gender="men women" data-price="50.0" data-order="138" data-text="angel fleece shorts sand bottoms fleece shorts">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Angel Fleece Shorts in Sand" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Angel Fleece Shorts</span><span class="card__price">$50</span></div>
   <span class="card__sub">Sand · Unisex</span>
-</a><a class="card" href="products/ufo-cargo-pants-red.html" data-cat="bottoms" data-gender="men" data-price="95.0" data-order="139">
+</a><a class="card" href="products/ufo-cargo-pants-red.html" data-cat="bottoms" data-gender="men" data-price="95.0" data-order="139" data-text="ufo cargo pants red bottoms cargo pants">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="UFO Cargo Pants in Red" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">UFO Cargo Pants</span><span class="card__price">$95</span></div>
   <span class="card__sub">Red · Men</span>
-</a><a class="card" href="products/halo-flared-sweats-charcoal.html" data-cat="bottoms" data-gender="men women" data-price="90.0" data-order="140">
+</a><a class="card" href="products/halo-flared-sweats-charcoal.html" data-cat="bottoms" data-gender="men women" data-price="90.0" data-order="140" data-text="halo flared sweats charcoal bottoms flared sweats">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Halo Flared Sweats in Charcoal" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Halo Flared Sweats</span><span class="card__price">$90</span></div>
   <span class="card__sub">Charcoal · Unisex</span>
-</a><a class="card" href="products/orbit-denim-olive.html" data-cat="bottoms" data-gender="men" data-price="120.0" data-order="141">
+</a><a class="card" href="products/orbit-denim-olive.html" data-cat="bottoms" data-gender="men" data-price="120.0" data-order="141" data-text="orbit denim olive bottoms denim">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Orbit Denim in Olive" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Orbit Denim</span><span class="card__price">$120</span></div>
   <span class="card__sub">Olive · Men</span>
-</a><a class="card" href="products/signal-flare-leggings-red.html" data-cat="bottoms" data-gender="women" data-price="65.0" data-order="142">
+</a><a class="card" href="products/signal-flare-leggings-red.html" data-cat="bottoms" data-gender="women" data-price="65.0" data-order="142" data-text="signal flare leggings red bottoms flare leggings">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Signal Flare Leggings in Red" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Signal Flare Leggings</span><span class="card__price">$65</span></div>
   <span class="card__sub">Red · Women</span>
-</a><a class="card" href="products/signal-mini-skirt-brown.html" data-cat="bottoms" data-gender="women" data-price="55.0" data-order="143">
+</a><a class="card" href="products/signal-mini-skirt-brown.html" data-cat="bottoms" data-gender="women" data-price="55.0" data-order="143" data-text="signal mini skirt brown bottoms mini skirt">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Signal Mini Skirt in Brown" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Signal Mini Skirt</span><span class="card__price">$55</span></div>
   <span class="card__sub">Brown · Women</span>
-</a><a class="card" href="products/star-biker-shorts-sand.html" data-cat="bottoms" data-gender="women" data-price="35.0" data-order="144">
+</a><a class="card" href="products/star-biker-shorts-sand.html" data-cat="bottoms" data-gender="women" data-price="35.0" data-order="144" data-text="star biker shorts sand bottoms biker shorts">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Star Biker Shorts in Sand" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Star Biker Shorts</span><span class="card__price">$35</span></div>
   <span class="card__sub">Sand · Women</span>
-</a><a class="card" href="products/mothership-wide-leg-sweats-charcoal.html" data-cat="bottoms" data-gender="women" data-price="75.0" data-order="145">
+</a><a class="card" href="products/mothership-wide-leg-sweats-charcoal.html" data-cat="bottoms" data-gender="women" data-price="75.0" data-order="145" data-text="mothership wide-leg sweats charcoal bottoms wide-leg sweats">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Mothership Wide-Leg Sweats in Charcoal" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Mothership Wide-Leg Sweats</span><span class="card__price">$75</span></div>
   <span class="card__sub">Charcoal · Women</span>
-</a><a class="card" href="products/star-joggers-cream.html" data-cat="bottoms" data-gender="men women" data-price="70.0" data-order="146">
+</a><a class="card" href="products/star-joggers-cream.html" data-cat="bottoms" data-gender="men women" data-price="70.0" data-order="146" data-text="star joggers cream bottoms joggers">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Star Joggers in Cream" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Star Joggers</span><span class="card__price">$70</span></div>
   <span class="card__sub">Cream · Unisex</span>
-</a><a class="card" href="products/beam-sweatpants-cream.html" data-cat="bottoms" data-gender="men women" data-price="75.0" data-order="147">
+</a><a class="card" href="products/beam-sweatpants-cream.html" data-cat="bottoms" data-gender="men women" data-price="75.0" data-order="147" data-text="beam sweatpants cream bottoms sweatpants">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Beam Sweatpants in Cream" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Beam Sweatpants</span><span class="card__price">$75</span></div>
   <span class="card__sub">Cream · Unisex</span>
-</a><a class="card" href="products/beam-track-pants-red.html" data-cat="bottoms" data-gender="men women" data-price="80.0" data-order="148">
+</a><a class="card" href="products/beam-track-pants-red.html" data-cat="bottoms" data-gender="men women" data-price="80.0" data-order="148" data-text="beam track pants red bottoms track pants">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Beam Track Pants in Red" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Beam Track Pants</span><span class="card__price">$80</span></div>
   <span class="card__sub">Red · Unisex</span>
-</a><a class="card" href="products/atn-logo-board-shorts-olive.html" data-cat="bottoms" data-gender="men" data-price="50.0" data-order="149">
+</a><a class="card" href="products/atn-logo-board-shorts-olive.html" data-cat="bottoms" data-gender="men" data-price="50.0" data-order="149" data-text="atn logo board shorts olive bottoms board shorts">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="ATN Logo Board Shorts in Olive" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">ATN Logo Board Shorts</span><span class="card__price">$50</span></div>
   <span class="card__sub">Olive · Men</span>
-</a><a class="card" href="products/wing-fleece-shorts-navy.html" data-cat="bottoms" data-gender="men women" data-price="55.0" data-order="150">
+</a><a class="card" href="products/wing-fleece-shorts-navy.html" data-cat="bottoms" data-gender="men women" data-price="55.0" data-order="150" data-text="wing fleece shorts navy bottoms fleece shorts">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Wing Fleece Shorts in Navy" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Wing Fleece Shorts</span><span class="card__price">$55</span></div>
   <span class="card__sub">Navy · Unisex</span>
-</a><a class="card" href="products/motel-atn-cargo-pants-red.html" data-cat="bottoms" data-gender="men" data-price="95.0" data-order="151">
+</a><a class="card" href="products/motel-atn-cargo-pants-red.html" data-cat="bottoms" data-gender="men" data-price="95.0" data-order="151" data-text="motel atn cargo pants red bottoms cargo pants">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Motel ATN Cargo Pants in Red" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Motel ATN Cargo Pants</span><span class="card__price">$95</span></div>
   <span class="card__sub">Red · Men</span>
-</a><a class="card" href="products/signal-flared-sweats-red.html" data-cat="bottoms" data-gender="men women" data-price="90.0" data-order="152">
+</a><a class="card" href="products/signal-flared-sweats-red.html" data-cat="bottoms" data-gender="men women" data-price="90.0" data-order="152" data-text="signal flared sweats red bottoms flared sweats">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Signal Flared Sweats in Red" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Signal Flared Sweats</span><span class="card__price">$90</span></div>
   <span class="card__sub">Red · Unisex</span>
-</a><a class="card" href="products/stargazer-denim-red.html" data-cat="bottoms" data-gender="men" data-price="110.0" data-order="153">
+</a><a class="card" href="products/stargazer-denim-red.html" data-cat="bottoms" data-gender="men" data-price="110.0" data-order="153" data-text="stargazer denim red bottoms denim">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Stargazer Denim in Red" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Stargazer Denim</span><span class="card__price">$110</span></div>
   <span class="card__sub">Red · Men</span>
-</a><a class="card" href="products/motel-atn-flare-leggings-red.html" data-cat="bottoms" data-gender="women" data-price="55.0" data-order="154">
+</a><a class="card" href="products/motel-atn-flare-leggings-red.html" data-cat="bottoms" data-gender="women" data-price="55.0" data-order="154" data-text="motel atn flare leggings red bottoms flare leggings">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Motel ATN Flare Leggings in Red" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Motel ATN Flare Leggings</span><span class="card__price">$55</span></div>
   <span class="card__sub">Red · Women</span>
-</a><a class="card" href="products/wing-trucker-hat-sand.html" data-cat="headwear" data-gender="men women" data-price="40.0" data-order="155">
+</a><a class="card" href="products/wing-trucker-hat-sand.html" data-cat="headwear" data-gender="men women" data-price="40.0" data-order="155" data-text="wing trucker hat sand headwear trucker hat">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Wing Trucker Hat in Sand" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Wing Trucker Hat</span><span class="card__price">$40</span></div>
   <span class="card__sub">Sand · Unisex</span>
-</a><a class="card" href="products/orbit-dad-hat-charcoal.html" data-cat="headwear" data-gender="men women" data-price="55.0" data-order="156">
+</a><a class="card" href="products/orbit-dad-hat-charcoal.html" data-cat="headwear" data-gender="men women" data-price="55.0" data-order="156" data-text="orbit dad hat charcoal headwear dad hat">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Orbit Dad Hat in Charcoal" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Orbit Dad Hat</span><span class="card__price">$55</span></div>
   <span class="card__sub">Charcoal · Unisex</span>
-</a><a class="card" href="products/ascension-corduroy-snapback-washed-black.html" data-cat="headwear" data-gender="men women" data-price="40.0" data-order="157">
+</a><a class="card" href="products/ascension-corduroy-snapback-washed-black.html" data-cat="headwear" data-gender="men women" data-price="40.0" data-order="157" data-text="ascension corduroy snapback washed black headwear corduroy snapback">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Ascension Corduroy Snapback in Washed Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Ascension Corduroy Snapback</span><span class="card__price">$40</span></div>
   <span class="card__sub">Washed Black · Unisex</span>
-</a><a class="card" href="products/motel-atn-fitted-cap-charcoal.html" data-cat="headwear" data-gender="men" data-price="50.0" data-order="158">
+</a><a class="card" href="products/motel-atn-fitted-cap-charcoal.html" data-cat="headwear" data-gender="men" data-price="50.0" data-order="158" data-text="motel atn fitted cap charcoal headwear fitted cap">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Motel ATN Fitted Cap in Charcoal" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Motel ATN Fitted Cap</span><span class="card__price">$50</span></div>
   <span class="card__sub">Charcoal · Men</span>
-</a><a class="card" href="products/ufo-bucket-hat-sky-blue.html" data-cat="headwear" data-gender="men women" data-price="45.0" data-order="159">
+</a><a class="card" href="products/ufo-bucket-hat-sky-blue.html" data-cat="headwear" data-gender="men women" data-price="45.0" data-order="159" data-text="ufo bucket hat sky blue headwear bucket hat">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="UFO Bucket Hat in Sky Blue" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">UFO Bucket Hat</span><span class="card__price">$45</span></div>
   <span class="card__sub">Sky Blue · Unisex</span>
-</a><a class="card" href="products/star-cuffed-beanie-sky-blue.html" data-cat="headwear" data-gender="men women" data-price="25.0" data-order="160">
+</a><a class="card" href="products/star-cuffed-beanie-sky-blue.html" data-cat="headwear" data-gender="men women" data-price="25.0" data-order="160" data-text="star cuffed beanie sky blue headwear cuffed beanie">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Star Cuffed Beanie in Sky Blue" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Star Cuffed Beanie</span><span class="card__price">$25</span></div>
   <span class="card__sub">Sky Blue · Unisex</span>
-</a><a class="card" href="products/ufo-skully-beanie-charcoal.html" data-cat="headwear" data-gender="men women" data-price="25.0" data-order="161">
+</a><a class="card" href="products/ufo-skully-beanie-charcoal.html" data-cat="headwear" data-gender="men women" data-price="25.0" data-order="161" data-text="ufo skully beanie charcoal headwear skully beanie">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="UFO Skully Beanie in Charcoal" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">UFO Skully Beanie</span><span class="card__price">$25</span></div>
   <span class="card__sub">Charcoal · Unisex</span>
-</a><a class="card" href="products/star-striped-beanie-sky-blue.html" data-cat="headwear" data-gender="men women" data-price="35.0" data-order="162">
+</a><a class="card" href="products/star-striped-beanie-sky-blue.html" data-cat="headwear" data-gender="men women" data-price="35.0" data-order="162" data-text="star striped beanie sky blue headwear striped beanie">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Star Striped Beanie in Sky Blue" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Star Striped Beanie</span><span class="card__price">$35</span></div>
   <span class="card__sub">Sky Blue · Unisex</span>
-</a><a class="card" href="products/signal-five-panel-sky-blue.html" data-cat="headwear" data-gender="men" data-price="55.0" data-order="163">
+</a><a class="card" href="products/signal-five-panel-sky-blue.html" data-cat="headwear" data-gender="men" data-price="55.0" data-order="163" data-text="signal five-panel sky blue headwear five-panel">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Signal Five-Panel in Sky Blue" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Signal Five-Panel</span><span class="card__price">$55</span></div>
   <span class="card__sub">Sky Blue · Men</span>
-</a><a class="card" href="products/beam-fuzzy-bucket-hat-olive.html" data-cat="headwear" data-gender="women" data-price="58.0" data-order="164">
+</a><a class="card" href="products/beam-fuzzy-bucket-hat-olive.html" data-cat="headwear" data-gender="women" data-price="58.0" data-order="164" data-text="beam fuzzy bucket hat olive headwear fuzzy bucket hat">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Beam Fuzzy Bucket Hat in Olive" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Beam Fuzzy Bucket Hat</span><span class="card__price">$58</span></div>
   <span class="card__sub">Olive · Women</span>
-</a><a class="card" href="products/wing-knit-headband-sand.html" data-cat="headwear" data-gender="women" data-price="22.0" data-order="165">
+</a><a class="card" href="products/wing-knit-headband-sand.html" data-cat="headwear" data-gender="women" data-price="22.0" data-order="165" data-text="wing knit headband sand headwear knit headband">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Wing Knit Headband in Sand" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Wing Knit Headband</span><span class="card__price">$22</span></div>
   <span class="card__sub">Sand · Women</span>
-</a><a class="card" href="products/lone-angel-baby-rib-beanie-olive.html" data-cat="headwear" data-gender="women" data-price="28.0" data-order="166">
+</a><a class="card" href="products/lone-angel-baby-rib-beanie-olive.html" data-cat="headwear" data-gender="women" data-price="28.0" data-order="166" data-text="lone angel baby rib beanie olive headwear baby rib beanie">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Lone Angel Baby Rib Beanie in Olive" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Lone Angel Baby Rib Beanie</span><span class="card__price">$28</span></div>
   <span class="card__sub">Olive · Women</span>
-</a><a class="card" href="products/angel-trucker-hat-white.html" data-cat="headwear" data-gender="men women" data-price="45.0" data-order="167">
+</a><a class="card" href="products/angel-trucker-hat-white.html" data-cat="headwear" data-gender="men women" data-price="45.0" data-order="167" data-text="angel trucker hat white headwear trucker hat">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Angel Trucker Hat in White" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Angel Trucker Hat</span><span class="card__price">$45</span></div>
   <span class="card__sub">White · Unisex</span>
-</a><a class="card" href="products/not-normal-dad-hat-heather-grey.html" data-cat="headwear" data-gender="men women" data-price="50.0" data-order="168">
+</a><a class="card" href="products/not-normal-dad-hat-heather-grey.html" data-cat="headwear" data-gender="men women" data-price="50.0" data-order="168" data-text="not normal dad hat heather grey headwear dad hat">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Not Normal Dad Hat in Heather Grey" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Not Normal Dad Hat</span><span class="card__price">$50</span></div>
   <span class="card__sub">Heather Grey · Unisex</span>
-</a><a class="card" href="products/mothership-corduroy-snapback-sky-blue.html" data-cat="headwear" data-gender="men women" data-price="45.0" data-order="169">
+</a><a class="card" href="products/mothership-corduroy-snapback-sky-blue.html" data-cat="headwear" data-gender="men women" data-price="45.0" data-order="169" data-text="mothership corduroy snapback sky blue headwear corduroy snapback">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Mothership Corduroy Snapback in Sky Blue" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Mothership Corduroy Snapback</span><span class="card__price">$45</span></div>
   <span class="card__sub">Sky Blue · Unisex</span>
-</a><a class="card" href="products/cloud-fitted-cap-heather-grey.html" data-cat="headwear" data-gender="men" data-price="50.0" data-order="170">
+</a><a class="card" href="products/cloud-fitted-cap-heather-grey.html" data-cat="headwear" data-gender="men" data-price="50.0" data-order="170" data-text="cloud fitted cap heather grey headwear fitted cap">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Cloud Fitted Cap in Heather Grey" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Cloud Fitted Cap</span><span class="card__price">$50</span></div>
   <span class="card__sub">Heather Grey · Men</span>
-</a><a class="card" href="products/wing-bucket-hat-white.html" data-cat="headwear" data-gender="men women" data-price="45.0" data-order="171">
+</a><a class="card" href="products/wing-bucket-hat-white.html" data-cat="headwear" data-gender="men women" data-price="45.0" data-order="171" data-text="wing bucket hat white headwear bucket hat">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Wing Bucket Hat in White" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Wing Bucket Hat</span><span class="card__price">$45</span></div>
   <span class="card__sub">White · Unisex</span>
-</a><a class="card" href="products/angel-cuffed-beanie-sand.html" data-cat="headwear" data-gender="men women" data-price="25.0" data-order="172">
+</a><a class="card" href="products/angel-cuffed-beanie-sand.html" data-cat="headwear" data-gender="men women" data-price="25.0" data-order="172" data-text="angel cuffed beanie sand headwear cuffed beanie">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Angel Cuffed Beanie in Sand" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Angel Cuffed Beanie</span><span class="card__price">$25</span></div>
   <span class="card__sub">Sand · Unisex</span>
-</a><a class="card" href="products/mothership-skully-beanie-red.html" data-cat="headwear" data-gender="men women" data-price="25.0" data-order="173">
+</a><a class="card" href="products/mothership-skully-beanie-red.html" data-cat="headwear" data-gender="men women" data-price="25.0" data-order="173" data-text="mothership skully beanie red headwear skully beanie">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Mothership Skully Beanie in Red" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Mothership Skully Beanie</span><span class="card__price">$25</span></div>
   <span class="card__sub">Red · Unisex</span>
-</a><a class="card" href="products/stargazer-striped-beanie-navy.html" data-cat="headwear" data-gender="men women" data-price="35.0" data-order="174">
+</a><a class="card" href="products/stargazer-striped-beanie-navy.html" data-cat="headwear" data-gender="men women" data-price="35.0" data-order="174" data-text="stargazer striped beanie navy headwear striped beanie">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Stargazer Striped Beanie in Navy" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Stargazer Striped Beanie</span><span class="card__price">$35</span></div>
   <span class="card__sub">Navy · Unisex</span>
-</a><a class="card" href="products/ufo-five-panel-washed-black.html" data-cat="headwear" data-gender="men" data-price="55.0" data-order="175">
+</a><a class="card" href="products/ufo-five-panel-washed-black.html" data-cat="headwear" data-gender="men" data-price="55.0" data-order="175" data-text="ufo five-panel washed black headwear five-panel">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="UFO Five-Panel in Washed Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">UFO Five-Panel</span><span class="card__price">$55</span></div>
   <span class="card__sub">Washed Black · Men</span>
-</a><a class="card" href="products/not-normal-fuzzy-bucket-hat-olive.html" data-cat="headwear" data-gender="women" data-price="48.0" data-order="176">
+</a><a class="card" href="products/not-normal-fuzzy-bucket-hat-olive.html" data-cat="headwear" data-gender="women" data-price="48.0" data-order="176" data-text="not normal fuzzy bucket hat olive headwear fuzzy bucket hat">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Not Normal Fuzzy Bucket Hat in Olive" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Not Normal Fuzzy Bucket Hat</span><span class="card__price">$48</span></div>
   <span class="card__sub">Olive · Women</span>
-</a><a class="card" href="products/not-normal-knit-headband-olive.html" data-cat="headwear" data-gender="women" data-price="22.0" data-order="177">
+</a><a class="card" href="products/not-normal-knit-headband-olive.html" data-cat="headwear" data-gender="women" data-price="22.0" data-order="177" data-text="not normal knit headband olive headwear knit headband">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Not Normal Knit Headband in Olive" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Not Normal Knit Headband</span><span class="card__price">$22</span></div>
   <span class="card__sub">Olive · Women</span>
-</a><a class="card" href="products/mothership-baby-rib-beanie-washed-black.html" data-cat="headwear" data-gender="women" data-price="28.0" data-order="178">
+</a><a class="card" href="products/mothership-baby-rib-beanie-washed-black.html" data-cat="headwear" data-gender="women" data-price="28.0" data-order="178" data-text="mothership baby rib beanie washed black headwear baby rib beanie">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Mothership Baby Rib Beanie in Washed Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Mothership Baby Rib Beanie</span><span class="card__price">$28</span></div>
   <span class="card__sub">Washed Black · Women</span>
-</a><a class="card" href="products/ascension-trucker-hat-sky-blue.html" data-cat="headwear" data-gender="men women" data-price="40.0" data-order="179">
+</a><a class="card" href="products/ascension-trucker-hat-sky-blue.html" data-cat="headwear" data-gender="men women" data-price="40.0" data-order="179" data-text="ascension trucker hat sky blue headwear trucker hat">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Ascension Trucker Hat in Sky Blue" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Ascension Trucker Hat</span><span class="card__price">$40</span></div>
   <span class="card__sub">Sky Blue · Unisex</span>
-</a><a class="card" href="products/atn-logo-dad-hat-olive.html" data-cat="headwear" data-gender="men women" data-price="45.0" data-order="180">
+</a><a class="card" href="products/atn-logo-dad-hat-olive.html" data-cat="headwear" data-gender="men women" data-price="45.0" data-order="180" data-text="atn logo dad hat olive headwear dad hat">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="ATN Logo Dad Hat in Olive" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">ATN Logo Dad Hat</span><span class="card__price">$45</span></div>
   <span class="card__sub">Olive · Unisex</span>
-</a><a class="card" href="products/lone-angel-corduroy-snapback-washed-black.html" data-cat="headwear" data-gender="men women" data-price="45.0" data-order="181">
+</a><a class="card" href="products/lone-angel-corduroy-snapback-washed-black.html" data-cat="headwear" data-gender="men women" data-price="45.0" data-order="181" data-text="lone angel corduroy snapback washed black headwear corduroy snapback">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Lone Angel Corduroy Snapback in Washed Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Lone Angel Corduroy Snapback</span><span class="card__price">$45</span></div>
   <span class="card__sub">Washed Black · Unisex</span>
-</a><a class="card" href="products/angel-fitted-cap-red.html" data-cat="headwear" data-gender="men" data-price="55.0" data-order="182">
+</a><a class="card" href="products/angel-fitted-cap-red.html" data-cat="headwear" data-gender="men" data-price="55.0" data-order="182" data-text="angel fitted cap red headwear fitted cap">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Angel Fitted Cap in Red" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Angel Fitted Cap</span><span class="card__price">$55</span></div>
   <span class="card__sub">Red · Men</span>
-</a><a class="card" href="products/ascension-bucket-hat-brown.html" data-cat="headwear" data-gender="men women" data-price="50.0" data-order="183">
+</a><a class="card" href="products/ascension-bucket-hat-brown.html" data-cat="headwear" data-gender="men women" data-price="50.0" data-order="183" data-text="ascension bucket hat brown headwear bucket hat">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Ascension Bucket Hat in Brown" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Ascension Bucket Hat</span><span class="card__price">$50</span></div>
   <span class="card__sub">Brown · Unisex</span>
-</a><a class="card" href="products/wing-cuffed-beanie-sand.html" data-cat="headwear" data-gender="men women" data-price="25.0" data-order="184">
+</a><a class="card" href="products/wing-cuffed-beanie-sand.html" data-cat="headwear" data-gender="men women" data-price="25.0" data-order="184" data-text="wing cuffed beanie sand headwear cuffed beanie">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Wing Cuffed Beanie in Sand" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Wing Cuffed Beanie</span><span class="card__price">$25</span></div>
   <span class="card__sub">Sand · Unisex</span>
-</a><a class="card" href="products/atn-logo-skully-beanie-cream.html" data-cat="headwear" data-gender="men women" data-price="25.0" data-order="185">
+</a><a class="card" href="products/atn-logo-skully-beanie-cream.html" data-cat="headwear" data-gender="men women" data-price="25.0" data-order="185" data-text="atn logo skully beanie cream headwear skully beanie">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="ATN Logo Skully Beanie in Cream" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">ATN Logo Skully Beanie</span><span class="card__price">$25</span></div>
   <span class="card__sub">Cream · Unisex</span>
-</a><a class="card" href="products/halo-striped-beanie-heather-grey.html" data-cat="headwear" data-gender="men women" data-price="35.0" data-order="186">
+</a><a class="card" href="products/halo-striped-beanie-heather-grey.html" data-cat="headwear" data-gender="men women" data-price="35.0" data-order="186" data-text="halo striped beanie heather grey headwear striped beanie">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Halo Striped Beanie in Heather Grey" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Halo Striped Beanie</span><span class="card__price">$35</span></div>
   <span class="card__sub">Heather Grey · Unisex</span>
-</a><a class="card" href="products/lone-angel-five-panel-washed-black.html" data-cat="headwear" data-gender="men" data-price="45.0" data-order="187">
+</a><a class="card" href="products/lone-angel-five-panel-washed-black.html" data-cat="headwear" data-gender="men" data-price="45.0" data-order="187" data-text="lone angel five-panel washed black headwear five-panel">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Lone Angel Five-Panel in Washed Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Lone Angel Five-Panel</span><span class="card__price">$45</span></div>
   <span class="card__sub">Washed Black · Men</span>
-</a><a class="card" href="products/mothership-fuzzy-bucket-hat-sky-blue.html" data-cat="headwear" data-gender="women" data-price="48.0" data-order="188">
+</a><a class="card" href="products/mothership-fuzzy-bucket-hat-sky-blue.html" data-cat="headwear" data-gender="women" data-price="48.0" data-order="188" data-text="mothership fuzzy bucket hat sky blue headwear fuzzy bucket hat">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Mothership Fuzzy Bucket Hat in Sky Blue" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Mothership Fuzzy Bucket Hat</span><span class="card__price">$48</span></div>
   <span class="card__sub">Sky Blue · Women</span>
-</a><a class="card" href="products/atn-logo-knit-headband-washed-black.html" data-cat="headwear" data-gender="women" data-price="22.0" data-order="189">
+</a><a class="card" href="products/atn-logo-knit-headband-washed-black.html" data-cat="headwear" data-gender="women" data-price="22.0" data-order="189" data-text="atn logo knit headband washed black headwear knit headband">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="ATN Logo Knit Headband in Washed Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">ATN Logo Knit Headband</span><span class="card__price">$22</span></div>
   <span class="card__sub">Washed Black · Women</span>
-</a><a class="card" href="products/beam-baby-rib-beanie-cream.html" data-cat="headwear" data-gender="women" data-price="28.0" data-order="190">
+</a><a class="card" href="products/beam-baby-rib-beanie-cream.html" data-cat="headwear" data-gender="women" data-price="28.0" data-order="190" data-text="beam baby rib beanie cream headwear baby rib beanie">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Beam Baby Rib Beanie in Cream" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Beam Baby Rib Beanie</span><span class="card__price">$28</span></div>
   <span class="card__sub">Cream · Women</span>
-</a><a class="card" href="products/not-normal-trucker-hat-sand.html" data-cat="headwear" data-gender="men women" data-price="45.0" data-order="191">
+</a><a class="card" href="products/not-normal-trucker-hat-sand.html" data-cat="headwear" data-gender="men women" data-price="45.0" data-order="191" data-text="not normal trucker hat sand headwear trucker hat">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Not Normal Trucker Hat in Sand" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Not Normal Trucker Hat</span><span class="card__price">$45</span></div>
   <span class="card__sub">Sand · Unisex</span>
-</a><a class="card" href="products/mothership-dad-hat-charcoal.html" data-cat="headwear" data-gender="men women" data-price="45.0" data-order="192">
+</a><a class="card" href="products/mothership-dad-hat-charcoal.html" data-cat="headwear" data-gender="men women" data-price="45.0" data-order="192" data-text="mothership dad hat charcoal headwear dad hat">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Mothership Dad Hat in Charcoal" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Mothership Dad Hat</span><span class="card__price">$45</span></div>
   <span class="card__sub">Charcoal · Unisex</span>
-</a><a class="card" href="products/angel-corduroy-snapback-olive.html" data-cat="headwear" data-gender="men women" data-price="45.0" data-order="193">
+</a><a class="card" href="products/angel-corduroy-snapback-olive.html" data-cat="headwear" data-gender="men women" data-price="45.0" data-order="193" data-text="angel corduroy snapback olive headwear corduroy snapback">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Angel Corduroy Snapback in Olive" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Angel Corduroy Snapback</span><span class="card__price">$45</span></div>
   <span class="card__sub">Olive · Unisex</span>
-</a><a class="card" href="products/ufo-fitted-cap-washed-black.html" data-cat="headwear" data-gender="men" data-price="60.0" data-order="194">
+</a><a class="card" href="products/ufo-fitted-cap-washed-black.html" data-cat="headwear" data-gender="men" data-price="60.0" data-order="194" data-text="ufo fitted cap washed black headwear fitted cap">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="UFO Fitted Cap in Washed Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">UFO Fitted Cap</span><span class="card__price">$60</span></div>
   <span class="card__sub">Washed Black · Men</span>
-</a><a class="card" href="products/mothership-bucket-hat-washed-black.html" data-cat="headwear" data-gender="men women" data-price="50.0" data-order="195">
+</a><a class="card" href="products/mothership-bucket-hat-washed-black.html" data-cat="headwear" data-gender="men women" data-price="50.0" data-order="195" data-text="mothership bucket hat washed black headwear bucket hat">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Mothership Bucket Hat in Washed Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Mothership Bucket Hat</span><span class="card__price">$50</span></div>
   <span class="card__sub">Washed Black · Unisex</span>
-</a><a class="card" href="products/lone-angel-cuffed-beanie-charcoal.html" data-cat="headwear" data-gender="men women" data-price="25.0" data-order="196">
+</a><a class="card" href="products/lone-angel-cuffed-beanie-charcoal.html" data-cat="headwear" data-gender="men women" data-price="25.0" data-order="196" data-text="lone angel cuffed beanie charcoal headwear cuffed beanie">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Lone Angel Cuffed Beanie in Charcoal" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Lone Angel Cuffed Beanie</span><span class="card__price">$25</span></div>
   <span class="card__sub">Charcoal · Unisex</span>
-</a><a class="card" href="products/lone-angel-skully-beanie-olive.html" data-cat="headwear" data-gender="men women" data-price="25.0" data-order="197">
+</a><a class="card" href="products/lone-angel-skully-beanie-olive.html" data-cat="headwear" data-gender="men women" data-price="25.0" data-order="197" data-text="lone angel skully beanie olive headwear skully beanie">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Lone Angel Skully Beanie in Olive" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Lone Angel Skully Beanie</span><span class="card__price">$25</span></div>
   <span class="card__sub">Olive · Unisex</span>
-</a><a class="card" href="products/wing-striped-beanie-heather-grey.html" data-cat="headwear" data-gender="men women" data-price="35.0" data-order="198">
+</a><a class="card" href="products/wing-striped-beanie-heather-grey.html" data-cat="headwear" data-gender="men women" data-price="35.0" data-order="198" data-text="wing striped beanie heather grey headwear striped beanie">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Wing Striped Beanie in Heather Grey" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Wing Striped Beanie</span><span class="card__price">$35</span></div>
   <span class="card__sub">Heather Grey · Unisex</span>
-</a><a class="card" href="products/wing-five-panel-navy.html" data-cat="headwear" data-gender="men" data-price="55.0" data-order="199">
+</a><a class="card" href="products/wing-five-panel-navy.html" data-cat="headwear" data-gender="men" data-price="55.0" data-order="199" data-text="wing five-panel navy headwear five-panel">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Wing Five-Panel in Navy" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Wing Five-Panel</span><span class="card__price">$55</span></div>
   <span class="card__sub">Navy · Men</span>
-</a><a class="card" href="products/atn-logo-wallet-chain-white.html" data-cat="accessories" data-gender="men women" data-price="55.0" data-order="200">
+</a><a class="card" href="products/atn-logo-wallet-chain-white.html" data-cat="accessories" data-gender="men women" data-price="55.0" data-order="200" data-text="atn logo wallet chain white accessories wallet chain">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="ATN Logo Wallet Chain in White" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">ATN Logo Wallet Chain</span><span class="card__price">$55</span></div>
   <span class="card__sub">White · Unisex</span>
-</a><a class="card" href="products/ascension-pendant-necklace-gold.html" data-cat="accessories" data-gender="men women" data-price="80.0" data-order="201">
+</a><a class="card" href="products/ascension-pendant-necklace-gold.html" data-cat="accessories" data-gender="men women" data-price="80.0" data-order="201" data-text="ascension pendant necklace gold accessories pendant necklace">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Ascension Pendant Necklace in Gold" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Ascension Pendant Necklace</span><span class="card__price">$80</span></div>
   <span class="card__sub">Gold · Unisex</span>
-</a><a class="card" href="products/mothership-signet-ring-silver.html" data-cat="accessories" data-gender="men" data-price="55.0" data-order="202">
+</a><a class="card" href="products/mothership-signet-ring-silver.html" data-cat="accessories" data-gender="men" data-price="55.0" data-order="202" data-text="mothership signet ring silver accessories signet ring">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Mothership Signet Ring in Silver" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Mothership Signet Ring</span><span class="card__price">$55</span></div>
   <span class="card__sub">Silver · Men</span>
-</a><a class="card" href="products/mothership-hoop-earrings-silver.html" data-cat="accessories" data-gender="women" data-price="50.0" data-order="203">
+</a><a class="card" href="products/mothership-hoop-earrings-silver.html" data-cat="accessories" data-gender="women" data-price="50.0" data-order="203" data-text="mothership hoop earrings silver accessories hoop earrings">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Mothership Hoop Earrings in Silver" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Mothership Hoop Earrings</span><span class="card__price">$50</span></div>
   <span class="card__sub">Silver · Women</span>
-</a><a class="card" href="products/lone-angel-stud-earrings-natural.html" data-cat="accessories" data-gender="women" data-price="35.0" data-order="204">
+</a><a class="card" href="products/lone-angel-stud-earrings-natural.html" data-cat="accessories" data-gender="women" data-price="35.0" data-order="204" data-text="lone angel stud earrings natural accessories stud earrings">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Lone Angel Stud Earrings in Natural" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Lone Angel Stud Earrings</span><span class="card__price">$35</span></div>
   <span class="card__sub">Natural · Women</span>
-</a><a class="card" href="products/star-charm-bracelet-black.html" data-cat="accessories" data-gender="men women" data-price="40.0" data-order="205">
+</a><a class="card" href="products/star-charm-bracelet-black.html" data-cat="accessories" data-gender="men women" data-price="40.0" data-order="205" data-text="star charm bracelet black accessories charm bracelet">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Star Charm Bracelet in Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Star Charm Bracelet</span><span class="card__price">$40</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="products/halo-crew-socks-3-pack-black.html" data-cat="accessories" data-gender="men women" data-price="20.0" data-order="206">
+</a><a class="card" href="products/halo-crew-socks-3-pack-black.html" data-cat="accessories" data-gender="men women" data-price="20.0" data-order="206" data-text="halo crew socks 3-pack black accessories crew socks 3-pack">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Halo Crew Socks 3-Pack in Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Halo Crew Socks 3-Pack</span><span class="card__price">$20</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="products/ufo-tote-bag-natural.html" data-cat="accessories" data-gender="men women" data-price="35.0" data-order="207">
+</a><a class="card" href="products/ufo-tote-bag-natural.html" data-cat="accessories" data-gender="men women" data-price="35.0" data-order="207" data-text="ufo tote bag natural accessories tote bag">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="UFO Tote Bag in Natural" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">UFO Tote Bag</span><span class="card__price">$35</span></div>
   <span class="card__sub">Natural · Unisex</span>
-</a><a class="card" href="products/lone-angel-crossbody-bag-natural.html" data-cat="accessories" data-gender="men women" data-price="55.0" data-order="208">
+</a><a class="card" href="products/lone-angel-crossbody-bag-natural.html" data-cat="accessories" data-gender="men women" data-price="55.0" data-order="208" data-text="lone angel crossbody bag natural accessories crossbody bag">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Lone Angel Crossbody Bag in Natural" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Lone Angel Crossbody Bag</span><span class="card__price">$55</span></div>
   <span class="card__sub">Natural · Unisex</span>
-</a><a class="card" href="products/not-normal-bandana-black.html" data-cat="accessories" data-gender="men women" data-price="18.0" data-order="209">
+</a><a class="card" href="products/not-normal-bandana-black.html" data-cat="accessories" data-gender="men women" data-price="18.0" data-order="209" data-text="not normal bandana black accessories bandana">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Not Normal Bandana in Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Not Normal Bandana</span><span class="card__price">$18</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="products/not-normal-keychain-silver.html" data-cat="accessories" data-gender="men women" data-price="15.0" data-order="210">
+</a><a class="card" href="products/not-normal-keychain-silver.html" data-cat="accessories" data-gender="men women" data-price="15.0" data-order="210" data-text="not normal keychain silver accessories keychain">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Not Normal Keychain in Silver" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Not Normal Keychain</span><span class="card__price">$15</span></div>
   <span class="card__sub">Silver · Unisex</span>
-</a><a class="card" href="products/ascension-belt-silver.html" data-cat="accessories" data-gender="men" data-price="50.0" data-order="211">
+</a><a class="card" href="products/ascension-belt-silver.html" data-cat="accessories" data-gender="men" data-price="50.0" data-order="211" data-text="ascension belt silver accessories belt">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Ascension Belt in Silver" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Ascension Belt</span><span class="card__price">$50</span></div>
   <span class="card__sub">Silver · Men</span>
-</a><a class="card" href="products/lone-angel-phone-charm-black.html" data-cat="accessories" data-gender="women" data-price="15.0" data-order="212">
+</a><a class="card" href="products/lone-angel-phone-charm-black.html" data-cat="accessories" data-gender="women" data-price="15.0" data-order="212" data-text="lone angel phone charm black accessories phone charm">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Lone Angel Phone Charm in Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Lone Angel Phone Charm</span><span class="card__price">$15</span></div>
   <span class="card__sub">Black · Women</span>
-</a><a class="card" href="products/signal-hair-clip-set-white.html" data-cat="accessories" data-gender="women" data-price="18.0" data-order="213">
+</a><a class="card" href="products/signal-hair-clip-set-white.html" data-cat="accessories" data-gender="women" data-price="18.0" data-order="213" data-text="signal hair clip set white accessories hair clip set">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Signal Hair Clip Set in White" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Signal Hair Clip Set</span><span class="card__price">$18</span></div>
   <span class="card__sub">White · Women</span>
-</a><a class="card" href="products/ascension-enamel-pin-set-white.html" data-cat="accessories" data-gender="men women" data-price="15.0" data-order="214">
+</a><a class="card" href="products/ascension-enamel-pin-set-white.html" data-cat="accessories" data-gender="men women" data-price="15.0" data-order="214" data-text="ascension enamel pin set white accessories enamel pin set">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Ascension Enamel Pin Set in White" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Ascension Enamel Pin Set</span><span class="card__price">$15</span></div>
   <span class="card__sub">White · Unisex</span>
-</a><a class="card" href="products/mothership-wallet-chain-black.html" data-cat="accessories" data-gender="men women" data-price="55.0" data-order="215">
+</a><a class="card" href="products/mothership-wallet-chain-black.html" data-cat="accessories" data-gender="men women" data-price="55.0" data-order="215" data-text="mothership wallet chain black accessories wallet chain">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Mothership Wallet Chain in Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Mothership Wallet Chain</span><span class="card__price">$55</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="products/halo-pendant-necklace-black.html" data-cat="accessories" data-gender="men women" data-price="80.0" data-order="216">
+</a><a class="card" href="products/halo-pendant-necklace-black.html" data-cat="accessories" data-gender="men women" data-price="80.0" data-order="216" data-text="halo pendant necklace black accessories pendant necklace">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Halo Pendant Necklace in Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Halo Pendant Necklace</span><span class="card__price">$80</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="products/beam-signet-ring-white.html" data-cat="accessories" data-gender="men" data-price="50.0" data-order="217">
+</a><a class="card" href="products/beam-signet-ring-white.html" data-cat="accessories" data-gender="men" data-price="50.0" data-order="217" data-text="beam signet ring white accessories signet ring">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Beam Signet Ring in White" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Beam Signet Ring</span><span class="card__price">$50</span></div>
   <span class="card__sub">White · Men</span>
-</a><a class="card" href="products/angel-hoop-earrings-gold.html" data-cat="accessories" data-gender="women" data-price="55.0" data-order="218">
+</a><a class="card" href="products/angel-hoop-earrings-gold.html" data-cat="accessories" data-gender="women" data-price="55.0" data-order="218" data-text="angel hoop earrings gold accessories hoop earrings">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Angel Hoop Earrings in Gold" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Angel Hoop Earrings</span><span class="card__price">$55</span></div>
   <span class="card__sub">Gold · Women</span>
-</a><a class="card" href="products/cloud-stud-earrings-black.html" data-cat="accessories" data-gender="women" data-price="35.0" data-order="219">
+</a><a class="card" href="products/cloud-stud-earrings-black.html" data-cat="accessories" data-gender="women" data-price="35.0" data-order="219" data-text="cloud stud earrings black accessories stud earrings">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Cloud Stud Earrings in Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Cloud Stud Earrings</span><span class="card__price">$35</span></div>
   <span class="card__sub">Black · Women</span>
-</a><a class="card" href="products/beam-charm-bracelet-gold.html" data-cat="accessories" data-gender="men women" data-price="50.0" data-order="220">
+</a><a class="card" href="products/beam-charm-bracelet-gold.html" data-cat="accessories" data-gender="men women" data-price="50.0" data-order="220" data-text="beam charm bracelet gold accessories charm bracelet">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Beam Charm Bracelet in Gold" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Beam Charm Bracelet</span><span class="card__price">$50</span></div>
   <span class="card__sub">Gold · Unisex</span>
-</a><a class="card" href="products/angel-crew-socks-3-pack-silver.html" data-cat="accessories" data-gender="men women" data-price="20.0" data-order="221">
+</a><a class="card" href="products/angel-crew-socks-3-pack-silver.html" data-cat="accessories" data-gender="men women" data-price="20.0" data-order="221" data-text="angel crew socks 3-pack silver accessories crew socks 3-pack">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Angel Crew Socks 3-Pack in Silver" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Angel Crew Socks 3-Pack</span><span class="card__price">$20</span></div>
   <span class="card__sub">Silver · Unisex</span>
-</a><a class="card" href="products/halo-tote-bag-black.html" data-cat="accessories" data-gender="men women" data-price="35.0" data-order="222">
+</a><a class="card" href="products/halo-tote-bag-black.html" data-cat="accessories" data-gender="men women" data-price="35.0" data-order="222" data-text="halo tote bag black accessories tote bag">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Halo Tote Bag in Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Halo Tote Bag</span><span class="card__price">$35</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="products/wing-crossbody-bag-natural.html" data-cat="accessories" data-gender="men women" data-price="60.0" data-order="223">
+</a><a class="card" href="products/wing-crossbody-bag-natural.html" data-cat="accessories" data-gender="men women" data-price="60.0" data-order="223" data-text="wing crossbody bag natural accessories crossbody bag">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Wing Crossbody Bag in Natural" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Wing Crossbody Bag</span><span class="card__price">$60</span></div>
   <span class="card__sub">Natural · Unisex</span>
-</a><a class="card" href="products/mothership-bandana-gold.html" data-cat="accessories" data-gender="men women" data-price="18.0" data-order="224">
+</a><a class="card" href="products/mothership-bandana-gold.html" data-cat="accessories" data-gender="men women" data-price="18.0" data-order="224" data-text="mothership bandana gold accessories bandana">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Mothership Bandana in Gold" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Mothership Bandana</span><span class="card__price">$18</span></div>
   <span class="card__sub">Gold · Unisex</span>
-</a><a class="card" href="products/motel-atn-keychain-silver.html" data-cat="accessories" data-gender="men women" data-price="15.0" data-order="225">
+</a><a class="card" href="products/motel-atn-keychain-silver.html" data-cat="accessories" data-gender="men women" data-price="15.0" data-order="225" data-text="motel atn keychain silver accessories keychain">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Motel ATN Keychain in Silver" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Motel ATN Keychain</span><span class="card__price">$15</span></div>
   <span class="card__sub">Silver · Unisex</span>
-</a><a class="card" href="products/wing-belt-black.html" data-cat="accessories" data-gender="men" data-price="45.0" data-order="226">
+</a><a class="card" href="products/wing-belt-black.html" data-cat="accessories" data-gender="men" data-price="45.0" data-order="226" data-text="wing belt black accessories belt">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Wing Belt in Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Wing Belt</span><span class="card__price">$45</span></div>
   <span class="card__sub">Black · Men</span>
-</a><a class="card" href="products/angel-phone-charm-white.html" data-cat="accessories" data-gender="women" data-price="15.0" data-order="227">
+</a><a class="card" href="products/angel-phone-charm-white.html" data-cat="accessories" data-gender="women" data-price="15.0" data-order="227" data-text="angel phone charm white accessories phone charm">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Angel Phone Charm in White" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Angel Phone Charm</span><span class="card__price">$15</span></div>
   <span class="card__sub">White · Women</span>
-</a><a class="card" href="products/stargazer-hair-clip-set-white.html" data-cat="accessories" data-gender="women" data-price="18.0" data-order="228">
+</a><a class="card" href="products/stargazer-hair-clip-set-white.html" data-cat="accessories" data-gender="women" data-price="18.0" data-order="228" data-text="stargazer hair clip set white accessories hair clip set">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Stargazer Hair Clip Set in White" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Stargazer Hair Clip Set</span><span class="card__price">$18</span></div>
   <span class="card__sub">White · Women</span>
-</a><a class="card" href="products/halo-enamel-pin-set-silver.html" data-cat="accessories" data-gender="men women" data-price="15.0" data-order="229">
+</a><a class="card" href="products/halo-enamel-pin-set-silver.html" data-cat="accessories" data-gender="men women" data-price="15.0" data-order="229" data-text="halo enamel pin set silver accessories enamel pin set">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Halo Enamel Pin Set in Silver" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Halo Enamel Pin Set</span><span class="card__price">$15</span></div>
   <span class="card__sub">Silver · Unisex</span>
-</a><a class="card" href="products/halo-wallet-chain-black.html" data-cat="accessories" data-gender="men women" data-price="55.0" data-order="230">
+</a><a class="card" href="products/halo-wallet-chain-black.html" data-cat="accessories" data-gender="men women" data-price="55.0" data-order="230" data-text="halo wallet chain black accessories wallet chain">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Halo Wallet Chain in Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Halo Wallet Chain</span><span class="card__price">$55</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="products/motel-atn-pendant-necklace-white.html" data-cat="accessories" data-gender="men women" data-price="80.0" data-order="231">
+</a><a class="card" href="products/motel-atn-pendant-necklace-white.html" data-cat="accessories" data-gender="men women" data-price="80.0" data-order="231" data-text="motel atn pendant necklace white accessories pendant necklace">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Motel ATN Pendant Necklace in White" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Motel ATN Pendant Necklace</span><span class="card__price">$80</span></div>
   <span class="card__sub">White · Unisex</span>
-</a><a class="card" href="products/atn-logo-signet-ring-black.html" data-cat="accessories" data-gender="men" data-price="45.0" data-order="232">
+</a><a class="card" href="products/atn-logo-signet-ring-black.html" data-cat="accessories" data-gender="men" data-price="45.0" data-order="232" data-text="atn logo signet ring black accessories signet ring">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="ATN Logo Signet Ring in Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">ATN Logo Signet Ring</span><span class="card__price">$45</span></div>
   <span class="card__sub">Black · Men</span>
-</a><a class="card" href="products/halo-hoop-earrings-gold.html" data-cat="accessories" data-gender="women" data-price="60.0" data-order="233">
+</a><a class="card" href="products/halo-hoop-earrings-gold.html" data-cat="accessories" data-gender="women" data-price="60.0" data-order="233" data-text="halo hoop earrings gold accessories hoop earrings">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Halo Hoop Earrings in Gold" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Halo Hoop Earrings</span><span class="card__price">$60</span></div>
   <span class="card__sub">Gold · Women</span>
-</a><a class="card" href="products/atn-logo-stud-earrings-natural.html" data-cat="accessories" data-gender="women" data-price="35.0" data-order="234">
+</a><a class="card" href="products/atn-logo-stud-earrings-natural.html" data-cat="accessories" data-gender="women" data-price="35.0" data-order="234" data-text="atn logo stud earrings natural accessories stud earrings">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="ATN Logo Stud Earrings in Natural" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">ATN Logo Stud Earrings</span><span class="card__price">$35</span></div>
   <span class="card__sub">Natural · Women</span>
-</a><a class="card" href="products/ascension-charm-bracelet-natural.html" data-cat="accessories" data-gender="men women" data-price="40.0" data-order="235">
+</a><a class="card" href="products/ascension-charm-bracelet-natural.html" data-cat="accessories" data-gender="men women" data-price="40.0" data-order="235" data-text="ascension charm bracelet natural accessories charm bracelet">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Ascension Charm Bracelet in Natural" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Ascension Charm Bracelet</span><span class="card__price">$40</span></div>
   <span class="card__sub">Natural · Unisex</span>
-</a><a class="card" href="products/ufo-crew-socks-3-pack-black.html" data-cat="accessories" data-gender="men women" data-price="20.0" data-order="236">
+</a><a class="card" href="products/ufo-crew-socks-3-pack-black.html" data-cat="accessories" data-gender="men women" data-price="20.0" data-order="236" data-text="ufo crew socks 3-pack black accessories crew socks 3-pack">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="UFO Crew Socks 3-Pack in Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">UFO Crew Socks 3-Pack</span><span class="card__price">$20</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="products/cloud-tote-bag-black.html" data-cat="accessories" data-gender="men women" data-price="35.0" data-order="237">
+</a><a class="card" href="products/cloud-tote-bag-black.html" data-cat="accessories" data-gender="men women" data-price="35.0" data-order="237" data-text="cloud tote bag black accessories tote bag">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Cloud Tote Bag in Black" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Cloud Tote Bag</span><span class="card__price">$35</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="products/beam-crossbody-bag-natural.html" data-cat="accessories" data-gender="men women" data-price="55.0" data-order="238">
+</a><a class="card" href="products/beam-crossbody-bag-natural.html" data-cat="accessories" data-gender="men women" data-price="55.0" data-order="238" data-text="beam crossbody bag natural accessories crossbody bag">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Beam Crossbody Bag in Natural" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Beam Crossbody Bag</span><span class="card__price">$55</span></div>
   <span class="card__sub">Natural · Unisex</span>
-</a><a class="card" href="products/beam-bandana-silver.html" data-cat="accessories" data-gender="men women" data-price="18.0" data-order="239">
+</a><a class="card" href="products/beam-bandana-silver.html" data-cat="accessories" data-gender="men women" data-price="18.0" data-order="239" data-text="beam bandana silver accessories bandana">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Beam Bandana in Silver" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Beam Bandana</span><span class="card__price">$18</span></div>
   <span class="card__sub">Silver · Unisex</span>
-</a><a class="card" href="products/angel-keychain-natural.html" data-cat="accessories" data-gender="men women" data-price="15.0" data-order="240">
+</a><a class="card" href="products/angel-keychain-natural.html" data-cat="accessories" data-gender="men women" data-price="15.0" data-order="240" data-text="angel keychain natural accessories keychain">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Angel Keychain in Natural" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Angel Keychain</span><span class="card__price">$15</span></div>
   <span class="card__sub">Natural · Unisex</span>
-</a><a class="card" href="products/orbit-belt-natural.html" data-cat="accessories" data-gender="men" data-price="45.0" data-order="241">
+</a><a class="card" href="products/orbit-belt-natural.html" data-cat="accessories" data-gender="men" data-price="45.0" data-order="241" data-text="orbit belt natural accessories belt">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Orbit Belt in Natural" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Orbit Belt</span><span class="card__price">$45</span></div>
   <span class="card__sub">Natural · Men</span>
-</a><a class="card" href="products/halo-phone-charm-white.html" data-cat="accessories" data-gender="women" data-price="15.0" data-order="242">
+</a><a class="card" href="products/halo-phone-charm-white.html" data-cat="accessories" data-gender="women" data-price="15.0" data-order="242" data-text="halo phone charm white accessories phone charm">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Halo Phone Charm in White" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Halo Phone Charm</span><span class="card__price">$15</span></div>
   <span class="card__sub">White · Women</span>
-</a><a class="card" href="products/beam-hair-clip-set-white.html" data-cat="accessories" data-gender="women" data-price="18.0" data-order="243">
+</a><a class="card" href="products/beam-hair-clip-set-white.html" data-cat="accessories" data-gender="women" data-price="18.0" data-order="243" data-text="beam hair clip set white accessories hair clip set">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Beam Hair Clip Set in White" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Beam Hair Clip Set</span><span class="card__price">$18</span></div>
   <span class="card__sub">White · Women</span>
-</a><a class="card" href="products/orbit-enamel-pin-set-silver.html" data-cat="accessories" data-gender="men women" data-price="15.0" data-order="244">
+</a><a class="card" href="products/orbit-enamel-pin-set-silver.html" data-cat="accessories" data-gender="men women" data-price="15.0" data-order="244" data-text="orbit enamel pin set silver accessories enamel pin set">
   <div class="card__img is-ph"><img src="assets/img/placeholder.svg" alt="Orbit Enamel Pin Set in Silver" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Orbit Enamel Pin Set</span><span class="card__price">$15</span></div>
   <span class="card__sub">Silver · Unisex</span>
 </a></div>
+  <p class="shop__query" data-query hidden>Showing results for <strong data-query-text></strong> · <button type="button" class="link-btn" data-clear-q>Clear search</button></p>
   <p class="empty" data-empty hidden>Nothing matches those filters yet. <button type="button" class="link-btn" data-reset>Clear filters</button></p>
 </section>
 

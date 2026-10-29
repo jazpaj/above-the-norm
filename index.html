@@ -11,7 +11,7 @@
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,300..900;1,100,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="home" data-root="">
@@ -29,10 +29,24 @@
       <img src="assets/img/logo.png" alt="" width="34" height="46">
       <span>Above The Norm<sup>®</sup></span>
     </a>
-    <nav class="hdr__nav" aria-label="Main"><div class="hdr__drop"><a href="shop.html" aria-haspopup="true">Shop</a><div class="hdr__menu" role="menu"><a href="shop.html">Shop All</a><a href="shop.html?c=tops">Tops</a><a href="shop.html?c=bottoms">Bottoms</a><a href="shop.html?c=headwear">Headwear</a><a href="shop.html?c=accessories">Accessories</a></div></div><a href="shop.html?g=men">Men</a><a href="shop.html?g=women">Women</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
-    <a class="hdr__cart" href="cart.html" aria-label="Bag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="hdr__cart-label">Bag</span><span class="hdr__count" data-cart-count>0</span></a>
+    <div class="hdr__tools">
+      <button class="hdr__tool hdr__search-btn" type="button" aria-label="Search" data-search-open><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg><span>Search</span></button>
+      <a class="hdr__tool" href="contact.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3 7 9 6 9-6"/></svg><span>Contact</span></a>
+      <a class="hdr__tool hdr__cart" href="cart.html" aria-label="Bag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span>Bag</span><span class="hdr__count" data-cart-count>0</span></a>
+    </div>
   </div>
+  <nav class="hdr__nav" aria-label="Main"><div class="hdr__nav-in"><a href="shop.html">Shop All</a><a href="shop.html?g=men">Men</a><a href="shop.html?g=women">Women</a><a href="shop.html?c=tops">Tops</a><a href="shop.html?c=bottoms">Bottoms</a><a href="shop.html?c=headwear">Headwear</a><a href="shop.html?c=accessories">Accessories</a><a href="about.html">About</a></div></nav>
 </header>
+<div class="search" data-search hidden>
+  <div class="search__panel" role="dialog" aria-modal="true" aria-label="Search products">
+    <form class="search__form wrap" action="shop.html" role="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
+      <input type="search" name="q" placeholder="Search tees, hoodies, beanies…" autocomplete="off" aria-label="Search products" data-search-input>
+      <button class="search__close" type="button" aria-label="Close search" data-search-close><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </form>
+    <div class="search__results wrap" data-search-results></div>
+  </div>
+</div>
 <div class="drawer" data-menu hidden>
   <div class="drawer__panel">
     <button class="drawer__close" type="button" aria-label="Close menu" data-menu-close><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
@@ -81,35 +95,35 @@
 
 <section class="wrap block">
   <div class="sec-head"><div><p class="kicker">Just landed</p><h2>New arrivals</h2></div><a class="link-arrow" href="shop.html">View all →</a></div>
-  <div class="grid"><a class="card" href="products/no-ceilings-tee.html" data-cat="tops" data-gender="men women" data-price="50.0" data-order="0">
+  <div class="grid"><a class="card" href="products/no-ceilings-tee.html" data-cat="tops" data-gender="men women" data-price="50.0" data-order="0" data-text="no ceilings tee  tops tees">
   <div class="card__img"><img src="assets/img/products/no-ceilings-tee-1.webp" alt="No Ceilings Tee" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/no-ceilings-tee-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">No Ceilings Tee</span><span class="card__price">$50</span></div>
   <span class="card__sub">Tops · Unisex</span>
-</a><a class="card" href="products/sent-from-above-hoodie-black.html" data-cat="tops" data-gender="men women" data-price="50.0" data-order="1">
+</a><a class="card" href="products/sent-from-above-hoodie-black.html" data-cat="tops" data-gender="men women" data-price="50.0" data-order="1" data-text="sent from above hoodie black tops ">
   <div class="card__img"><img src="assets/img/products/sent-from-above-hoodie-black-1.webp" alt="Sent From Above Hoodie in Black" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/sent-from-above-hoodie-black-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Sent From Above Hoodie</span><span class="card__price">$50</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="products/lord-protect-me-tee.html" data-cat="tops" data-gender="men women" data-price="75.0" data-order="2">
+</a><a class="card" href="products/lord-protect-me-tee.html" data-cat="tops" data-gender="men women" data-price="75.0" data-order="2" data-text="lord protect me tee  tops tees">
   <div class="card__img"><img src="assets/img/products/lord-protect-me-tee-1.webp" alt="Lord Protect Me Tee" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/lord-protect-me-tee-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Lord Protect Me Tee</span><span class="card__price">$75</span></div>
   <span class="card__sub">Tops · Unisex</span>
-</a><a class="card" href="products/crash-landing-hoodie-yellow.html" data-cat="tops" data-gender="men women" data-price="77.0" data-order="3">
+</a><a class="card" href="products/crash-landing-hoodie-yellow.html" data-cat="tops" data-gender="men women" data-price="77.0" data-order="3" data-text="crash landing hoodie yellow tops ">
   <div class="card__img"><img src="assets/img/products/crash-landing-hoodie-yellow-1.webp" alt="Crash Landing Hoodie in Yellow" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/crash-landing-hoodie-yellow-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Crash Landing Hoodie</span><span class="card__price">$77</span></div>
   <span class="card__sub">Yellow · Unisex</span>
-</a><a class="card" href="products/retired-hoop-dream-sweats-black.html" data-cat="bottoms" data-gender="men women" data-price="115.0" data-order="4">
+</a><a class="card" href="products/retired-hoop-dream-sweats-black.html" data-cat="bottoms" data-gender="men women" data-price="115.0" data-order="4" data-text="retired hoop dream sweats black bottoms sweatpants">
   <div class="card__img"><img src="assets/img/products/retired-hoop-dream-sweats-black-1.webp" alt="Retired Hoop Dream Sweats in Black" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/retired-hoop-dream-sweats-black-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Retired Hoop Dream Sweats</span><span class="card__price">$115</span></div>
   <span class="card__sub">Black · Unisex</span>
-</a><a class="card" href="products/badge-logo-dad-hat-blue.html" data-cat="headwear" data-gender="men women" data-price="50.0" data-order="5">
+</a><a class="card" href="products/badge-logo-dad-hat-blue.html" data-cat="headwear" data-gender="men women" data-price="50.0" data-order="5" data-text="badge logo dad hat blue headwear hats">
   <div class="card__img"><img src="assets/img/products/badge-logo-dad-hat-blue-1.webp" alt="Badge Logo Dad Hat in Blue" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/badge-logo-dad-hat-blue-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Badge Logo Dad Hat</span><span class="card__price">$50</span></div>
   <span class="card__sub">Blue · Unisex</span>
-</a><a class="card" href="products/nn-cult-crewneck.html" data-cat="tops" data-gender="men women" data-price="130.0" data-order="6">
+</a><a class="card" href="products/nn-cult-crewneck.html" data-cat="tops" data-gender="men women" data-price="130.0" data-order="6" data-text="nn cult crewneck navy tops crewnecks">
   <div class="card__img"><img src="assets/img/products/nn-cult-crewneck-1.webp" alt="NN Cult Crewneck in Navy" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/nn-cult-crewneck-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">NN Cult Crewneck</span><span class="card__price">$130</span></div>
   <span class="card__sub">Navy · Unisex</span>
-</a><a class="card" href="products/logo-pearl-necklace.html" data-cat="accessories" data-gender="men women" data-price="70.0" data-order="7">
+</a><a class="card" href="products/logo-pearl-necklace.html" data-cat="accessories" data-gender="men women" data-price="70.0" data-order="7" data-text="logo pearl necklace  accessories ">
   <div class="card__img"><img src="assets/img/products/logo-pearl-necklace-1.webp" alt="Logo Pearl Necklace" loading="lazy" width="600" height="600"><img class="card__alt" src="assets/img/products/logo-pearl-necklace-2.webp" alt="" loading="lazy" width="600" height="600"></div>
   <div class="card__meta"><span class="card__name">Logo Pearl Necklace</span><span class="card__price">$70</span></div>
   <span class="card__sub">Accessories · Unisex</span>
