@@ -483,18 +483,12 @@ def company_block():
 
 def business_info():
     rows = [
-        ("Legal business name", BIZ["legal"]),
-        ("Doing business as", f"{BIZ['brand']}®"),
-        ("Entity type", f"Limited liability company, organized in {BIZ['state_of_org']} on {BIZ['organized']}"),
-        ("Owner", f"{BIZ['owner']}, {BIZ['owner_title']}"),
-        ("Business address", f"{ADDRESS}, {BIZ['country']}"),
-        ("Customer service", f'<a href="mailto:{BIZ["email"]}">{BIZ["email"]}</a>'
-                             + (f' · <a href="tel:{BIZ["phone"]}">{BIZ["phone"]}</a>' if BIZ["phone"] else "")),
-        ("Support hours", BIZ["hours"]),
-        ("Trademark", f"ABOVE THE NORM®, U.S. Reg. No. {BIZ['tm_reg']}, registered {BIZ['tm_date']} ({BIZ['tm_class']})"),
-        ("Products sold", "Apparel, headwear and accessories, sold online and shipped within the United States"),
-        ("Currency", "U.S. dollars (USD)"),
+        ("Business name", BIZ["legal"]),
+        ("Address", f"{ADDRESS}, {BIZ['country']}"),
+        ("Email", f'<a href="mailto:{BIZ["email"]}">{BIZ["email"]}</a>'),
     ]
+    if BIZ["phone"]:
+        rows.append(("Phone", f'<a href="tel:{BIZ["phone"]}">{BIZ["phone"]}</a>'))
     body = "".join(f"<tr><th scope=\"row\">{k}</th><td>{v}</td></tr>" for k, v in rows)
     return f'<table class="tbl tbl--info"><tbody>{body}</tbody></table>'
 
