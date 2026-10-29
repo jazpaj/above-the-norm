@@ -139,7 +139,6 @@ def footer(r):
   <div class="ftr__bar wrap">
     <p>© 2026 {BIZ['legal']}. All rights reserved. ABOVE THE NORM® is a registered trademark of {BIZ['legal']}, U.S. Reg. No. {BIZ['tm_reg']}.</p>
     <p class="ftr__pay">{ICON['lock']} Secure checkout · Visa · Mastercard · American Express · Discover · Prices in USD</p>
-    <p class="ftr__social"><a href="{BIZ['instagram']}" rel="noopener" target="_blank">Instagram</a><a href="{BIZ['facebook']}" rel="noopener" target="_blank">Facebook</a><a href="{BIZ['x']}" rel="noopener" target="_blank">X</a></p>
   </div>
 </footer>"""
 
