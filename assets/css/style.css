@@ -1,16 +1,17 @@
 /* Above The Norm — storefront styles */
 :root {
-  --bg: #F3F1EC;
-  --surface: #FFFFFF;
-  --tile: #E4E1DA;
-  --ink: #0D0D0E;
-  --ink-2: #26252A;
-  --muted: #6E6A63;
-  --line: #D8D3C9;
-  --night: #09090B;
-  --night-2: #141418;
-  --bone: #EDEAE3;
-  --beam: #F1E6B8;
+  --bg: #F5EFE1;
+  --surface: #FFFCF4;
+  --tile: #E9E1CF;
+  --ink: #141A33;
+  --ink-2: #2B3254;
+  --muted: #6B6879;
+  --line: #DDD3BD;
+  --night: #0F1638;
+  --night-2: #18224D;
+  --bone: #F5EFE1;
+  --beam: #F2C230;
+  --beam-2: #FFD95A;
   --ok: #1F6B3A;
   --err: #A3261B;
   --sans: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
@@ -41,12 +42,12 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 
 /* buttons */
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px; padding: 0 28px; background: var(--ink); color: var(--bone); border: 1px solid var(--ink); font-size: 12px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: background .2s, color .2s, transform .15s var(--ease); }
-.btn:hover { background: var(--ink-2); }
+.btn:hover { background: var(--night-2); }
 .btn:active { transform: scale(.98); }
 .btn[disabled] { opacity: .45; cursor: not-allowed; }
 .btn--block { width: 100%; }
-.btn--light { background: var(--bone); color: var(--ink); border-color: var(--bone); }
-.btn--light:hover { background: #fff; }
+.btn--light { background: var(--beam); color: var(--night); border-color: var(--beam); }
+.btn--light:hover { background: var(--beam-2); border-color: var(--beam-2); }
 .btn--ghost { background: transparent; color: var(--bone); border-color: rgba(237, 234, 227, .35); }
 .btn--ghost:hover { background: rgba(237, 234, 227, .08); }
 .link-btn { background: none; border: 0; padding: 0; text-decoration: underline; cursor: pointer; }
@@ -72,7 +73,7 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .hdr__tool span:not(.hdr__count) { display: none; }
 .hdr__tool:not(.hdr__cart) { display: none; }
 .hdr__tool:hover span { text-decoration: underline; text-underline-offset: 4px; }
-.hdr__count { position: absolute; top: 0; right: -7px; min-width: 17px; height: 17px; padding: 0 4px; border-radius: 9px; background: var(--bone); color: var(--ink); font-size: 10px; font-weight: 700; display: grid; place-items: center; }
+.hdr__count { position: absolute; top: 0; right: -7px; min-width: 17px; height: 17px; padding: 0 4px; border-radius: 9px; background: var(--beam); color: var(--night); font-size: 10px; font-weight: 700; display: grid; place-items: center; }
 .hdr__count[data-zero] { display: none; }
 .hdr__nav { display: none; }
 @media (max-width: 420px) { .brand { gap: 8px; } .brand span { font-size: 14px; } .brand img { width: 20px; } }
@@ -90,10 +91,10 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
   .hdr__nav-in { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gut); display: flex; justify-content: center; gap: clamp(24px, 3.4vw, 52px); }
   .hdr__nav a { display: block; padding: 4px 0 14px; text-decoration: none; font-size: 15px; letter-spacing: .02em; white-space: nowrap; color: rgba(237, 234, 227, .82); border-bottom: 2px solid transparent; transition: color .15s, border-color .15s; }
   .hdr__nav a:hover { color: var(--bone); }
-  .hdr__nav a[aria-current] { color: var(--bone); border-color: var(--bone); }
+  .hdr__nav a[aria-current] { color: var(--bone); border-color: var(--beam); }
 }
 
-.drawer { position: fixed; inset: 0; z-index: 60; background: rgba(9, 9, 11, .5); }
+.drawer { position: fixed; inset: 0; z-index: 60; background: rgba(15, 22, 56, .55); }
 .drawer__panel { width: min(360px, 88vw); height: 100%; background: var(--bg); padding: 18px 28px 32px; overflow-y: auto; animation: slide .3s var(--ease); }
 .drawer__close { background: none; border: 0; padding: 8px; margin-left: -8px; cursor: pointer; }
 .drawer__label { margin: 26px 0 4px; font-size: 11px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
@@ -104,7 +105,7 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 @keyframes slide { from { transform: translateX(-100%); } }
 
 /* hero */
-.hero { position: relative; background: radial-gradient(120% 90% at 75% 40%, #1d1c24 0%, var(--night) 60%); color: var(--bone); overflow: hidden; }
+.hero { position: relative; background: radial-gradient(120% 90% at 75% 40%, #23326f 0%, var(--night) 62%); color: var(--bone); overflow: hidden; }
 .hero__stars { position: absolute; inset: 0; opacity: .55; background-image:
   radial-gradient(1px 1px at 12% 18%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 32% 72%, #fff 50%, transparent 51%),
   radial-gradient(1.5px 1.5px at 58% 12%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 82% 64%, #fff 50%, transparent 51%),
@@ -118,7 +119,7 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .hero__lede { max-width: 460px; font-size: 17px; color: rgba(237, 234, 227, .75); margin-bottom: 30px; }
 .hero__cta { display: flex; flex-wrap: wrap; gap: 12px; }
 .hero__piece { position: relative; display: block; text-decoration: none; justify-self: center; width: min(100%, 560px); }
-.hero__beam { position: absolute; left: 12%; right: 12%; top: -40%; bottom: 6%; background: linear-gradient(180deg, rgba(241, 230, 184, 0) 0%, rgba(241, 230, 184, .2) 60%, rgba(241, 230, 184, .32) 100%); clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%); filter: blur(2px); }
+.hero__beam { position: absolute; left: 12%; right: 12%; top: -40%; bottom: 6%; background: linear-gradient(180deg, rgba(242, 194, 48, 0) 0%, rgba(242, 194, 48, .18) 60%, rgba(242, 194, 48, .34) 100%); clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%); filter: blur(2px); }
 .hero__piece img { position: relative; animation: float 6s ease-in-out infinite; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, .55)); }
 .hero__tag { position: relative; display: block; text-align: center; margin-top: 10px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: rgba(237, 234, 227, .8); }
 .hero__tag em { font-family: var(--serif); font-size: 16px; letter-spacing: 0; text-transform: none; margin-right: 8px; color: var(--beam); }
@@ -403,7 +404,7 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 /* search */
 .hdr__tool { background: none; border: 0; color: inherit; cursor: pointer; }
 .hdr__tool.hdr__search-btn { display: flex; }
-.search { position: fixed; inset: 0; z-index: 70; background: rgba(9, 9, 11, .55); }
+.search { position: fixed; inset: 0; z-index: 70; background: rgba(15, 22, 56, .6); }
 .search__panel { background: var(--bg); padding: 22px 0 30px; max-height: 88vh; overflow-y: auto; animation: drop .25s var(--ease); box-shadow: 0 24px 60px rgba(0, 0, 0, .25); }
 .search__form { display: flex; align-items: center; gap: 14px; border-bottom: 2px solid var(--ink); padding-bottom: 14px; }
 .search__form > svg { width: 24px; height: 24px; }
@@ -423,3 +424,20 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .shop__query { margin: -12px 0 24px; font-size: 14px; color: var(--muted); }
 .shop__query strong { color: var(--ink); }
 @keyframes drop { from { transform: translateY(-16px); opacity: 0; } }
+
+/* Deep Space accents */
+.announce { background: var(--beam); color: var(--night); font-weight: 600; }
+.hdr { border-bottom-color: rgba(242, 194, 48, .25); }
+.ticker { background: var(--night-2); color: var(--beam); border-color: var(--night-2); }
+.kicker { color: #8A6A10; }
+.kicker--light { color: var(--beam); }
+.link-arrow:hover { color: #8A6A10; }
+.card__price { color: var(--ink); }
+.summary__note { color: #8A6A10; }
+.assure__item svg { color: #B8890F; }
+.ftr__tag { color: var(--beam); }
+.ftr__follow svg { color: var(--beam); }
+.cat:hover { border-color: var(--beam); box-shadow: 0 0 0 1px var(--beam); }
+.size[aria-pressed="true"], .chip[aria-pressed="true"] { background: var(--night); border-color: var(--night); }
+.hero__strike::after { background: var(--beam); }
+.manifesto { background: var(--night-2); }
