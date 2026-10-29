@@ -57,16 +57,12 @@ def header(r, active):
         cur = ' aria-current="page"' if key == active else ""
         return f'<a href="{r}{href}"{cur}>{label}</a>'
 
-    left = "".join([
-        nav("shop.html", "Shop All", "shop"),
-        nav("shop.html?g=men", "Men", "men"),
-        nav("shop.html?g=women", "Women", "women"),
-        nav("shop.html?c=tops", "Tops", "tops"),
-        nav("shop.html?c=bottoms", "Bottoms", "bottoms"),
-        nav("shop.html?c=headwear", "Headwear", "headwear"),
-        nav("shop.html?c=accessories", "Accessories", "accessories"),
-    ])
-    right = nav("about.html", "About", "about") + nav("contact.html", "Contact", "contact")
+    cats = nav("shop.html", "Shop All", "shop") + "".join(nav(f"shop.html?c={k}", v, k) for k, v in CATS)
+    shop_cur = ' aria-current="page"' if active in ("shop",) + tuple(k for k, _ in CATS) else ""
+    main = (f'<div class="hdr__drop"><a href="{r}shop.html"{shop_cur} aria-haspopup="true">Shop</a>'
+            f'<div class="hdr__menu" role="menu">{cats}</div></div>'
+            + nav("shop.html?g=men", "Men", "men") + nav("shop.html?g=women", "Women", "women")
+            + nav("about.html", "About", "about") + nav("contact.html", "Contact", "contact"))
     return f"""
 <div class="announce"><div class="announce__track">
   <span>Free U.S. shipping on orders over {money(SHIP['free_over'])}</span><span aria-hidden="true">✦</span>
@@ -76,21 +72,21 @@ def header(r, active):
 <header class="hdr">
   <div class="hdr__in">
     <button class="hdr__burger" type="button" aria-label="Open menu" data-menu-open>{ICON['menu']}</button>
-    <nav class="hdr__nav" aria-label="Shop">{left}</nav>
     <a class="brand" href="{r}index.html" aria-label="{BIZ['brand']} home">
       <img src="{r}assets/img/logo.png" alt="" width="34" height="46">
       <span>Above The Norm<sup>®</sup></span>
     </a>
-    <div class="hdr__right">
-      <nav class="hdr__nav hdr__nav--sm" aria-label="Company">{right}</nav>
-      <a class="hdr__cart" href="{r}cart.html" aria-label="Bag">{ICON['bag']}<span class="hdr__count" data-cart-count>0</span></a>
-    </div>
+    <nav class="hdr__nav" aria-label="Main">{main}</nav>
+    <a class="hdr__cart" href="{r}cart.html" aria-label="Bag">{ICON['bag']}<span class="hdr__cart-label">Bag</span><span class="hdr__count" data-cart-count>0</span></a>
   </div>
 </header>
 <div class="drawer" data-menu hidden>
   <div class="drawer__panel">
     <button class="drawer__close" type="button" aria-label="Close menu" data-menu-close>{ICON['close']}</button>
-    <nav>{left}{right}<a href="{r}faq.html">FAQ</a><a href="{r}cart.html">Bag</a></nav>
+    <p class="drawer__label">Shop</p>
+    <nav>{nav("shop.html?g=men", "Men", "men")}{nav("shop.html?g=women", "Women", "women")}{cats}</nav>
+    <p class="drawer__label">Info</p>
+    <nav class="drawer__sm">{nav("about.html", "About", "about")}{nav("contact.html", "Contact", "contact")}<a href="{r}faq.html">FAQ</a><a href="{r}shipping.html">Shipping</a><a href="{r}returns.html">Returns</a></nav>
   </div>
 </div>"""
 

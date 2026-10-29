@@ -25,21 +25,21 @@
 <header class="hdr">
   <div class="hdr__in">
     <button class="hdr__burger" type="button" aria-label="Open menu" data-menu-open><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/></svg></button>
-    <nav class="hdr__nav" aria-label="Shop"><a href="shop.html" aria-current="page">Shop All</a><a href="shop.html?g=men">Men</a><a href="shop.html?g=women">Women</a><a href="shop.html?c=tops">Tops</a><a href="shop.html?c=bottoms">Bottoms</a><a href="shop.html?c=headwear">Headwear</a><a href="shop.html?c=accessories">Accessories</a></nav>
     <a class="brand" href="index.html" aria-label="Above The Norm home">
       <img src="assets/img/logo.png" alt="" width="34" height="46">
       <span>Above The Norm<sup>®</sup></span>
     </a>
-    <div class="hdr__right">
-      <nav class="hdr__nav hdr__nav--sm" aria-label="Company"><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
-      <a class="hdr__cart" href="cart.html" aria-label="Bag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="hdr__count" data-cart-count>0</span></a>
-    </div>
+    <nav class="hdr__nav" aria-label="Main"><div class="hdr__drop"><a href="shop.html" aria-current="page" aria-haspopup="true">Shop</a><div class="hdr__menu" role="menu"><a href="shop.html" aria-current="page">Shop All</a><a href="shop.html?c=tops">Tops</a><a href="shop.html?c=bottoms">Bottoms</a><a href="shop.html?c=headwear">Headwear</a><a href="shop.html?c=accessories">Accessories</a></div></div><a href="shop.html?g=men">Men</a><a href="shop.html?g=women">Women</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
+    <a class="hdr__cart" href="cart.html" aria-label="Bag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="hdr__cart-label">Bag</span><span class="hdr__count" data-cart-count>0</span></a>
   </div>
 </header>
 <div class="drawer" data-menu hidden>
   <div class="drawer__panel">
     <button class="drawer__close" type="button" aria-label="Close menu" data-menu-close><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-    <nav><a href="shop.html" aria-current="page">Shop All</a><a href="shop.html?g=men">Men</a><a href="shop.html?g=women">Women</a><a href="shop.html?c=tops">Tops</a><a href="shop.html?c=bottoms">Bottoms</a><a href="shop.html?c=headwear">Headwear</a><a href="shop.html?c=accessories">Accessories</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="faq.html">FAQ</a><a href="cart.html">Bag</a></nav>
+    <p class="drawer__label">Shop</p>
+    <nav><a href="shop.html?g=men">Men</a><a href="shop.html?g=women">Women</a><a href="shop.html" aria-current="page">Shop All</a><a href="shop.html?c=tops">Tops</a><a href="shop.html?c=bottoms">Bottoms</a><a href="shop.html?c=headwear">Headwear</a><a href="shop.html?c=accessories">Accessories</a></nav>
+    <p class="drawer__label">Info</p>
+    <nav class="drawer__sm"><a href="about.html">About</a><a href="contact.html">Contact</a><a href="faq.html">FAQ</a><a href="shipping.html">Shipping</a><a href="returns.html">Returns</a></nav>
   </div>
 </div>
 <main id="main">
