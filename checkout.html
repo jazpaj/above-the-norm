@@ -93,7 +93,13 @@
   <aside class="summary">
     <h2>Order summary</h2>
     <div class="summary__lines" data-co-lines></div>
+    <form class="coupon" data-coupon novalidate>
+      <label for="coupon-code">Discount code</label>
+      <div class="coupon__row"><input id="coupon-code" name="code" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Enter code"><button class="btn" type="submit">Apply</button></div>
+      <p class="coupon__msg" data-coupon-msg role="status"></p>
+    </form>
     <dl><div><dt>Subtotal</dt><dd data-co-sub>$0</dd></div>
+    <div class="summary__disc" data-disc-row hidden><dt>Discount <span data-disc-code></span></dt><dd data-disc>−$0</dd></div>
     <div><dt>Shipping</dt><dd data-co-ship>$0</dd></div>
     <div><dt>Sales tax</dt><dd>Calculated before payment</dd></div>
     <div class="summary__total"><dt>Total (USD)</dt><dd data-co-total>$0</dd></div></dl>
@@ -135,6 +141,7 @@
     <p class="ftr__pay"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> Secure checkout · Visa · Mastercard · American Express · Discover · Prices in USD</p>
   </div>
 </footer>
+
 <script src="assets/js/catalog.js"></script>
 <script src="assets/js/app.js"></script>
 </body>

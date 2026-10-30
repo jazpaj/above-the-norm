@@ -20,6 +20,12 @@
   function subtotal(ls) {
     return ls.reduce(function (s, l) { return s + CAT.products[l.id].p[l.size] * l.qty; }, 0);
   }
+  /* discount code: one welcome code, stored so it carries from bag to checkout */
+  var CKEY = "atn_coupon";
+  function store(k, v) { try { if (v == null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) {} }
+  function stored(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function coupon() { var c = CAT.coupon; return c && stored(CKEY) === c.code ? c : null; }
+  function discount(sub) { var c = coupon(); return c ? Math.round(sub * c.pct) / 100 : 0; }
   function shipping(sub, method) {
     if (method === "express") return CAT.ship.express_rate;
     return sub >= CAT.ship.free_over ? 0 : CAT.ship.standard_rate;
@@ -195,6 +201,60 @@
     });
   }
 
+  function showDiscount(scope, sub) {
+    var d = discount(sub), row = scope.querySelector("[data-disc-row]");
+    if (row) {
+      row.hidden = !d;
+      row.querySelector("[data-disc-code]").textContent = d ? "(" + coupon().code + ")" : "";
+      row.querySelector("[data-disc]").textContent = "−" + money(d);
+    }
+    return d;
+  }
+  function couponForm(scope, onChange) {
+    var f = scope.querySelector("[data-coupon]");
+    if (!f) return;
+    var msg = f.querySelector("[data-coupon-msg]");
+    function paint() {
+      var c = coupon();
+      f.code.value = c ? c.code : f.code.value;
+      f.querySelector("button").textContent = c ? "Remove" : "Apply";
+      f.code.readOnly = !!c;
+      if (c) { msg.className = "coupon__msg is-ok"; msg.textContent = c.pct + "% off applied to your merchandise subtotal."; }
+    }
+    f.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      if (coupon()) { store(CKEY, null); f.code.value = ""; msg.className = "coupon__msg"; msg.textContent = "Code removed."; }
+      else {
+        var v = f.code.value.trim().toUpperCase();
+        if (!v) { msg.className = "coupon__msg is-err"; msg.textContent = "Enter a discount code."; return; }
+        if (!CAT.coupon || v !== CAT.coupon.code) { msg.className = "coupon__msg is-err"; msg.textContent = "That code isn't valid."; return; }
+        store(CKEY, v);
+      }
+      paint();
+      onChange();
+    });
+    paint();
+  }
+
+  /* welcome pop-up: once per visitor, a few seconds after the first page view */
+  var promo = document.querySelector("[data-promo]");
+  if (promo && CAT.coupon && !stored("atn_promo_seen")) {
+    var closePromo = function () { promo.hidden = true; document.body.style.overflow = ""; store("atn_promo_seen", "1"); };
+    setTimeout(function () {
+      if (!document.querySelector(".search:not([hidden]), .drawer:not([hidden])")) { promo.hidden = false; document.body.style.overflow = "hidden"; }
+    }, 4000);
+    promo.querySelectorAll("[data-promo-close]").forEach(function (b) { b.addEventListener("click", closePromo); });
+    promo.addEventListener("click", function (ev) { if (ev.target === promo) closePromo(); });
+    document.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && !promo.hidden) closePromo(); });
+    promo.querySelector("[data-promo-shop]").addEventListener("click", function () { store(CKEY, CAT.coupon.code); store("atn_promo_seen", "1"); });
+    promo.querySelector("[data-promo-copy]").addEventListener("click", function (ev) {
+      var b = ev.currentTarget;
+      store(CKEY, CAT.coupon.code);
+      (navigator.clipboard ? navigator.clipboard.writeText(CAT.coupon.code) : Promise.reject()).catch(function () {});
+      b.textContent = "Copied · applied";
+    });
+  }
+
   /* bag page */
   var cartEl = document.querySelector("[data-cart]");
   function renderCart() {
@@ -217,9 +277,10 @@
     }).join("");
     var sub = subtotal(ls);
     cartEl.querySelector("[data-sub]").textContent = money(sub);
-    var ship = shipping(sub, "standard");
+    var net = sub - showDiscount(cartEl, sub);
+    var ship = shipping(net, "standard");
     cartEl.querySelector("[data-ship]").textContent = ship ? money(ship) + " standard" : "Free standard";
-    var left = CAT.ship.free_over - sub;
+    var left = CAT.ship.free_over - net;
     cartEl.querySelector("[data-free-note]").textContent = left > 0 ? "Add " + money(left) + " more for free U.S. shipping." : "Your order ships free.";
   }
   if (cartEl) {
@@ -230,6 +291,7 @@
       setQty(i, b.hasAttribute("data-rm") ? 0 : l.qty + +b.dataset.d);
       renderCart();
     });
+    couponForm(cartEl, renderCart);
     renderCart();
   }
 
@@ -250,13 +312,16 @@
     }
     function totals() {
       var sub = subtotal(ls);
+      var net = sub - showDiscount(coSum, sub);
       var method = co.querySelector("[name=ship]:checked").value;
-      var ship = ls.length ? shipping(sub, method) : 0;
-      co.querySelector("[data-std-price]").textContent = sub >= CAT.ship.free_over ? "Free" : money(CAT.ship.standard_rate);
+      var ship = ls.length ? shipping(net, method) : 0;
+      co.querySelector("[data-std-price]").textContent = net >= CAT.ship.free_over ? "Free" : money(CAT.ship.standard_rate);
       document.querySelector("[data-co-sub]").textContent = money(sub);
       document.querySelector("[data-co-ship]").textContent = ship ? money(ship) : "Free";
-      document.querySelector("[data-co-total]").textContent = money(sub + ship);
+      document.querySelector("[data-co-total]").textContent = money(net + ship);
     }
+    var coSum = document.querySelector(".checkout .summary");
+    couponForm(coSum, totals);
     co.querySelectorAll("[name=ship]").forEach(function (r) { r.addEventListener("change", totals); });
     totals();
 

@@ -47,6 +47,14 @@ SHIP = {
     "cancel_hours": 24,
 }
 
+# Welcome offer shown in the first-visit pop-up and redeemable in the bag/checkout.
+COUPON = {
+    "code": "ABOVE10",
+    "pct": 10,
+    "terms": "10% off the merchandise subtotal of your first order. One code per order, "
+             "can't be combined with other offers, and doesn't apply to shipping or tax.",
+}
+
 CATS = [
     ("tops", "Tops"),
     ("bottoms", "Bottoms"),
@@ -57,6 +65,10 @@ CATS = [
 GENDERS = [("men", "Men"), ("women", "Women")]
 
 FAQ = [
+    ("Do you have a discount code?",
+     f"Yes. New customers can use {COUPON['code']} for {COUPON['pct']}% off their first order. "
+     "Enter it in your bag or at checkout. It applies to the merchandise subtotal only, one code per order, "
+     "and can't be combined with other offers."),
     ("How long until my order ships?",
      f"Every piece is printed and finished in small runs, so orders leave us within {SHIP['processing']}. "
      "You'll get an email with tracking the moment your package is handed to the carrier."),

@@ -112,6 +112,21 @@
     <p class="ftr__pay"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> Secure checkout · Visa · Mastercard · American Express · Discover · Prices in USD</p>
   </div>
 </footer>
+<div class="promo" data-promo hidden role="dialog" aria-modal="true" aria-labelledby="promo-title">
+  <div class="promo__card">
+    <button class="promo__close" type="button" aria-label="Close offer" data-promo-close><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <div class="promo__art" aria-hidden="true"><span>10%</span><small>off</small></div>
+    <div class="promo__body">
+      <p class="kicker">Welcome offer</p>
+      <h2 id="promo-title">Take 10% off your first order</h2>
+      <p>Use this code in your bag or at checkout.</p>
+      <div class="promo__code"><code>ABOVE10</code><button class="btn btn--light" type="button" data-promo-copy>Copy code</button></div>
+      <a class="btn btn--block" href="shop.html" data-promo-shop>Shop now</a>
+      <button class="promo__no" type="button" data-promo-close>No thanks</button>
+      <p class="promo__fine">10% off the merchandise subtotal of your first order. One code per order, can&#x27;t be combined with other offers, and doesn&#x27;t apply to shipping or tax. See <a href="terms.html">Terms</a>.</p>
+    </div>
+  </div>
+</div>
 <script src="assets/js/catalog.js"></script>
 <script src="assets/js/app.js"></script>
 </body>

@@ -441,3 +441,36 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .size[aria-pressed="true"], .chip[aria-pressed="true"] { background: var(--night); border-color: var(--night); }
 .hero__strike::after { background: var(--beam); }
 .manifesto { background: var(--night-2); }
+
+/* welcome pop-up */
+.promo { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; padding: 16px; background: rgba(15, 22, 56, .62); }
+.promo[hidden] { display: none; }
+.promo__card { position: relative; width: 100%; max-width: 760px; max-height: calc(100vh - 32px); overflow-y: auto; display: grid; background: var(--bg); outline: 1px solid rgba(242, 194, 48, .55); box-shadow: 0 30px 80px rgba(0, 0, 0, .45); animation: pop .3s var(--ease); }
+@media (min-width: 700px) { .promo__card { grid-template-columns: 5fr 6fr; } }
+.promo__art { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 150px; padding: 24px; background: var(--night); color: var(--beam); }
+.promo__art span { font-family: var(--display); font-weight: 800; font-size: clamp(64px, 12vw, 120px); line-height: .9; letter-spacing: -.03em; }
+.promo__art small { font-family: "Instrument Serif", serif; font-style: italic; font-size: 28px; color: var(--bone); }
+.promo__body { padding: 30px 26px 24px; }
+.promo__body h2 { font-size: clamp(24px, 3.2vw, 32px); margin: 6px 0 10px; }
+.promo__body > p { margin: 0 0 16px; color: var(--muted); font-size: 14px; }
+.promo__code { display: flex; gap: 8px; margin-bottom: 10px; }
+.promo__code code { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 50px; border: 2px dashed var(--ink); font-family: var(--display); font-weight: 700; font-size: 20px; letter-spacing: .14em; background: var(--surface); }
+.promo__code .btn { padding: 0 18px; }
+.promo__no { display: block; margin: 12px auto 0; background: none; border: 0; color: var(--muted); font: inherit; font-size: 13px; text-decoration: underline; cursor: pointer; }
+.promo__fine { margin: 14px 0 0 !important; font-size: 11px !important; line-height: 1.5; }
+.promo__close { position: absolute; top: 10px; right: 10px; z-index: 1; width: 40px; height: 40px; display: grid; place-items: center; background: var(--bg); border: 0; border-radius: 50%; cursor: pointer; }
+.promo__close svg { width: 20px; height: 20px; }
+@keyframes pop { from { transform: translateY(14px) scale(.98); opacity: 0; } }
+
+/* discount code */
+.coupon { margin: 0 0 16px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+.coupon label { display: block; font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 8px; }
+.coupon__row { display: flex; gap: 8px; }
+.coupon__row input { flex: 1; min-width: 0; min-height: 46px; padding: 0 12px; border: 1px solid var(--line); background: #fff; font: inherit; font-size: 16px; text-transform: uppercase; letter-spacing: .06em; }
+.coupon__row input[readonly] { background: var(--tile); }
+.coupon__row .btn { min-height: 46px; padding: 0 18px; }
+.coupon__msg { margin: 8px 0 0; font-size: 13px; }
+.coupon__msg:empty { display: none; }
+.coupon__msg.is-ok { color: #2E6B3A; }
+.coupon__msg.is-err { color: var(--err); }
+.summary__disc dd { color: #2E6B3A; font-weight: 600; }
