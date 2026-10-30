@@ -65,9 +65,9 @@ def header(r, active):
             + nav("about.html", "About", "about"))
     return f"""
 <div class="announce"><div class="announce__track">
+  <span><a class="announce__offer" href="{r}shop.html" data-apply-coupon>{COUPON['pct']}% off your first order · code <b>{COUPON['code']}</b></a></span><span aria-hidden="true">✦</span>
   <span>Free U.S. shipping on orders over {money(SHIP['free_over'])}</span><span aria-hidden="true">✦</span>
-  <span>Every order ships with tracking</span><span aria-hidden="true">✦</span>
-  <span>Independent since {BIZ['founded']}</span>
+  <span>Every order ships with tracking</span>
 </div></div>
 <header class="hdr">
   <div class="hdr__in">

@@ -236,6 +236,11 @@
     paint();
   }
 
+  /* announcement bar offer: following it applies the code to the bag */
+  document.querySelectorAll("[data-apply-coupon]").forEach(function (l) {
+    l.addEventListener("click", function () { if (CAT.coupon) store(CKEY, CAT.coupon.code); });
+  });
+
   /* welcome pop-up: once per visitor, a few seconds after the first page view */
   var promo = document.querySelector("[data-promo]");
   if (promo && CAT.coupon && !stored("atn_promo_seen")) {

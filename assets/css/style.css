@@ -55,8 +55,8 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 /* announcement */
 .announce { background: var(--night); color: var(--bone); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; overflow: hidden; }
 .announce__track { display: flex; justify-content: center; gap: 22px; padding: 9px var(--gut); white-space: nowrap; }
-.announce__track span:nth-child(n+3) { display: none; }
-@media (min-width: 760px) { .announce__track span:nth-child(n+3) { display: inline; } }
+.announce__track span:nth-child(n+2) { display: none; }
+@media (min-width: 760px) { .announce__track span:nth-child(n+2) { display: inline; } }
 
 /* header */
 .hdr { position: sticky; top: 0; z-index: 40; background: var(--night); color: var(--bone); border-bottom: 1px solid rgba(237, 234, 227, .12); }
@@ -477,3 +477,8 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .coupon__msg.is-ok { color: #2E6B3A; }
 .coupon__msg.is-err { color: var(--err); }
 .summary__disc dd { color: #2E6B3A; font-weight: 600; }
+
+/* announcement bar offer */
+.announce__offer { color: inherit; text-decoration: none; }
+.announce__offer b { display: inline-block; margin-left: 4px; padding: 1px 7px; border: 1px dashed currentColor; font-weight: 700; letter-spacing: .14em; }
+.announce__offer:hover b { background: var(--night); color: var(--beam); border-style: solid; }
