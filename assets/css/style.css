@@ -573,3 +573,9 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .btn--bag[disabled] { background: var(--line); border-color: var(--line); color: var(--muted); box-shadow: none; }
 .chip { border-radius: 999px; padding: 0 18px; border-width: 1.5px; }
 @media (max-width: 480px) { .sizes { gap: 8px; } .size { min-width: 54px; padding: 0 12px; } }
+/* product page lettering: brand display face in mixed case, not tracked-out caps */
+.pdp__sizes-head { align-items: baseline; font-size: 14px; font-weight: 600; letter-spacing: 0; text-transform: none; }
+.pdp__sizes-head > span:first-child { font-family: var(--display); font-weight: 600; font-size: 14px; letter-spacing: -.01em; }
+.size { font-family: var(--display); font-size: 13px; font-weight: 600; letter-spacing: -.01em; }
+.qty input { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.btn--bag { font-family: var(--display); font-size: 15px; font-weight: 600; letter-spacing: -.01em; text-transform: none; }
