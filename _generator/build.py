@@ -121,6 +121,8 @@ def header(r, active):
       <div class="hdr__drop hdr__drop--mega">{nav("shop.html?g=women", "Women", "women")}{mega(r, "women")}</div>
       {nav("about.html", "About", "about")}{nav("contact.html", "Contact", "contact")}
     </nav>
+    <a class="hdr__back" href="{r}cart.html">← Back to bag</a>
+    <span class="hdr__secure">{ICON['lock']} Secure checkout</span>
     <div class="hdr__tools">
       <button class="hdr__tool" type="button" aria-label="Search" data-search-open>{ICON['search']}</button>
       <a class="hdr__tool hdr__cart" href="{r}cart.html" aria-label="Bag">{ICON['bag']}<span class="hdr__count" data-cart-count>0</span></a>
@@ -571,14 +573,22 @@ def build_checkout():
               "NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY").split()
     opts = "".join(f"<option>{s}</option>" for s in states)
     body = f"""
-<section class="page-hero wrap"><p class="kicker">Secure checkout</p><h1>Checkout</h1></section>
+<section class="wrap co-top">
+  <h1>Checkout</h1>
+  <ol class="costeps" data-costeps>
+    <li class="is-done"><a href="cart.html">Bag</a></li>
+    <li data-step="1" class="is-on">Details</li>
+    <li data-step="3">Delivery</li>
+    <li data-step="4">Payment</li>
+  </ol>
+</section>
 <section class="wrap checkout">
   <form class="co" data-checkout-form novalidate>
-    <fieldset><legend>1. Contact</legend>
+    <fieldset data-fs="1"><legend><span>1</span>Contact</legend>
       <label>Email<input type="email" name="email" autocomplete="email" required></label>
       <label>Phone<input type="tel" name="phone" autocomplete="tel" required></label>
     </fieldset>
-    <fieldset><legend>2. Shipping address</legend>
+    <fieldset data-fs="2"><legend><span>2</span>Shipping address</legend>
       <div class="co__two"><label>First name<input name="first" autocomplete="given-name" required></label><label>Last name<input name="last" autocomplete="family-name" required></label></div>
       <label>Address<input name="address1" autocomplete="address-line1" required></label>
       <label>Apartment, suite, etc. (optional)<input name="address2" autocomplete="address-line2"></label>
@@ -587,12 +597,12 @@ def build_checkout():
       <label>ZIP code<input name="zip" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{{5}}(-[0-9]{{4}})?" required></label></div>
       <label>Country<input name="country" value="United States" readonly></label>
     </fieldset>
-    <fieldset><legend>3. Delivery</legend>
+    <fieldset data-fs="3"><legend><span>3</span>Delivery</legend>
       <label class="radio"><input type="radio" name="ship" value="standard" checked><span><strong>Standard</strong> {SHIP['standard_time']}</span><em data-std-price>{money(SHIP['standard_rate'])}</em></label>
       <label class="radio"><input type="radio" name="ship" value="express"><span><strong>Express</strong> {SHIP['express_time']}</span><em>{money(SHIP['express_rate'])}</em></label>
       <p class="co__note">All orders are produced and dispatched within {SHIP['processing']} before transit.</p>
     </fieldset>
-    <fieldset><legend>4. Payment</legend>
+    <fieldset data-fs="4"><legend><span>4</span>Payment</legend>
       <div class="co__pay">{ICON['lock']}<div><strong>Card payment</strong><p>Card details are entered in a secure, encrypted form provided by our payment processor. {BIZ['brand']} never sees or stores your full card number.</p></div></div>
       <!-- Card inputs have no "name", so their values are never submitted or saved. Swap for the processor's hosted fields when connected. -->
       <div class="co__card" data-card-fields aria-label="Card details">
@@ -606,7 +616,7 @@ def build_checkout():
     <button class="btn btn--block btn--cta" type="submit" data-place>{ICON['lock']}<span>Place order</span></button>
     <p class="co__msg" data-co-msg role="status"></p>
   </form>
-  <aside class="summary">
+  <aside class="summary summary--dark">
     <h2>Order summary</h2>
     <div class="summary__lines" data-co-lines></div>
     {coupon_box()}
@@ -619,7 +629,7 @@ def build_checkout():
   </aside>
 </section>
 """
-    page("checkout.html", "Checkout", "Secure checkout for Above The Norm orders.", body)
+    page("checkout.html", "Checkout", "Secure checkout for Above The Norm orders.", body, cls="checkout-page")
 
 
 def prose(path, title, kicker, desc, html, side=True):

@@ -585,6 +585,34 @@
     });
   }
 
+  /* checkout progress: highlight the step for the section in view; click a step to jump to it */
+  var steps = document.querySelector("[data-costeps]");
+  if (steps) {
+    var stepFor = { 1: "1", 2: "1", 3: "3", 4: "4" };
+    var fieldsets = Array.prototype.slice.call(document.querySelectorAll("[data-fs]"));
+    var setStep = function (s) {
+      var reached = true;
+      steps.querySelectorAll("[data-step]").forEach(function (li) {
+        li.classList.toggle("is-on", li.dataset.step === s);
+        li.classList.toggle("is-done", reached && li.dataset.step !== s);
+        if (li.dataset.step === s) reached = false;
+      });
+    };
+    var track = function () {
+      var line = innerHeight * 0.4, cur = fieldsets[0];
+      fieldsets.forEach(function (fs) { if (fs.getBoundingClientRect().top <= line) cur = fs; });
+      setStep(stepFor[cur.dataset.fs]);
+    };
+    window.addEventListener("scroll", track, { passive: true });
+    track();
+    steps.querySelectorAll("[data-step]").forEach(function (li) {
+      li.addEventListener("click", function () {
+        var fs = document.querySelector('[data-fs="' + li.dataset.step + '"]');
+        if (fs) window.scrollTo({ top: fs.getBoundingClientRect().top + scrollY - 110, behavior: "smooth" });
+      });
+    });
+  }
+
   /* contact form: opens the visitor's email app, addressed to support */
   var cf = document.querySelector("[data-contact-form]");
   if (cf) {
