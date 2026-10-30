@@ -564,10 +564,12 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .qty input { width: 32px; font-size: 16px; font-weight: 600; color: var(--ink); }
 .line__ctrl .qty { padding: 2px; }
 .line__ctrl .qty button { width: 32px; height: 32px; }
-.btn--bag { min-height: 56px; border-radius: 999px; background: var(--beam); border-color: var(--beam); color: var(--night); font-size: 13px; gap: 10px; box-shadow: 0 8px 20px rgba(15, 22, 56, .12); }
+.btn--bag { min-height: 56px; border-radius: 999px; background: var(--night); border-color: var(--night); color: var(--bone); font-size: 13px; gap: 10px; box-shadow: 0 8px 20px rgba(15, 22, 56, .12); }
 .btn--bag svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.8; }
-.btn--bag:hover { background: var(--beam-2); border-color: var(--beam-2); box-shadow: 0 10px 26px rgba(15, 22, 56, .18); }
-.btn--bag.is-added { background: var(--night); border-color: var(--night); color: var(--beam); }
+.btn--bag:hover { background: var(--night-2); border-color: var(--night-2); box-shadow: 0 10px 26px rgba(15, 22, 56, .24); }
+.btn--bag svg { color: var(--beam); }
+.btn--bag.is-added, .btn--bag.is-added:hover { background: var(--beam); border-color: var(--beam); color: var(--night); }
+.btn--bag.is-added svg { color: var(--night); }
 .btn--bag[disabled] { background: var(--line); border-color: var(--line); color: var(--muted); box-shadow: none; }
 .chip { border-radius: 999px; padding: 0 18px; border-width: 1.5px; }
 @media (max-width: 480px) { .sizes { gap: 8px; } .size { min-width: 54px; padding: 0 12px; } }
