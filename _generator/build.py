@@ -108,7 +108,7 @@ def header(r, active):
 def footer(r):
     def col(title, links):
         items = "".join(f'<li><a href="{r}{h}">{t}</a></li>' for h, t in links)
-        return f'<div class="ftr__col"><h3>{title}</h3><ul>{items}</ul></div>'
+        return f'<nav class="ftr__col" aria-label="{title}"><ul>{items}</ul></nav>'
     shop = [("shop.html", "Shop All"), ("shop.html?g=men", "Men"), ("shop.html?g=women", "Women")] + [(f"shop.html?c={k}", v) for k, v in CATS]
     help_ = [("contact.html", "Contact Us"), ("faq.html", "FAQ"), ("size-guide.html", "Size Guide"),
              ("shipping.html", "Shipping Policy"), ("returns.html", "Returns &amp; Refunds")]
@@ -119,19 +119,21 @@ def footer(r):
   <div class="ftr__main wrap">
     <div class="ftr__brand">
       <a class="ftr__logo" href="{r}index.html"><img src="{r}assets/img/logo.png" alt="" width="26" height="35"><span>Above The Norm<sup>®</sup></span></a>
-      <p>Independent streetwear, printed in small runs since {BIZ['founded']}.</p>
-      <a class="ftr__ig" href="{BIZ['instagram']}" rel="noopener" target="_blank" aria-label="Follow us on Instagram">{ICON['instagram']}<span>Follow us</span></a>
+      <p>Refuse to be normal.</p>
     </div>
-    {col("Shop", shop)}
-    {col("Help", help_)}
-    {col("Company", company)}
-    <div class="ftr__col"><h3>Contact</h3><ul class="ftr__contact">
-      <li><a href="mailto:{BIZ['email']}">{BIZ['email']}</a></li>{phone}
-      <li>{BIZ['legal']}<br>{BIZ['street']}<br>{BIZ['city']}, {BIZ['state']} {BIZ['zip']}</li></ul></div>
+    <div class="ftr__cols">
+      {col("Shop", shop)}
+      {col("Help", help_)}
+      {col("Company", company)}
+      <div class="ftr__col ftr__contact"><ul>
+        <li><a href="mailto:{BIZ['email']}">{BIZ['email']}</a></li>{phone}
+        <li>{BIZ['legal']}<br>{BIZ['street']}<br>{BIZ['city']}, {BIZ['state']} {BIZ['zip']}</li></ul></div>
+    </div>
   </div>
   <div class="ftr__bar wrap">
-    <p>© 2026 {BIZ['legal']}. ABOVE THE NORM® is a registered trademark, U.S. Reg. No. {BIZ['tm_reg']}.</p>
-    <p class="ftr__pay">{ICON['lock']} Secure checkout · Visa · Mastercard · American Express · Discover</p>
+    <a class="ftr__ig" href="{BIZ['instagram']}" rel="noopener" target="_blank" aria-label="Follow us on Instagram">{ICON['instagram']}</a>
+    <p>© 2026 {BIZ['legal']}. All rights reserved. ABOVE THE NORM® is a registered trademark, U.S. Reg. No. {BIZ['tm_reg']}.</p>
+    <p class="ftr__pay"><span>{ICON['lock']} Secure checkout</span> · Visa · Mastercard · American Express · Discover</p>
   </div>
 </footer>"""
 
