@@ -202,6 +202,10 @@
       add(id, chosen, Math.max(1, Math.min(10, +qtyIn.value || 1)));
       msg.className = "pdp__msg is-ok";
       msg.innerHTML = "Added to your bag. <a href=\"" + ROOT + "cart.html\">View bag</a>";
+      var btn = pdp.querySelector("[data-add]"), label = btn.querySelector("[data-add-label]");
+      btn.classList.add("is-added"); label.textContent = "Added ✓";
+      clearTimeout(btn._t);
+      btn._t = setTimeout(function () { btn.classList.remove("is-added"); label.textContent = "Add to bag"; }, 1600);
     });
   }
 

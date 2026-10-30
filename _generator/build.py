@@ -478,7 +478,7 @@ def build_products():
     <div class="sizes" role="group" aria-label="Size">{sizes}</div>
     <div class="pdp__buy">
       <div class="qty"><button type="button" data-qty="-1" aria-label="Decrease quantity">−</button><input type="number" value="1" min="1" max="10" aria-label="Quantity" data-qty-input><button type="button" data-qty="1" aria-label="Increase quantity">+</button></div>
-      <button type="button" class="btn btn--block" data-add {'disabled' if not p['in_stock'] else ''}>{'Add to bag' if p['in_stock'] else 'Sold out'}</button>
+      <button type="button" class="btn btn--block btn--bag" data-add {'disabled' if not p['in_stock'] else ''}>{ICON['bag']}<span data-add-label>{'Add to bag' if p['in_stock'] else 'Sold out'}</span></button>
     </div>
     <p class="pdp__msg" data-msg role="status"></p>
     <ul class="pdp__facts">
