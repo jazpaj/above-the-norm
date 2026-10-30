@@ -59,10 +59,7 @@ def header(r, active):
         return f'<a href="{r}{href}"{cur}>{label}</a>'
 
     cats = nav("shop.html", "Shop All", "shop") + "".join(nav(f"shop.html?c={k}", v, k) for k, v in CATS)
-    main = (nav("shop.html", "Shop All", "shop") + nav("shop.html?g=men", "Men", "men")
-            + nav("shop.html?g=women", "Women", "women")
-            + "".join(nav(f"shop.html?c={k}", v, k) for k, v in CATS)
-            + nav("about.html", "About", "about"))
+
     return f"""
 <div class="announce"><div class="announce__track">
   <span><a class="announce__offer" href="{r}shop.html" data-apply-coupon>{COUPON['pct']}% off your first order · code <b>{COUPON['code']}</b></a></span><span aria-hidden="true">✦</span>
@@ -76,13 +73,18 @@ def header(r, active):
       <img src="{r}assets/img/logo.png" alt="" width="34" height="46">
       <span>Above The Norm<sup>®</sup></span>
     </a>
+    <nav class="hdr__nav" aria-label="Main">
+      <div class="hdr__drop">
+        <a class="hdr__drop-btn" href="{r}shop.html" aria-haspopup="true">Shop <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+        <div class="hdr__menu">{cats}</div>
+      </div>
+      {nav("shop.html?g=men", "Men", "men")}{nav("shop.html?g=women", "Women", "women")}{nav("about.html", "About", "about")}{nav("contact.html", "Contact", "contact")}
+    </nav>
     <div class="hdr__tools">
-      <button class="hdr__tool hdr__search-btn" type="button" aria-label="Search" data-search-open>{ICON['search']}<span>Search</span></button>
-      <a class="hdr__tool" href="{r}contact.html">{ICON['mail']}<span>Contact</span></a>
-      <a class="hdr__tool hdr__cart" href="{r}cart.html" aria-label="Bag">{ICON['bag']}<span>Bag</span><span class="hdr__count" data-cart-count>0</span></a>
+      <button class="hdr__tool" type="button" aria-label="Search" data-search-open>{ICON['search']}</button>
+      <a class="hdr__tool hdr__cart" href="{r}cart.html" aria-label="Bag">{ICON['bag']}<span class="hdr__count" data-cart-count>0</span></a>
     </div>
   </div>
-  <nav class="hdr__nav" aria-label="Main"><div class="hdr__nav-in">{main}</div></nav>
 </header>
 <div class="search" data-search hidden>
   <div class="search__panel" role="dialog" aria-modal="true" aria-label="Search products">
