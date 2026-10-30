@@ -37,7 +37,7 @@ UPDATED = "October 30, 2026"
 
 SHIP = {
     "processing": "7 to 14 business days",
-    "processing_short": "1–2 weeks",
+    "processing_short": "7–14 business days",
     "standard_rate": 8.00,
     "free_over": 150.00,
     "standard_time": "3 to 7 business days after dispatch",
@@ -74,7 +74,7 @@ FAQ = [
      f"Every piece is printed and finished in small runs, so orders leave us within {SHIP['processing']}. "
      "You'll get an email with tracking the moment your package is handed to the carrier."),
     ("What does shipping cost?",
-     f"Standard U.S. shipping is ${SHIP['standard_rate']:.0f}, and free on orders over ${SHIP['free_over']:.0f}. "
+     f"Standard U.S. shipping is ${SHIP['standard_rate']:.0f}, and free on orders of ${SHIP['free_over']:.0f} or more after discounts. "
      f"Express is ${SHIP['express_rate']:.0f}. The exact cost is always shown before you pay."),
     ("Can I return or exchange something?",
      "All sales are final, so please check the size guide before ordering. If your order arrives damaged, "

@@ -66,7 +66,7 @@ def header(r, active):
     return f"""
 <div class="announce"><div class="announce__track">
   <span><a class="announce__offer" href="{r}shop.html" data-apply-coupon>{COUPON['pct']}% off your first order · code <b>{COUPON['code']}</b></a></span><span aria-hidden="true">✦</span>
-  <span>Free U.S. shipping on orders over {money(SHIP['free_over'])}</span><span aria-hidden="true">✦</span>
+  <span>Free U.S. shipping on orders {money(SHIP['free_over'])}+</span><span aria-hidden="true">✦</span>
   <span>Every order ships with tracking</span>
 </div></div>
 <header class="hdr">
@@ -314,7 +314,7 @@ def build_home():
   <div class="wrap manifesto__grid">
     <p class="manifesto__quote">“For the ones who were never <em>built to blend in.</em>”</p>
     <div class="manifesto__cols">
-      <div><span>01</span><h3>Designed, not templated</h3><p>Every graphic starts as an original illustration. No stock art, no recycled blanks with a logo slapped on.</p></div>
+      <div><span>01</span><h3>Designed, not templated</h3><p>Every graphic starts as an original illustration. No stock art, no generic designs with a logo slapped on.</p></div>
       <div><span>02</span><h3>Small runs</h3><p>We produce in limited quantities so pieces stay special and nothing ends up in a landfill sale bin.</p></div>
       <div><span>03</span><h3>Heavy and built to last</h3><p>Heavyweight cottons, puff and screen prints, sewn-in labels. Clothes that get better with every wash.</p></div>
     </div>
@@ -415,11 +415,11 @@ def build_products():
     </div>
     <p class="pdp__msg" data-msg role="status"></p>
     <ul class="pdp__facts">
-      <li>{ICON['truck']} Ships in {SHIP['processing_short']} · free U.S. shipping over {money(SHIP['free_over'])}</li>
+      <li>{ICON['truck']} Ships in {SHIP['processing_short']} · free U.S. shipping on orders {money(SHIP['free_over'])}+</li>
       <li>{ICON['lock']} Secure, encrypted checkout</li>
     </ul>
     <details class="acc" open><summary>Details &amp; care</summary><ul>{details}<li>Wash cold, inside out. Air dry or tumble dry low.</li></ul></details>
-    <details class="acc"><summary>Shipping</summary><p>Orders are produced and dispatched within {SHIP['processing']}. Standard U.S. delivery takes {SHIP['standard_time']} and costs {money(SHIP['standard_rate'])}, free over {money(SHIP['free_over'])}. <a href="../shipping.html">Full shipping policy</a>.</p></details>
+    <details class="acc"><summary>Shipping</summary><p>Orders are produced and dispatched within {SHIP['processing']}. Standard U.S. delivery takes {SHIP['standard_time']} and costs {money(SHIP['standard_rate'])}, free on orders of {money(SHIP['free_over'])} or more. <a href="../shipping.html">Full shipping policy</a>.</p></details>
     <details class="acc"><summary>Returns &amp; refunds</summary><p>All sales are final. If your item arrives damaged, defective or isn't what you ordered, email us within {SHIP['claim_days']} days of delivery for a replacement or full refund. <a href="../returns.html">Returns &amp; refunds policy</a>.</p></details>
   </div>
 </section>
@@ -454,7 +454,7 @@ def build_cart():
 
 
 def build_checkout():
-    states = ("AL AK AZ AR CA CO CT DE DC FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY "
+    states = ("AA AE AP AL AK AZ AR CA CO CT DE DC FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY "
               "NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY").split()
     opts = "".join(f"<option>{s}</option>" for s in states)
     body = f"""
@@ -545,7 +545,7 @@ def build_policies():
 <p>Our pieces are printed and finished in small runs. Orders are produced, packed and dispatched within <strong>{s['processing']}</strong> of purchase (excluding weekends and U.S. federal holidays). Processing time for each item is also shown on its product page.</p>
 <h2>Shipping rates and delivery times</h2>
 <table class="tbl"><thead><tr><th>Method</th><th>Cost</th><th>Transit time</th></tr></thead><tbody>
-<tr><td>Standard</td><td>{money(s['standard_rate'])}, free on orders over {money(s['free_over'])}</td><td>{s['standard_time']}</td></tr>
+<tr><td>Standard</td><td>{money(s['standard_rate'])}, free on orders of {money(s['free_over'])} or more (after discounts)</td><td>{s['standard_time']}</td></tr>
 <tr><td>Express</td><td>{money(s['express_rate'])}</td><td>{s['express_time']}</td></tr>
 </tbody></table>
 <p>The shipping cost for your order is always shown at checkout before you pay.</p>
@@ -611,11 +611,11 @@ def build_policies():
 <p>We try to describe and photograph every product accurately, but colors may vary slightly between screens. All prices are in U.S. dollars and do not include shipping or applicable sales tax, which are shown at checkout before you pay. We may change prices at any time, but changes won't affect orders already placed.</p>
 <p><strong>Discount codes.</strong> Promotional codes, including our welcome code {COUPON['code']}, give the stated discount on the merchandise subtotal only, not on shipping or tax. One code per order. Codes can't be combined, exchanged for cash or applied to past orders, and may be withdrawn at any time. If an order using a code is refunded, the refund is the amount you actually paid.</p>
 <h2>3. Orders</h2>
-<p>Your order is an offer to buy. We accept it when we send a shipping confirmation. We may refuse or cancel an order, for example if a product is unavailable, there's an obvious pricing error, or we suspect fraud. If we cancel after you've been charged, we'll refund you in full.</p>
+<p>Your order is an offer to buy. We accept it when we email you an order confirmation. We may refuse or cancel an order, for example if a product is unavailable, there's an obvious pricing error, or we suspect fraud. If we cancel after you've been charged, we'll refund you in full.</p>
 <h2>4. Payment</h2>
 <p>We accept major credit and debit cards. Payment is taken at the time of order through our third-party payment processor. You confirm that you are authorized to use the payment method you provide.</p>
 <h2>5. Shipping, returns and refunds</h2>
-<p>Shipping is governed by our <a href="shipping.html">Shipping Policy</a>, and returns, cancellations and refunds by our <a href="returns.html">Returns &amp; Refunds Policy</a>. Both are part of these Terms. Title and risk of loss pass to you when the order is delivered to the carrier.</p>
+<p>Shipping is governed by our <a href="shipping.html">Shipping Policy</a>, and returns, cancellations and refunds by our <a href="returns.html">Returns &amp; Refunds Policy</a>. Both are part of these Terms. Title and risk of loss pass to you when the order is delivered to your shipping address.</p>
 <h2>6. Intellectual property</h2>
 <p>ABOVE THE NORM® is a registered trademark of {BIZ['legal']} (U.S. Reg. No. {BIZ['tm_reg']}). All designs, graphics, photos, text and logos on this site belong to us or our licensors and may not be copied, reproduced or used without written permission.</p>
 <h2>7. Acceptable use</h2>
@@ -659,7 +659,7 @@ def build_about():
 <p class="lede">Above The Norm started in {BIZ['founded']} with one idea: the people who don't fit in are usually the ones worth paying attention to.</p>
 <p>We make streetwear for outsiders, believers, late-night thinkers and anyone who's ever been told to just be normal. Our graphics pull from angels and aliens, old Hollywood, church flyers and back-yard UFO sightings, and turn them into pieces you'll want to wear until they fall apart.</p>
 <h2>How we make things</h2>
-<p>Every design is drawn in-house. We print in small runs on heavyweight blanks, with screen printing, puff print and embroidery, and add our own sewn-in labels. Producing in limited quantities means less waste, and it's why most orders ship within {SHIP['processing_short']}: your piece is finished for you, not pulled from a warehouse of overstock.</p>
+<p>Every design is drawn in-house. We print in small runs on heavyweight blanks, with screen printing, puff print and embroidery, and add our own sewn-in labels. Producing in limited quantities means less waste, and it's why orders ship within {SHIP['processing_short']}: your piece is finished for you, not pulled from a warehouse of overstock.</p>
 <h2>Who we are</h2>
 <p>Above The Norm is a registered trademark of {BIZ['legal']} (U.S. Reg. No. {BIZ['tm_reg']}). We're an independent, owner-operated brand: no investors, no licensing deals, just a small team and a community we call the #ATNFAMILY.</p>
 <div class="facts">
