@@ -125,12 +125,15 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .hero__tag em { font-family: var(--serif); font-size: 16px; letter-spacing: 0; text-transform: none; margin-right: 8px; color: var(--beam); }
 @keyframes float { 50% { transform: translateY(-14px); } }
 @media (min-width: 900px) { .hero__grid { grid-template-columns: 1.1fr 1fr; } }
-@media (prefers-reduced-motion: reduce) { .hero__piece img, .ticker__track { font-family: var(--display); animation: none !important; } }
+@media (prefers-reduced-motion: reduce) { .hero__piece img { animation: none !important; } }
 
 /* ticker */
 .ticker { background: var(--beam); color: var(--ink); overflow: hidden; border-block: 1px solid var(--ink); }
-.ticker__track { display: flex; gap: 28px; width: max-content; padding: 12px 0; animation: tick 40s linear infinite; font-weight: 700; font-size: 15px; text-transform: uppercase; letter-spacing: .06em; white-space: nowrap; }
+.ticker__track { display: flex; width: max-content; padding: 12px 0; animation: tick 40s linear infinite; font-weight: 700; font-size: 15px; text-transform: uppercase; letter-spacing: .06em; white-space: nowrap; }
 @keyframes tick { to { transform: translateX(-50%); } }
+.ticker__track > span { padding-right: 28px; }
+.ticker:hover .ticker__track { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) { .ticker__track { animation-duration: 90s; } }
 
 /* sections */
 .block { padding-top: clamp(56px, 8vw, 104px); }
