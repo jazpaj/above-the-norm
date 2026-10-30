@@ -557,7 +557,7 @@ def build_cart():
     <div class="summary__disc" data-disc-row hidden><dt>Discount <span data-disc-code></span></dt><dd data-disc>−$0</dd></div>
     <div><dt>Shipping</dt><dd data-ship>Calculated at checkout</dd></div></dl>
     <p class="summary__note" data-free-note></p>
-    <a class="btn btn--block" href="checkout.html" data-checkout>Checkout</a>
+    <a class="btn btn--block btn--cta" href="checkout.html" data-checkout>{ICON['lock']}<span>Checkout</span></a>
     <p class="summary__fine">Prices in USD. Sales tax, where applicable, is shown before payment. By checking out you agree to our <a href="terms.html">Terms of Service</a> and <a href="returns.html">Returns &amp; Refunds Policy</a>.</p>
   </aside>
   <div class="cart__empty" data-cart-empty hidden><p>Your bag is empty.</p><a class="btn" href="shop.html">Continue shopping</a></div>
@@ -603,7 +603,7 @@ def build_checkout():
       </div>
     </fieldset>
     <label class="check"><input type="checkbox" name="agree" required><span>I have read and agree to the <a href="terms.html" target="_blank">Terms of Service</a>, <a href="returns.html" target="_blank">Returns &amp; Refunds Policy</a> (all sales final, except damaged, defective or incorrect items) and <a href="privacy.html" target="_blank">Privacy Policy</a>.</span></label>
-    <button class="btn btn--block" type="submit" data-place>Place order</button>
+    <button class="btn btn--block btn--cta" type="submit" data-place>{ICON['lock']}<span>Place order</span></button>
     <p class="co__msg" data-co-msg role="status"></p>
   </form>
   <aside class="summary">

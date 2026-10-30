@@ -713,3 +713,25 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .tbar__btn[aria-expanded="true"] .tbar__chev { transform: rotate(180deg); }
 @media (max-width: 560px) { .tbar__btn { min-height: 36px; padding: 0 10px 0 12px; font-size: 13px; gap: 6px; } .tbar__ico { display: none; } }
 .search__clear[hidden] { display: none; }
+
+/* bag + checkout: same rounded navy buttons, brand lettering and soft panels as the product page */
+.btn--cta, .cart .btn, .checkout .btn, .cart__empty .btn { border-radius: 999px; background: var(--night); border-color: var(--night); color: var(--bone); font-family: var(--display); font-weight: 600; font-size: 15px; letter-spacing: -.01em; text-transform: none; }
+.btn--cta { min-height: 56px; gap: 10px; box-shadow: 0 8px 20px rgba(15, 22, 56, .12); }
+.btn--cta svg { width: 17px; height: 17px; fill: none; stroke: var(--beam); stroke-width: 1.8; }
+.btn--cta:hover, .cart .btn:hover, .checkout .btn:hover { background: var(--night-2); border-color: var(--night-2); }
+.btn--cta[disabled] { background: var(--line); border-color: var(--line); color: var(--muted); box-shadow: none; }
+.btn--cta[disabled] svg { stroke: currentColor; }
+.coupon__row .btn { min-height: 46px; padding: 0 20px; font-size: 14px; }
+.coupon__row input { border: 1.5px solid var(--line); border-radius: 999px; padding: 0 18px; background: var(--surface); }
+.coupon__row input:focus { outline: none; border-color: var(--night); }
+.summary { border-radius: 20px; box-shadow: 0 12px 30px rgba(15, 22, 56, .06); }
+.co input, .co select, .co textarea { border: 1.5px solid var(--line); border-radius: 14px; }
+.co input:focus, .co select:focus, .co textarea:focus { border-color: var(--night); box-shadow: 0 0 0 4px rgba(15, 22, 56, .08); }
+.co .radio { border: 1.5px solid var(--line); border-radius: 16px; transition: border-color .15s, background .15s; }
+.co .radio:has(input:checked) { border-color: var(--night); background: var(--surface); box-shadow: 0 0 0 1px var(--night); }
+.co .radio input, .co .check input { accent-color: var(--night); }
+.co__pay { border-radius: 16px; }
+.co label { letter-spacing: .04em; }
+.co__msg.is-info { border-radius: 16px; }
+.line__img { border-radius: 14px; overflow: hidden; }
+.sline img { border-radius: 10px; }
