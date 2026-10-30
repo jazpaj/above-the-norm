@@ -399,19 +399,5 @@
     if (pdpEl) { var h1 = pdpEl.querySelector("h1"); if (h1) h1.after(starEl(pdpEl.dataset.product, true)); }
   }
 
-  /* footer wordmark: size it to span the full width */
-  var fit = document.querySelector("[data-fit]");
-  if (fit) {
-    var fitMark = function () {
-      fit.style.fontSize = "";
-      var box = fit.parentNode, cs = getComputedStyle(box);
-      var room = box.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
-      fit.style.fontSize = (parseFloat(getComputedStyle(fit).fontSize) * room * 0.995 / fit.offsetWidth) + "px";
-    };
-    fitMark();
-    if (document.fonts) document.fonts.ready.then(fitMark);
-    window.addEventListener("resize", fitMark);
-  }
-
   badge();
 })();
