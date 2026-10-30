@@ -63,8 +63,8 @@ def background_mask(im, thresh, near_white):
     # rim where product meets backdrop stays white and reads as a halo.
     # Dilate the mask a couple of pixels to swallow that rim, then feather.
     # Those rim pixels are part backdrop anyway, so tinting them is correct.
-    mask = mask.filter(ImageFilter.MaxFilter(5))
-    return mask.filter(ImageFilter.GaussianBlur(1.2))
+    mask = mask.filter(ImageFilter.MaxFilter(9))
+    return mask.filter(ImageFilter.GaussianBlur(1.6))
 
 
 def recolour(path, target, thresh, near_white, out=None):
