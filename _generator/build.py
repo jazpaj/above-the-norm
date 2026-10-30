@@ -147,7 +147,7 @@ def promo(r):
     return f"""<div class="promo" data-promo hidden role="dialog" aria-modal="true" aria-labelledby="promo-title">
   <div class="promo__card">
     <button class="promo__close" type="button" aria-label="Close offer" data-promo-close>{ICON['close']}</button>
-    <div class="promo__art" aria-hidden="true"><span>{COUPON['pct']}%</span><small>off</small></div>
+    <div class="promo__art" aria-hidden="true"><img src="{r}assets/img/products/{COUPON['image']}" alt="" loading="lazy" width="1000" height="1000"><span>{COUPON['pct']}%</span><small>off your first order</small></div>
     <div class="promo__body">
       <p class="kicker">Welcome offer</p>
       <h2 id="promo-title">Take {COUPON['pct']}% off your first order</h2>

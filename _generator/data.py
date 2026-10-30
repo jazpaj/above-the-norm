@@ -51,6 +51,7 @@ SHIP = {
 COUPON = {
     "code": "ABOVE10",
     "pct": 10,
+    "image": "levitate-above-the-norm-hoodie-white-3.webp",  # pop-up photo, from the real catalogue
     "terms": "10% off the merchandise subtotal of your first order. One code per order, "
              "can't be combined with other offers, and doesn't apply to shipping or tax.",
 }

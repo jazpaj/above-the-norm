@@ -239,6 +239,8 @@
   /* welcome pop-up: once per visitor, a few seconds after the first page view */
   var promo = document.querySelector("[data-promo]");
   if (promo && CAT.coupon && !stored("atn_promo_seen")) {
+    var pImg = promo.querySelector("img");
+    if (pImg) pImg.loading = "eager"; // fetch the photo now so it's ready when the pop-up opens
     var closePromo = function () { promo.hidden = true; document.body.style.overflow = ""; store("atn_promo_seen", "1"); };
     setTimeout(function () {
       if (!document.querySelector(".search:not([hidden]), .drawer:not([hidden])")) { promo.hidden = false; document.body.style.overflow = "hidden"; }
