@@ -256,6 +256,15 @@ def page(path, title, desc, body, active="", cls=""):
 
 # ---------------------------------------------------------------- components
 
+# Swatch dots for the product page colour label.
+SWATCH = {"Black": "#151515", "Washed Black": "#3A3A3C", "White": "#FFFFFF", "Cream": "#F3EAD3", "Natural": "#EDE3CC",
+          "Sand": "#D8C3A0", "Brown": "#6B4A33", "Olive": "#6B6B3A", "Red": "#C8282D", "Sky Blue": "#9EC6EC", "Blue": "#2F5DB8",
+          "Navy": "#1B2549", "Heather Grey": "#B9BABD", "Grey": "#A3A5A8", "Charcoal": "#4A4C50", "Charcoal Grey": "#55575C",
+          "Silver": "linear-gradient(135deg,#F2F3F5,#A7ABB2)", "Gold": "linear-gradient(135deg,#F4D37A,#B88A2B)",
+          "Yellow": "#F2C230", "Purple": "#6B3FA0", "Red/White": "linear-gradient(90deg,#C8282D 50%,#FFFFFF 50%)",
+          "Camo": "linear-gradient(135deg,#5C6140 30%,#8A7F57 30% 60%,#3D3B2A 60%)"}
+
+
 def card(p, r="", order=0):
     second = ""
     if len(p["images"]) > 1:
@@ -472,15 +481,19 @@ def build_products():
   <div class="pdp__info">
     <p class="kicker">{CAT_NAME[p['cat']]} · {gender_label(p)}</p>
     <h1>{e(p['name'])}</h1>
-    <p class="pdp__price" data-price-label>{money(low(p))}</p>
-    {f'<p class="pdp__color">Color: <strong>{e(p["color"])}</strong></p>' if p['color'] else ''}
-    <div class="pdp__sizes-head"><span>{'Size: One Size' if one else 'Select size'}</span>{size_note}</div>
-    <div class="sizes" role="group" aria-label="Size">{sizes}</div>
-    <div class="pdp__buy">
-      <div class="qty"><button type="button" data-qty="-1" aria-label="Decrease quantity">−</button><input type="number" value="1" min="1" max="10" aria-label="Quantity" data-qty-input><button type="button" data-qty="1" aria-label="Increase quantity">+</button></div>
-      <button type="button" class="btn btn--block btn--bag" data-add {'disabled' if not p['in_stock'] else ''}>{ICON['bag']}<span data-add-label>{'Add to bag' if p['in_stock'] else 'Sold out'}</span></button>
+    <div class="buy">
+      <div class="buy__top">
+        <p class="pdp__price" data-price-label>{money(low(p))}</p>
+        {f'<p class="pdp__color"><i style="--sw:{SWATCH.get(p["color"], "transparent")}"></i>{e(p["color"])}</p>' if p['color'] else ''}
+      </div>
+      <div class="pdp__sizes-head"><span>{'Size: One Size' if one else 'Select size'}</span>{size_note}</div>
+      <div class="sizes" role="group" aria-label="Size">{sizes}</div>
+      <div class="pdp__buy">
+        <div class="qty"><button type="button" data-qty="-1" aria-label="Decrease quantity">−</button><input type="number" value="1" min="1" max="10" aria-label="Quantity" data-qty-input><button type="button" data-qty="1" aria-label="Increase quantity">+</button></div>
+        <button type="button" class="btn btn--block btn--bag" data-add {'disabled' if not p['in_stock'] else ''}>{ICON['bag']}<span data-add-label>{'Add to bag' if p['in_stock'] else 'Sold out'}</span></button>
+      </div>
+      <p class="pdp__msg" data-msg role="status"></p>
     </div>
-    <p class="pdp__msg" data-msg role="status"></p>
     <ul class="pdp__facts">
       <li>{ICON['truck']} Ships in {SHIP['processing_short']} · free U.S. shipping on orders {money(SHIP['free_over'])}+</li>
       <li>{ICON['lock']} Secure, encrypted checkout</li>

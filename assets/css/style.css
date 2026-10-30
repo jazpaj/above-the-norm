@@ -579,3 +579,19 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .size { font-family: var(--display); font-size: 13px; font-weight: 600; letter-spacing: -.01em; }
 .qty input { font-family: var(--display); font-size: 15px; font-weight: 600; }
 .btn--bag { font-family: var(--display); font-size: 15px; font-weight: 600; letter-spacing: -.01em; text-transform: none; }
+
+/* product buy panel */
+.buy { margin-top: 22px; padding: 22px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 12px 30px rgba(15, 22, 56, .06); }
+.buy__top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+.buy .pdp__price { margin: 0; font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -.02em; }
+.buy .pdp__color { display: inline-flex; align-items: center; gap: 8px; margin: 0; padding: 6px 12px 6px 8px; border: 1px solid var(--line); border-radius: 999px; background: var(--bg); color: var(--ink); font-size: 13px; font-weight: 600; }
+.pdp__color i { width: 16px; height: 16px; border-radius: 50%; background: var(--sw); box-shadow: inset 0 0 0 1px rgba(15, 22, 56, .18); }
+.buy .pdp__sizes-head { margin: 18px 0 10px; }
+.buy .pdp__buy { margin-top: 18px; }
+.buy .pdp__msg { margin-top: 8px; min-height: 0; }
+.buy .pdp__msg:empty { display: none; }
+.buy .qty { background: var(--bg); }
+.pdp__facts { margin-top: 18px; }
+@media (max-width: 480px) { .buy { padding: 16px; border-radius: 16px; } .buy .pdp__buy { flex-wrap: wrap; } .buy .qty { flex: none; } .buy .btn--bag { flex: 1; } }
+.btn--bag span { white-space: nowrap; }
+@media (max-width: 480px) { .buy .qty button { width: 34px; height: 34px; } .buy .qty input { width: 26px; } .btn--bag { font-size: 14px; padding: 0 18px; } }
