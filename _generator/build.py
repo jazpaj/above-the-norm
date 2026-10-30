@@ -106,39 +106,37 @@ def header(r, active):
 
 
 def footer(r):
-    phone = f'<li><a href="tel:{BIZ["phone"]}">{BIZ["phone"]}</a></li>' if BIZ["phone"] else ""
-    shop = "".join(f'<li><a href="{r}shop.html?c={k}">{v}</a></li>' for k, v in CATS)
+    phone = f'<a class="ftr__tile" href="tel:{BIZ["phone"]}"><span>Call</span>{BIZ["phone"]}</a>' if BIZ["phone"] else ""
+    def row(label, links):
+        items = "".join(f'<li><a href="{r}{h}">{t}</a></li>' for h, t in links)
+        return f'<div class="ftr__row"><h3>{label}</h3><ul>{items}</ul></div>'
+    shop = [("shop.html", "Shop All"), ("shop.html?g=men", "Men"), ("shop.html?g=women", "Women")] + [(f"shop.html?c={k}", v) for k, v in CATS]
+    help_ = [("contact.html", "Contact Us"), ("faq.html", "FAQ"), ("size-guide.html", "Size Guide"),
+             ("shipping.html", "Shipping Policy"), ("returns.html", "Returns &amp; Refunds")]
+    legal = [("about.html", "About Us"), ("privacy.html", "Privacy Policy"), ("terms.html", "Terms of Service")]
     return f"""
 <footer class="ftr">
-  <div class="ftr__top wrap">
-    <div class="ftr__brand">
-      <img src="{r}assets/img/logo.png" alt="" width="64" height="86">
-      <p class="ftr__tag">Refuse to be normal.</p>
-      <p class="ftr__small">Independent streetwear, in small runs, since {BIZ['founded']}.</p>
-      <a class="ftr__follow" href="{BIZ['instagram']}" rel="noopener" target="_blank" aria-label="Follow us on Instagram">{ICON['instagram']}<span>Follow us</span></a>
+  <div class="ftr__lead wrap">
+    <div class="ftr__say">
+      <p class="ftr__tag">Refuse to be <em>normal.</em></p>
+      <p class="ftr__small">Independent streetwear, printed in small runs since {BIZ['founded']}.</p>
     </div>
-    <div class="ftr__col"><h3>Shop</h3><ul>
-      <li><a href="{r}shop.html">Shop All</a></li>
-      <li><a href="{r}shop.html?g=men">Men</a></li>
-      <li><a href="{r}shop.html?g=women">Women</a></li>{shop}</ul></div>
-    <div class="ftr__col"><h3>Help</h3><ul>
-      <li><a href="{r}contact.html">Contact Us</a></li>
-      <li><a href="{r}faq.html">FAQ</a></li>
-      <li><a href="{r}size-guide.html">Size Guide</a></li>
-      <li><a href="{r}shipping.html">Shipping Policy</a></li>
-      <li><a href="{r}returns.html">Returns &amp; Refunds</a></li></ul></div>
-    <div class="ftr__col"><h3>Legal</h3><ul>
-      <li><a href="{r}privacy.html">Privacy Policy</a></li>
-      <li><a href="{r}terms.html">Terms of Service</a></li>
-      <li><a href="{r}about.html">About Us</a></li></ul></div>
-    <div class="ftr__col"><h3>Company</h3><ul class="ftr__addr">
-      <li>{BIZ['legal']}</li>
-      <li>{BIZ['street']}<br>{BIZ['city']}, {BIZ['state']} {BIZ['zip']}<br>{BIZ['country']}</li>
-      <li><a href="mailto:{BIZ['email']}">{BIZ['email']}</a></li>{phone}</ul></div>
+    <div class="ftr__tiles">
+      <a class="ftr__tile" href="mailto:{BIZ['email']}"><span>Email us</span>{BIZ['email']}<small>Replies within 1–2 business days</small></a>
+      <a class="ftr__tile" href="{BIZ['instagram']}" rel="noopener" target="_blank" aria-label="Follow us on Instagram"><span>Follow us</span><i>{ICON['instagram']}</i>@abovethenorm.us</a>
+      {phone}
+      <div class="ftr__tile ftr__tile--wide"><span>Mailing address</span>{BIZ['legal']}<small>{BIZ['street']}, {BIZ['city']}, {BIZ['state']} {BIZ['zip']}, {BIZ['country']}</small></div>
+    </div>
   </div>
+  <nav class="ftr__links wrap" aria-label="Footer">
+    {row("Shop", shop)}
+    {row("Help", help_)}
+    {row("Company", legal)}
+  </nav>
+  <div class="ftr__mark wrap" aria-hidden="true"><span data-fit>Above The Norm<sup>®</sup></span></div>
   <div class="ftr__bar wrap">
-    <p>© 2026 {BIZ['legal']}. All rights reserved. ABOVE THE NORM® is a registered trademark of {BIZ['legal']}, U.S. Reg. No. {BIZ['tm_reg']}.</p>
-    <p class="ftr__pay">{ICON['lock']} Secure checkout · Visa · Mastercard · American Express · Discover · Prices in USD</p>
+    <p>© 2026 {BIZ['legal']}. ABOVE THE NORM® is a registered trademark of {BIZ['legal']}, U.S. Reg. No. {BIZ['tm_reg']}.</p>
+    <p class="ftr__pay">{ICON['lock']} Secure checkout · Visa · Mastercard · American Express · Discover · USD</p>
   </div>
 </footer>"""
 
