@@ -487,3 +487,12 @@ a.ftr__tile:hover { border-color: var(--beam); background: rgba(242, 194, 48, .0
 .ftr__pay { display: flex; align-items: center; gap: 8px; }
 .ftr__pay svg { width: 14px; height: 14px; flex: none; }
 @media (min-width: 1024px) { .ftr__bar { grid-template-columns: 1fr auto; gap: 24px; } }
+
+/* star ratings (mock-up view only: shown when the URL has ?mockup=1) */
+.stars { display: flex; align-items: center; gap: 6px; margin-top: 6px; font-size: 12px; line-height: 1; color: var(--muted); }
+.stars__bar { position: relative; display: inline-block; font-size: 13px; letter-spacing: 1px; color: #D8CFB8; }
+.stars__bar::before { content: "★★★★★"; }
+.stars__bar::after { content: "★★★★★"; position: absolute; inset: 0; width: var(--fill); overflow: hidden; color: #C9950C; white-space: nowrap; }
+.stars--lg { margin: 10px 0 0; font-size: 13px; }
+.stars--lg .stars__bar { font-size: 16px; }
+.stars--lg b { color: var(--ink); font-weight: 700; }

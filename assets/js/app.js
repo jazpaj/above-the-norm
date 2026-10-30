@@ -373,6 +373,32 @@
     });
   }
 
+  /* mock-up star ratings: only drawn with ?mockup=1 (kept for the browser session) */
+  var mock = /[?&]mockup=1\b/.test(location.search);
+  try { if (mock) sessionStorage.setItem("atn_mockup", "1"); else mock = sessionStorage.getItem("atn_mockup") === "1"; } catch (e) {}
+  if (mock) {
+    var rate = function (id) {
+      var h = 5381;
+      for (var i = 0; i < id.length; i++) h = ((h * 33) ^ id.charCodeAt(i)) >>> 0;
+      return { score: Math.round((3.8 + (h % 1000) / 1000 * 1.2) * 10) / 10, count: 3 + (h >>> 12) % 178 };
+    };
+    var starEl = function (id, big) {
+      var r = rate(id), s = document.createElement("span");
+      s.className = "stars" + (big ? " stars--lg" : "");
+      s.setAttribute("role", "img");
+      s.setAttribute("aria-label", "Rated " + r.score + " out of 5");
+      s.innerHTML = '<span class="stars__bar" style="--fill:' + (r.score / 5 * 100) + '%"></span><span>' +
+        (big ? "<b>" + r.score + "</b> · " + r.count + " reviews" : "(" + r.count + ")") + "</span>";
+      return s;
+    };
+    document.querySelectorAll(".card").forEach(function (c) {
+      var m = c.getAttribute("href").match(/products\/([^/]+)\.html/);
+      if (m) c.appendChild(starEl(m[1]));
+    });
+    var pdpEl = document.querySelector("[data-product]");
+    if (pdpEl) { var h1 = pdpEl.querySelector("h1"); if (h1) h1.after(starEl(pdpEl.dataset.product, true)); }
+  }
+
   /* footer wordmark: size it to span the full width */
   var fit = document.querySelector("[data-fit]");
   if (fit) {
