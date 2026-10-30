@@ -289,6 +289,25 @@ def assurances(r=""):
 
 # ---------------------------------------------------------------- pages
 
+# Homepage picks from the FAQ page (by question), so both always say the same thing.
+HOME_FAQ = ["How long until my order ships?", "What does shipping cost?", "Can I return or exchange something?",
+            "How do your pieces fit?", "Can I cancel my order?", "Do you have a discount code?"]
+
+
+def home_faq():
+    answers = dict(FAQ)
+    items = "".join(f'<details class="acc"><summary>{e(q)}</summary><p>{e(answers[q])}</p></details>' for q in HOME_FAQ)
+    return f"""<section class="wrap block home-faq">
+  <div class="home-faq__intro">
+    <p class="kicker">Good to know</p>
+    <h2>Questions, answered</h2>
+    <p>Shipping, sizing, returns and more. Can't find it here? Email <a href="mailto:{BIZ['email']}">{BIZ['email']}</a> and a real person replies within 1–2 business days.</p>
+    <a class="link-arrow" href="faq.html">All FAQs →</a>
+  </div>
+  <div class="home-faq__list">{items}</div>
+</section>"""
+
+
 def build_home():
     real = [p for p in PRODUCTS if not p["placeholder"]]
     by_id = {p["id"]: p for p in PRODUCTS}
@@ -381,6 +400,8 @@ def build_home():
     <a class="btn" href="products/{spot['id']}.html">View the piece</a>
   </div>
 </section>
+
+{home_faq()}
 
 {assurances()}
 """

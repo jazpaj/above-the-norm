@@ -516,3 +516,11 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .cookies__btns { display: flex; gap: 8px; }
 .cookies__btns .btn { flex: 1; min-height: 42px; padding: 0 14px; font-size: 11px; }
 @media (min-width: 560px) { .cookies { left: 24px; right: auto; bottom: 24px; } }
+
+/* homepage FAQ */
+.home-faq { display: grid; gap: 28px; }
+.home-faq__intro h2 { margin: 6px 0 14px; }
+.home-faq__intro p:not(.kicker) { margin: 0 0 18px; color: var(--ink-2); max-width: 420px; }
+.home-faq .acc summary { gap: 16px; text-transform: none; letter-spacing: 0; font-size: 16px; font-weight: 600; }
+.home-faq .acc > p { max-width: 640px; }
+@media (min-width: 900px) { .home-faq { grid-template-columns: 1fr 1.6fr; gap: 64px; align-items: start; } }
