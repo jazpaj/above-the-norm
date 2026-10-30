@@ -81,7 +81,8 @@ def mega(r, g):
         <a href="{r}shop.html?g={g}">Shop All {label}</a>
         <a href="{r}size-guide.html">Size Guide</a>
         <a href="{r}shipping.html">Shipping</a>
-        <a href="{r}returns.html">Returns &amp; Refunds</a></div>"""]
+        <a href="{r}returns.html">Returns &amp; Refunds</a>
+        <a href="{r}track.html">Track Your Order</a></div>"""]
     for cat, links in MEGA.items():
         items = "".join(f'<a href="{r}shop.html?g={g}&amp;c={cat}&amp;q={quote(w)}&amp;l={quote(t)}">{t}</a>' for t, w in links if hits(cat, w))
         cols.append(f'<div class="mega__col"><h3>{CAT_NAME[cat]}</h3>{items}<a class="mega__all" href="{r}shop.html?g={g}&amp;c={cat}">All {CAT_NAME[cat]}</a></div>')
@@ -142,7 +143,7 @@ def header(r, active):
     <p class="drawer__label">Shop</p>
     <nav>{nav("shop.html?g=men", "Men", "men")}{nav("shop.html?g=women", "Women", "women")}{cats}</nav>
     <p class="drawer__label">Info</p>
-    <nav class="drawer__sm">{nav("about.html", "About", "about")}{nav("contact.html", "Contact", "contact")}<a href="{r}faq.html">FAQ</a><a href="{r}shipping.html">Shipping</a><a href="{r}returns.html">Returns</a></nav>
+    <nav class="drawer__sm">{nav("about.html", "About", "about")}{nav("contact.html", "Contact", "contact")}{nav("track.html", "Track Your Order", "track")}<a href="{r}faq.html">FAQ</a><a href="{r}shipping.html">Shipping</a><a href="{r}returns.html">Returns</a></nav>
   </div>
 </div>"""
 
@@ -152,7 +153,7 @@ def footer(r):
         items = "".join(f'<li><a href="{r}{h}">{t}</a></li>' for h, t in links)
         return f'<nav class="ftr__col" aria-label="{title}"><ul>{items}</ul></nav>'
     shop = [("shop.html", "Shop All"), ("shop.html?g=men", "Men"), ("shop.html?g=women", "Women")] + [(f"shop.html?c={k}", v) for k, v in CATS]
-    help_ = [("contact.html", "Contact Us"), ("faq.html", "FAQ"), ("size-guide.html", "Size Guide"),
+    help_ = [("contact.html", "Contact Us"), ("track.html", "Track Your Order"), ("faq.html", "FAQ"), ("size-guide.html", "Size Guide"),
              ("shipping.html", "Shipping Policy"), ("returns.html", "Returns &amp; Refunds")]
     company = [("about.html", "About Us"), ("privacy.html", "Privacy Policy"), ("terms.html", "Terms of Service")]
     phone = f'<li><a href="tel:{BIZ["phone"]}">{BIZ["phone"]}</a></li>' if BIZ["phone"] else ""
@@ -574,7 +575,7 @@ def build_checkout():
 
 def prose(path, title, kicker, desc, html, side=True):
     links = [("shipping.html", "Shipping Policy"), ("returns.html", "Returns & Refunds"), ("privacy.html", "Privacy Policy"),
-             ("terms.html", "Terms of Service"), ("faq.html", "FAQ"), ("size-guide.html", "Size Guide"), ("contact.html", "Contact Us")]
+             ("terms.html", "Terms of Service"), ("faq.html", "FAQ"), ("size-guide.html", "Size Guide"), ("track.html", "Track Your Order"), ("contact.html", "Contact Us")]
     nav = "".join(f'<a href="{h}"{" aria-current=\"page\"" if h == path else ""}>{e(t)}</a>' for h, t in links)
     aside = f'<aside class="doc__nav"><p class="kicker">Customer care</p><nav>{nav}</nav></aside>' if side else ""
     body = f"""
@@ -618,7 +619,7 @@ def build_policies():
 <h2>Where we ship</h2>
 <p>We currently ship to addresses in all 50 U.S. states, Washington D.C. and APO/FPO addresses. We do not currently ship internationally. If you're outside the U.S., email us before ordering.</p>
 <h2>Order confirmation and tracking</h2>
-<p>You'll receive an order confirmation email right after purchase, and a second email with your tracking number when your order is handed to the carrier.</p>
+<p>You'll receive an order confirmation email right after purchase, and a second email with your tracking number when your order is handed to the carrier. You can follow your package anytime on our <a href="track.html">Track Your Order</a> page.</p>
 <h2>Delays, lost and stolen packages</h2>
 <p>Carrier delays are rare but can happen, especially around holidays. If your tracking hasn't updated for 7 days, or your package is marked delivered but you can't find it, email us at <a href="mailto:{BIZ['email']}">{BIZ['email']}</a> and we'll open a claim with the carrier and work with you on a replacement or refund.</p>
 <h2>Incorrect addresses</h2>
@@ -768,6 +769,42 @@ def build_contact():
     page("contact.html", "Contact Us", f"Contact Above The Norm LLC customer care at {BIZ['email']}.", body, active="contact")
 
 
+def build_track():
+    body = f"""
+<section class="page-hero wrap"><p class="kicker">Customer care</p><h1>Track your order</h1><p class="page-hero__lede">Enter the tracking number from your shipping email to see where your package is.</p></section>
+<section class="wrap track">
+  <form class="co track__form" data-track-form novalidate>
+    <h2>Look up a package</h2>
+    <label>Tracking number<input name="number" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Paste your tracking number" required></label>
+    <label>Carrier<select name="carrier">
+      <option value="auto">Detect automatically</option><option value="usps">USPS</option><option value="ups">UPS</option><option value="fedex">FedEx</option>
+    </select></label>
+    <button class="btn" type="submit">Track package</button>
+    <p class="co__msg" data-track-msg role="status"></p>
+    <p class="track__fine">Tracking opens on the carrier's website in a new tab. Updates can take up to 24 hours to appear after you receive your shipping email.</p>
+  </form>
+  <form class="co track__help" data-track-help novalidate>
+    <h2>No tracking email yet?</h2>
+    <p>Orders are produced and dispatched within {SHIP['processing']}, and we email your tracking number the moment your package is handed to the carrier. Please check your spam or promotions folder first.</p>
+    <div class="co__two"><label>Order number<input name="order" required></label><label>Email used at checkout<input type="email" name="email" autocomplete="email" required></label></div>
+    <button class="btn btn--ghost-dark" type="submit">Email us about my order</button>
+    <p class="co__msg" data-track-help-msg role="status"></p>
+  </form>
+</section>
+<section class="wrap doc"><div class="doc__body doc__body--wide">
+  <h2>What to expect</h2>
+  <ol class="track__steps">
+    <li><strong>Order confirmed</strong>You'll get a confirmation email right after you place your order.</li>
+    <li><strong>Made for you</strong>Your pieces are produced, packed and dispatched within {SHIP['processing']}.</li>
+    <li><strong>Shipped</strong>We email your tracking number as soon as the carrier has your package.</li>
+    <li><strong>Delivered</strong>Standard delivery takes {SHIP['standard_time']}; express takes {SHIP['express_time']}.</li>
+  </ol>
+  <p>If tracking hasn't updated for 7 days, or your package shows as delivered but you can't find it, see our <a href="shipping.html">Shipping Policy</a> or email <a href="mailto:{BIZ['email']}">{BIZ['email']}</a> and we'll open a claim with the carrier.</p>
+</div></section>
+"""
+    page("track.html", "Track Your Order", "Track an Above The Norm order with your USPS, UPS or FedEx tracking number.", body, active="track")
+
+
 def build_404():
     body = """<section class="page-hero wrap notfound"><p class="kicker">404</p><h1>Lost in orbit.</h1><p class="page-hero__lede">That page doesn't exist, or it was beamed up.</p><a class="btn" href="{R}shop.html">Back to the shop</a></section>"""
     page("404.html", "Page not found", "Page not found.", body)
@@ -791,5 +828,6 @@ if __name__ == "__main__":
     build_policies()
     build_about()
     build_contact()
+    build_track()
     build_404()
     print(f"Built {len(PRODUCTS)} product pages + 13 site pages into {OUT}")

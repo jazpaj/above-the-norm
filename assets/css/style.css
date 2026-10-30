@@ -524,3 +524,19 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .home-faq .acc summary { gap: 16px; text-transform: none; letter-spacing: 0; font-size: 16px; font-weight: 600; }
 .home-faq .acc > p { max-width: 640px; }
 @media (min-width: 900px) { .home-faq { grid-template-columns: 1fr 1.6fr; gap: 64px; align-items: start; } }
+
+/* track your order */
+.track { display: grid; gap: 24px; padding-bottom: 16px; }
+@media (min-width: 900px) { .track { grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; } }
+.track__form, .track__help { padding: 28px; background: var(--surface); border: 1px solid var(--line); }
+.track__form { border-top: 3px solid var(--beam); }
+.track h2 { font-size: 20px; margin: 0; }
+.track__help > p:not(.co__msg) { margin: 0; color: var(--ink-2); font-size: 14px; line-height: 1.6; }
+.track__fine { margin: 0; font-size: 12px; color: var(--muted); }
+.btn--ghost-dark { background: transparent; color: var(--ink); }
+.btn--ghost-dark:hover { background: var(--ink); color: var(--bone); }
+.track__steps { list-style: none; counter-reset: s; padding: 0; margin: 0 0 22px; display: grid; gap: 14px; }
+.track__steps li { counter-increment: s; position: relative; padding-left: 46px; color: var(--ink-2); }
+.track__steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--night); color: var(--beam); font-size: 13px; font-weight: 700; }
+.track__steps strong { display: block; color: var(--ink); }
+@media (min-width: 900px) { .track__steps { grid-template-columns: repeat(4, 1fr); gap: 24px; } .track__steps li { padding: 44px 0 0; } }

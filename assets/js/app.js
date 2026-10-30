@@ -377,6 +377,50 @@
     });
   }
 
+  /* order tracking: hands the number to the carrier's own tracking page */
+  var CARRIERS = {
+    usps: { name: "USPS", url: "https://tools.usps.com/go/TrackConfirmAction?tLabels=" },
+    ups: { name: "UPS", url: "https://www.ups.com/track?tracknum=" },
+    fedex: { name: "FedEx", url: "https://www.fedex.com/fedextrack/?trknbr=" }
+  };
+  function detectCarrier(n) {
+    if (/^1Z[0-9A-Z]{16}$/.test(n)) return "ups";                          // UPS: 1Z + 16
+    if (/^96\d{20}$/.test(n) || /^(\d{12}|\d{15})$/.test(n)) return "fedex"; // FedEx Ground 96…, Express 12 / Ground 15
+    if (/^(9[2-5]\d{18,20}|420\d{5}(\d{4})?9\d{21})$/.test(n) || /^[A-Z]{2}\d{9}US$/.test(n)) return "usps"; // USPS 20–22, 420+ZIP, intl
+    return null;
+  }
+  var tf = document.querySelector("[data-track-form]");
+  if (tf) {
+    tf.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var msg = tf.querySelector("[data-track-msg]");
+      var num = tf.number.value.replace(/[\s-]/g, "").toUpperCase();
+      tf.number.classList.toggle("is-invalid", !num);
+      if (!num) { msg.className = "co__msg is-err"; msg.textContent = "Enter the tracking number from your shipping email."; tf.number.focus(); return; }
+      var c = tf.carrier.value === "auto" ? detectCarrier(num) : tf.carrier.value;
+      if (!c) { msg.className = "co__msg is-err"; msg.textContent = "We couldn't tell which carrier that number belongs to. Please choose USPS, UPS or FedEx above."; tf.carrier.focus(); return; }
+      window.open(CARRIERS[c].url + encodeURIComponent(num), "_blank", "noopener");
+      msg.className = "co__msg";
+      msg.textContent = "Opening " + CARRIERS[c].name + " tracking for " + num + " in a new tab.";
+    });
+  }
+  var th = document.querySelector("[data-track-help]");
+  if (th) {
+    th.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var msg = th.querySelector("[data-track-help-msg]");
+      var bad = Array.prototype.filter.call(th.querySelectorAll("[required]"), function (f) {
+        f.classList.toggle("is-invalid", !f.checkValidity());
+        return !f.checkValidity();
+      });
+      if (bad.length) { msg.className = "co__msg is-err"; msg.textContent = "Please enter your order number and email."; bad[0].focus(); return; }
+      var body = "Hi, I haven't received tracking for my order yet.\n\nOrder number: " + th.order.value + "\nEmail used at checkout: " + th.email.value;
+      location.href = "mailto:" + CAT.email + "?subject=" + encodeURIComponent("Tracking request: order " + th.order.value) + "&body=" + encodeURIComponent(body);
+      msg.className = "co__msg";
+      msg.textContent = "Your email app should open with your request ready to send. If it doesn't, email us at " + CAT.email + ".";
+    });
+  }
+
   /* contact form: opens the visitor's email app, addressed to support */
   var cf = document.querySelector("[data-contact-form]");
   if (cf) {
