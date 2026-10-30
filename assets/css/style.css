@@ -1,15 +1,15 @@
 /* Above The Norm — storefront styles */
 :root {
-  --bg: #F5EFE1;
-  --surface: #FFFCF4;
-  --tile: #E9E1CF;
+  --bg: #E8EFF7;
+  --surface: #F6F9FC;
+  --tile: #DCE6F1;
   --ink: #141A33;
   --ink-2: #2B3254;
   --muted: #6B6879;
-  --line: #DDD3BD;
+  --line: #D0DBE8;
   --night: #0F1638;
   --night-2: #18224D;
-  --bone: #F5EFE1;
+  --bone: #EEF3F9;
   --beam: #F2C230;
   --beam-2: #FFD95A;
   --ok: #1F6B3A;
@@ -333,7 +333,7 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .co input, .co select, .co textarea { min-height: 48px; padding: 10px 14px; border: 1px solid var(--line); background: var(--surface); font-size: 16px; letter-spacing: 0; text-transform: none; font-weight: 400; border-radius: 0; }
 .co textarea { resize: vertical; }
 .co input:focus, .co select:focus, .co textarea:focus { outline: none; border-color: var(--ink); }
-.co input[readonly], .co input:disabled { background: #F7F6F2; color: var(--muted); }
+.co input[readonly], .co input:disabled { background: #EDF2F7; color: var(--muted); }
 .co .is-invalid { border-color: var(--err); }
 .co__two, .co__three { display: grid; gap: 14px; }
 @media (min-width: 620px) { .co__two { grid-template-columns: 1fr 1fr; } .co__three { grid-template-columns: 2fr 1fr 1fr; } }
