@@ -9,6 +9,7 @@ generated HTML; change the data or templates here and rebuild.
 import json
 import os
 from html import escape as e
+from urllib.parse import quote
 
 from data import BIZ, CATS, COUPON, FAQ, GENDERS, SHIP, UPDATED
 
@@ -53,6 +54,43 @@ ICON = {
 }
 
 
+# Mega-menu sub-links: (label, search words). A link is only shown if it finds products.
+MEGA = {
+    "tops": [("Tees", "tee"), ("Long Sleeves", "l/s"), ("Hoodies", "hoodie"), ("Crewnecks", "crewneck"),
+             ("Baby Tees", "baby tee"), ("Cropped", "cropped"), ("Tanks", "tank"), ("Work Shirts", "work shirt"), ("Jerseys", "jersey")],
+    "bottoms": [("Sweatpants", "sweat"), ("Joggers", "jogger"), ("Track Pants", "track"), ("Shorts", "shorts"),
+                ("Cargo Pants", "cargo"), ("Denim", "denim"), ("Leggings", "leggings"), ("Skirts", "skirt")],
+    "headwear": [("Trucker Hats", "trucker"), ("Dad Hats", "dad hat"), ("Snapbacks", "snapback"), ("Fitted Caps", "fitted"),
+                 ("Bucket Hats", "bucket"), ("Five-Panels", "five-panel"), ("Beanies", "beanie"), ("Headbands", "headband")],
+    "accessories": [("Necklaces", "necklace"), ("Rings", "signet"), ("Earrings", "earring"), ("Bracelets", "bracelet"),
+                    ("Wallet Chains", "wallet chain"), ("Bags", "bag"), ("Socks", "socks"), ("Keychains", "key")],
+}
+MEGA_IMG = {"men": "sent-from-above-hoodie-black", "women": "atn-angels-hoodie-sky-blue"}
+
+
+def search_text(p):
+    return (p["name"] + " " + p["color"] + " " + CAT_NAME[p["cat"]] + " " + p.get("type", "")).lower()
+
+
+def mega(r, g):
+    label = dict(GENDERS)[g]
+    def hits(cat, words):
+        toks = words.split()
+        return sum(1 for p in PRODUCTS if g in p["gender"] and p["cat"] == cat and all(t in search_text(p) for t in toks))
+    cols = [f"""<div class="mega__col"><h3>Featured</h3>
+        <a href="{r}shop.html?g={g}">Shop All {label}</a>
+        <a href="{r}size-guide.html">Size Guide</a>
+        <a href="{r}shipping.html">Shipping</a>
+        <a href="{r}returns.html">Returns &amp; Refunds</a></div>"""]
+    for cat, links in MEGA.items():
+        items = "".join(f'<a href="{r}shop.html?g={g}&amp;c={cat}&amp;q={quote(w)}&amp;l={quote(t)}">{t}</a>' for t, w in links if hits(cat, w))
+        cols.append(f'<div class="mega__col"><h3>{CAT_NAME[cat]}</h3>{items}<a class="mega__all" href="{r}shop.html?g={g}&amp;c={cat}">All {CAT_NAME[cat]}</a></div>')
+    pic = next(p for p in PRODUCTS if p["id"] == MEGA_IMG[g])
+    tile = (f'<a class="mega__tile" href="{r}shop.html?g={g}"><img src="{r}{img(pic, 2)}" alt="" loading="lazy" width="600" height="600">'
+            f'<span>Shop {label} →</span></a>')
+    return f'<div class="mega" role="region" aria-label="{label}"><div class="mega__in wrap">{"".join(cols)}{tile}</div></div>'
+
+
 def header(r, active):
     def nav(href, label, key):
         cur = ' aria-current="page"' if key == active else ""
@@ -78,7 +116,9 @@ def header(r, active):
         <a class="hdr__drop-btn" href="{r}shop.html" aria-haspopup="true">Shop <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
         <div class="hdr__menu">{cats}</div>
       </div>
-      {nav("shop.html?g=men", "Men", "men")}{nav("shop.html?g=women", "Women", "women")}{nav("about.html", "About", "about")}{nav("contact.html", "Contact", "contact")}
+      <div class="hdr__drop hdr__drop--mega">{nav("shop.html?g=men", "Men", "men")}{mega(r, "men")}</div>
+      <div class="hdr__drop hdr__drop--mega">{nav("shop.html?g=women", "Women", "women")}{mega(r, "women")}</div>
+      {nav("about.html", "About", "about")}{nav("contact.html", "Contact", "contact")}
     </nav>
     <div class="hdr__tools">
       <button class="hdr__tool" type="button" aria-label="Search" data-search-open>{ICON['search']}</button>

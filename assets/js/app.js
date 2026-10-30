@@ -101,7 +101,9 @@
   var grid = document.querySelector("[data-grid]");
   if (grid) {
     var params = new URLSearchParams(location.search);
-    var state = { g: params.get("g") || "all", c: params.get("c") || "all", q: (params.get("q") || "").trim(), sort: "featured" };
+    var state = { g: params.get("g") || "all", c: params.get("c") || "all", q: (params.get("q") || "").trim(), sort: "featured", l: params.get("l") };
+    // "l" is the menu label for a sub-category link (e.g. Hoodies); it's dropped once the shopper changes filters.
+    function dropLabel() { if (state.l) { state.l = null; state.q = ""; } }
     var qBox = document.querySelector("[data-query]");
     var cards = Array.prototype.slice.call(grid.children);
     var title = document.querySelector("[data-shop-title]");
@@ -127,15 +129,17 @@
       document.querySelector("[data-count]").textContent = shown + (shown === 1 ? " product" : " products");
       document.querySelector("[data-empty]").hidden = shown > 0;
       var t = [labels[state.g], labels[state.c]].filter(Boolean).join(" ");
-      title.textContent = t ? (state.g !== "all" && state.c !== "all" ? labels[state.g] + "'s " + labels[state.c] : t) : (state.q ? "Search" : "Shop All");
+      title.textContent = state.l ? (state.g !== "all" ? labels[state.g] + "'s " : "") + state.l
+        : t ? (state.g !== "all" && state.c !== "all" ? labels[state.g] + "'s " + labels[state.c] : t) : (state.q ? "Search" : "Shop All");
       document.title = title.textContent + " | Above The Norm";
-      qBox.hidden = !state.q;
+      qBox.hidden = !state.q || !!state.l;
       qBox.querySelector("[data-query-text]").textContent = "“" + state.q + "”";
       if (push) {
         var q = new URLSearchParams();
         if (state.g !== "all") q.set("g", state.g);
         if (state.c !== "all") q.set("c", state.c);
         if (state.q) q.set("q", state.q);
+        if (state.l) q.set("l", state.l);
         history.replaceState(null, "", location.pathname + (q.toString() ? "?" + q : ""));
       }
       document.querySelectorAll(".hdr__nav a").forEach(function (a) {
@@ -146,13 +150,13 @@
       });
     }
     document.querySelectorAll("[data-g]").forEach(function (b) {
-      b.addEventListener("click", function () { state.g = b.dataset.g; apply(true); });
+      b.addEventListener("click", function () { dropLabel(); state.g = b.dataset.g; apply(true); });
     });
     document.querySelectorAll("[data-c]").forEach(function (b) {
-      b.addEventListener("click", function () { state.c = b.dataset.c; apply(true); });
+      b.addEventListener("click", function () { dropLabel(); state.c = b.dataset.c; apply(true); });
     });
     document.querySelector("[data-sort]").addEventListener("change", function (ev) { state.sort = ev.target.value; apply(false); });
-    document.querySelector("[data-reset]").addEventListener("click", function () { state.g = state.c = "all"; state.q = ""; apply(true); });
+    document.querySelector("[data-reset]").addEventListener("click", function () { state.g = state.c = "all"; state.q = ""; state.l = null; apply(true); });
     document.querySelector("[data-clear-q]").addEventListener("click", function () { state.q = ""; apply(true); });
     apply(false);
   }
