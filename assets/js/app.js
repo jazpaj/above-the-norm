@@ -66,7 +66,8 @@
 
   /* search */
   var CAT_LABEL = { tops: "Tees & Tops", bottoms: "Pants & Shorts", headwear: "Hats & Caps", accessories: "Extras" };
-  function tokens(q) { return q.toLowerCase().split(/\s+/).filter(Boolean); }
+  // a trailing "s" is dropped so "hoodies" finds "Hoodie" (dropping it only ever widens a substring match)
+  function tokens(q) { return q.toLowerCase().split(/\s+/).filter(Boolean).map(function (w) { return w.length > 3 ? w.replace(/s$/, "") : w; }); }
   function matches(text, toks) { return toks.every(function (t) { return text.indexOf(t) > -1; }); }
   var search = document.querySelector("[data-search]");
   if (search) {
@@ -78,18 +79,57 @@
     });
     function openSearch() { search.hidden = false; document.body.style.overflow = "hidden"; sInput.focus(); render(); }
     function closeSearch() { search.hidden = true; document.body.style.overflow = ""; }
+    var sClear = search.querySelector("[data-search-clear]");
+    var POPULAR = ["Hoodies", "Tees", "Beanies", "Trucker hats", "Joggers", "Angel", "Black"];
+    var CAT_ORDER = ["tops", "bottoms", "headwear", "accessories"];
+    function lowPrice(p) { return Math.min.apply(null, Object.keys(p.p).map(function (k) { return p.p[k]; })); }
+    function mark(text, toks) {
+      var out = esc(text);
+      toks.forEach(function (t) {
+        var re = new RegExp("(" + t.replace(/[.*+?^${}()|[\]\\/]/g, "\\$&") + ")", "ig");
+        out = out.replace(re, "<mark>$1</mark>");
+      });
+      return out;
+    }
+    function tile(x) {
+      return '<a class="strend" href="' + ROOT + "products/" + x.id + '.html"><span class="strend__img"><img src="' + ROOT + x.p.i + '" alt="" loading="lazy"></span><strong>' +
+        esc(x.p.n) + "</strong><span>" + money(lowPrice(x.p)) + "</span></a>";
+    }
     function render() {
       var q = sInput.value.trim(), toks = tokens(q);
-      if (!toks.length) { sResults.innerHTML = '<p class="search__hint">Try “hoodie”, “angel”, “beanie” or “black”.</p>'; return; }
+      sClear.hidden = !q;
+      if (!q) {
+        var counts = {};
+        index.forEach(function (x) { counts[x.p.k] = (counts[x.p.k] || 0) + 1; });
+        sResults.innerHTML =
+          '<p class="search__label">Popular searches</p><div class="search__chips">' + POPULAR.map(function (w) {
+            return '<button type="button" class="schip" data-fill="' + esc(w) + '">' + esc(w) + "</button>";
+          }).join("") + "</div>" +
+          '<p class="search__label">Shop by category</p><div class="search__cats">' + CAT_ORDER.map(function (k) {
+            return '<a class="scat" href="' + ROOT + "shop.html?c=" + k + '">' + esc(CAT_LABEL[k]) + "<span>" + counts[k] + "</span></a>";
+          }).join("") + "</div>" +
+          '<p class="search__label">Trending now</p><div class="search__trend">' + index.slice(0, 4).map(tile).join("") + "</div>";
+        return;
+      }
       var hits = index.filter(function (x) { return matches(x.text, toks); });
-      if (!hits.length) { sResults.innerHTML = '<p class="search__hint">No products match “' + esc(q) + '”.</p>'; return; }
-      sResults.innerHTML = '<div class="search__grid">' + hits.slice(0, 8).map(function (x) {
-        var low = Math.min.apply(null, Object.keys(x.p.p).map(function (k) { return x.p.p[k]; }));
-        return '<a class="sres" href="' + ROOT + "products/" + x.id + '.html"><img src="' + ROOT + x.p.i + '" alt="" loading="lazy"><strong>' +
-          esc(x.p.n) + "</strong><span>" + esc(x.p.c || CAT_LABEL[x.p.k]) + " · " + money(low) + "</span></a>";
-      }).join("") + "</div>" +
-        '<a class="link-arrow search__all" href="' + ROOT + "shop.html?q=" + encodeURIComponent(q) + '">' + (hits.length === 1 ? "See 1 result" : "See all " + hits.length + " results") + " →</a>";
+      if (!hits.length) {
+        sResults.innerHTML = '<div class="search__none"><strong>No results for “' + esc(q) + '”</strong><p>Try a broader word, or browse a category.</p><div class="search__cats">' +
+          CAT_ORDER.map(function (k) { return '<a class="scat" href="' + ROOT + "shop.html?c=" + k + '">' + esc(CAT_LABEL[k]) + "</a>"; }).join("") + "</div></div>";
+        return;
+      }
+      sResults.innerHTML = '<p class="search__label">Products <span>' + hits.length + "</span></p>" +
+        '<div class="search__list">' + hits.slice(0, 6).map(function (x) {
+          return '<a class="sres" href="' + ROOT + "products/" + x.id + '.html"><span class="sres__img"><img src="' + ROOT + x.p.i + '" alt="" loading="lazy"></span>' +
+            '<span class="sres__txt"><strong>' + mark(x.p.n, toks) + "</strong><span>" + esc([x.p.c, CAT_LABEL[x.p.k]].filter(Boolean).join(" · ")) + "</span></span>" +
+            '<span class="sres__price">' + money(lowPrice(x.p)) + "</span></a>";
+        }).join("") + "</div>" +
+        '<a class="btn search__all" href="' + ROOT + "shop.html?q=" + encodeURIComponent(q) + '">' + (hits.length === 1 ? "See 1 result" : "See all " + hits.length + " results") + "</a>";
     }
+    sResults.addEventListener("click", function (ev) {
+      var chip = ev.target.closest("[data-fill]");
+      if (chip) { sInput.value = chip.dataset.fill; sInput.focus(); render(); }
+    });
+    sClear.addEventListener("click", function () { sInput.value = ""; sInput.focus(); render(); });
     document.querySelectorAll("[data-search-open]").forEach(function (b) { b.addEventListener("click", openSearch); });
     search.querySelector("[data-search-close]").addEventListener("click", closeSearch);
     search.addEventListener("click", function (ev) { if (ev.target === search) closeSearch(); });

@@ -129,12 +129,16 @@ def header(r, active):
 </header>
 <div class="search" data-search hidden>
   <div class="search__panel" role="dialog" aria-modal="true" aria-label="Search products">
-    <form class="search__form wrap" action="{r}shop.html" role="search">
-      {ICON['search']}
-      <input type="search" name="q" placeholder="Search tees, hoodies, beanies…" autocomplete="off" aria-label="Search products" data-search-input>
+    <form class="search__form" action="{r}shop.html" role="search">
+      <label class="search__field">
+        {ICON['search']}
+        <input type="search" name="q" placeholder="Search hoodies, tees, beanies…" autocomplete="off" aria-label="Search products" data-search-input>
+        <button class="search__clear" type="button" aria-label="Clear search" data-search-clear hidden>{ICON['close']}</button>
+        <kbd class="search__esc">Esc</kbd>
+      </label>
       <button class="search__close" type="button" aria-label="Close search" data-search-close>{ICON['close']}</button>
     </form>
-    <div class="search__results wrap" data-search-results></div>
+    <div class="search__body" data-search-results></div>
   </div>
 </div>
 <div class="drawer" data-menu hidden>
