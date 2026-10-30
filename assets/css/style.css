@@ -540,3 +540,12 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .track__steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--night); color: var(--beam); font-size: 13px; font-weight: 700; }
 .track__steps strong { display: block; color: var(--ink); }
 @media (min-width: 900px) { .track__steps { grid-template-columns: repeat(4, 1fr); gap: 24px; } .track__steps li { padding: 44px 0 0; } }
+
+/* checkout card fields */
+.co__ccwrap { position: relative; display: block; }
+.co__ccwrap input { width: 100%; padding-right: 110px; }
+.co__brand { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-style: normal; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--ink); pointer-events: none; }
+.co__cards { margin: 0; font-size: 12px; color: var(--muted); }
+/* let checkout columns and fieldsets shrink to the screen (fieldsets default to min-width: min-content) */
+.checkout > * { min-width: 0; }
+.co fieldset { min-width: 0; }

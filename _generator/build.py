@@ -548,9 +548,12 @@ def build_checkout():
     </fieldset>
     <fieldset><legend>4. Payment</legend>
       <div class="co__pay">{ICON['lock']}<div><strong>Card payment</strong><p>Card details are entered in a secure, encrypted form provided by our payment processor. {BIZ['brand']} never sees or stores your full card number.</p></div></div>
-      <div class="co__card" data-card-fields aria-label="Card fields">
-        <label>Card number<input disabled placeholder="•••• •••• •••• ••••"></label>
-        <div class="co__two"><label>Expiry<input disabled placeholder="MM / YY"></label><label>CVC<input disabled placeholder="•••"></label></div>
+      <!-- Card inputs have no "name", so their values are never submitted or saved. Swap for the processor's hosted fields when connected. -->
+      <div class="co__card" data-card-fields aria-label="Card details">
+        <label>Name on card<input data-cc="name" autocomplete="cc-name" required></label>
+        <label>Card number<span class="co__ccwrap"><input data-cc="number" inputmode="numeric" autocomplete="cc-number" placeholder="1234 5678 9012 3456" maxlength="23" required><em class="co__brand" data-cc-brand></em></span></label>
+        <div class="co__two"><label>Expiry<input data-cc="exp" inputmode="numeric" autocomplete="cc-exp" placeholder="MM / YY" maxlength="7" required></label><label>Security code<input data-cc="cvc" inputmode="numeric" autocomplete="cc-csc" placeholder="CVC" maxlength="4" required></label></div>
+        <p class="co__cards">We accept Visa, Mastercard, American Express and Discover.</p>
       </div>
     </fieldset>
     <label class="check"><input type="checkbox" name="agree" required><span>I have read and agree to the <a href="terms.html" target="_blank">Terms of Service</a>, <a href="returns.html" target="_blank">Returns &amp; Refunds Policy</a> (all sales final, except damaged, defective or incorrect items) and <a href="privacy.html" target="_blank">Privacy Policy</a>.</span></label>

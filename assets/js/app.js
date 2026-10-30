@@ -354,6 +354,52 @@
     co.querySelectorAll("[name=ship]").forEach(function (r) { r.addEventListener("change", totals); });
     totals();
 
+    /* card fields: format as the shopper types; values stay in the page (no name, never stored) */
+    var cc = {};
+    co.querySelectorAll("[data-cc]").forEach(function (f) {
+      cc[f.dataset.cc] = f;
+      f.addEventListener("input", function () { f.classList.remove("is-invalid"); });
+    });
+    var brandEl = co.querySelector("[data-cc-brand]");
+    function ccBrand(n) {
+      if (/^4/.test(n)) return "Visa";
+      if (/^(5[1-5]|2[2-7])/.test(n)) return "Mastercard";
+      if (/^3[47]/.test(n)) return "Amex";
+      if (/^(6011|65|64[4-9])/.test(n)) return "Discover";
+      return "";
+    }
+    function luhn(n) {
+      var sum = 0, alt = false;
+      for (var i = n.length - 1; i >= 0; i--) {
+        var d = +n[i];
+        if (alt) { d *= 2; if (d > 9) d -= 9; }
+        sum += d; alt = !alt;
+      }
+      return n.length >= 13 && sum % 10 === 0;
+    }
+    cc.number.addEventListener("input", function () {
+      var n = cc.number.value.replace(/\D/g, ""), b = ccBrand(n);
+      n = n.slice(0, b === "Amex" ? 15 : 19);
+      cc.number.value = b === "Amex" ? n.replace(/^(\d{4})(\d{1,6})?(\d{1,5})?/, function (m, a, c, d) { return [a, c, d].filter(Boolean).join(" "); })
+        : n.replace(/(\d{4})(?=\d)/g, "$1 ");
+      brandEl.textContent = b;
+      cc.cvc.maxLength = b === "Amex" ? 4 : 3;
+    });
+    cc.exp.addEventListener("input", function (ev) {
+      var d = cc.exp.value.replace(/\D/g, "").slice(0, 4);
+      if (d.length === 1 && +d > 1) d = "0" + d;
+      cc.exp.value = d.length > 2 ? d.slice(0, 2) + " / " + d.slice(2) : (d.length === 2 && ev.inputType !== "deleteContentBackward" ? d + " / " : d);
+    });
+    cc.cvc.addEventListener("input", function () { cc.cvc.value = cc.cvc.value.replace(/\D/g, "").slice(0, cc.cvc.maxLength); });
+    function cardProblem() {
+      var n = cc.number.value.replace(/\D/g, ""), b = ccBrand(n);
+      if (!b || !luhn(n)) return [cc.number, "Please check your card number. We accept Visa, Mastercard, American Express and Discover."];
+      var m = cc.exp.value.match(/^(\d{2}) \/ (\d{2})$/), now = new Date();
+      if (!m || +m[1] < 1 || +m[1] > 12 || new Date(2000 + +m[2], +m[1]) <= now) return [cc.exp, "Please check your card's expiry date."];
+      if (cc.cvc.value.length !== (b === "Amex" ? 4 : 3)) return [cc.cvc, "Please check your card's security code."];
+      return null;
+    }
+
     co.addEventListener("submit", function (ev) {
       ev.preventDefault();
       var msg = co.querySelector("[data-co-msg]");
@@ -370,7 +416,16 @@
         bad[0].focus();
         return;
       }
+      var cardBad = cardProblem();
+      if (cardBad) {
+        cardBad[0].classList.add("is-invalid");
+        msg.className = "co__msg is-err"; msg.textContent = cardBad[1]; cardBad[0].focus();
+        return;
+      }
       // Card payments go live once the payment processor's hosted fields are connected here.
+      // Until then nothing is charged or sent, and the card details are wiped from the page.
+      Object.keys(cc).forEach(function (k) { cc[k].value = ""; });
+      brandEl.textContent = "";
       msg.className = "co__msg is-info";
       msg.innerHTML = "Online card payments are being activated and your card has not been charged. " +
         "To order now, email <a href=\"mailto:" + CAT.email + "\">" + CAT.email + "</a> with the items in your bag and we'll send a secure invoice.";

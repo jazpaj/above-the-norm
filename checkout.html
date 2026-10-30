@@ -98,9 +98,12 @@
     </fieldset>
     <fieldset><legend>4. Payment</legend>
       <div class="co__pay"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><div><strong>Card payment</strong><p>Card details are entered in a secure, encrypted form provided by our payment processor. Above The Norm never sees or stores your full card number.</p></div></div>
-      <div class="co__card" data-card-fields aria-label="Card fields">
-        <label>Card number<input disabled placeholder="•••• •••• •••• ••••"></label>
-        <div class="co__two"><label>Expiry<input disabled placeholder="MM / YY"></label><label>CVC<input disabled placeholder="•••"></label></div>
+      <!-- Card inputs have no "name", so their values are never submitted or saved. Swap for the processor's hosted fields when connected. -->
+      <div class="co__card" data-card-fields aria-label="Card details">
+        <label>Name on card<input data-cc="name" autocomplete="cc-name" required></label>
+        <label>Card number<span class="co__ccwrap"><input data-cc="number" inputmode="numeric" autocomplete="cc-number" placeholder="1234 5678 9012 3456" maxlength="23" required><em class="co__brand" data-cc-brand></em></span></label>
+        <div class="co__two"><label>Expiry<input data-cc="exp" inputmode="numeric" autocomplete="cc-exp" placeholder="MM / YY" maxlength="7" required></label><label>Security code<input data-cc="cvc" inputmode="numeric" autocomplete="cc-csc" placeholder="CVC" maxlength="4" required></label></div>
+        <p class="co__cards">We accept Visa, Mastercard, American Express and Discover.</p>
       </div>
     </fieldset>
     <label class="check"><input type="checkbox" name="agree" required><span>I have read and agree to the <a href="terms.html" target="_blank">Terms of Service</a>, <a href="returns.html" target="_blank">Returns &amp; Refunds Policy</a> (all sales final, except damaged, defective or incorrect items) and <a href="privacy.html" target="_blank">Privacy Policy</a>.</span></label>
