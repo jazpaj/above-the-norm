@@ -97,23 +97,32 @@
     sInput.addEventListener("input", render);
   }
 
-  /* shop filters */
+  /* shop: toolbar (grid view, in stock, filter, sort) + filter sidebar */
   var grid = document.querySelector("[data-grid]");
   if (grid) {
+    var shop = document.querySelector("[data-shop]");
     var params = new URLSearchParams(location.search);
-    var state = { g: params.get("g") || "all", c: params.get("c") || "all", q: (params.get("q") || "").trim(), sort: "featured", l: params.get("l") };
+    var state = { g: params.get("g") || "all", c: params.get("c") || "all", q: (params.get("q") || "").trim(), sort: "featured",
+                  l: params.get("l"), sizes: [], colors: [], stock: false };
     // "l" is the menu label for a sub-category link (e.g. Hoodies); it's dropped once the shopper changes filters.
     function dropLabel() { if (state.l) { state.l = null; state.q = ""; } }
     var qBox = document.querySelector("[data-query]");
     var cards = Array.prototype.slice.call(grid.children);
     var title = document.querySelector("[data-shop-title]");
     var labels = { all: "", men: "Men", women: "Women", tops: "Tees & Tops", bottoms: "Pants & Shorts", headwear: "Hats & Caps", accessories: "Extras" };
+    var sortNames = {};
+    document.querySelectorAll(".fopts [data-sortopt]").forEach(function (b) { sortNames[b.dataset.sortopt] = b.textContent; });
+    function pressed(sel, fn) { document.querySelectorAll(sel).forEach(function (b) { b.setAttribute("aria-pressed", fn(b)); }); }
 
     function apply(push) {
       var shown = 0, toks = tokens(state.q);
       cards.forEach(function (c) {
+        var sz = c.dataset.sizes.split("|");
         var ok = (state.g === "all" || c.dataset.gender.split(" ").indexOf(state.g) > -1) &&
                  (state.c === "all" || c.dataset.cat === state.c) &&
+                 (!state.sizes.length || state.sizes.some(function (s) { return sz.indexOf(s) > -1; })) &&
+                 (!state.colors.length || state.colors.indexOf(c.dataset.color) > -1) &&
+                 (!state.stock || c.dataset.stock === "1") &&
                  matches(c.dataset.text, toks);
         c.hidden = !ok;
         if (ok) shown++;
@@ -121,16 +130,27 @@
       var sorted = cards.slice().sort(function (a, b) {
         if (state.sort === "low") return a.dataset.price - b.dataset.price;
         if (state.sort === "high") return b.dataset.price - a.dataset.price;
+        if (state.sort === "az") return a.dataset.name < b.dataset.name ? -1 : 1;
+        if (state.sort === "za") return a.dataset.name > b.dataset.name ? -1 : 1;
         return a.dataset.order - b.dataset.order;
       });
       sorted.forEach(function (c) { grid.appendChild(c); });
-      document.querySelectorAll("[data-g]").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.g === state.g); });
-      document.querySelectorAll("[data-c]").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.c === state.c); });
+      pressed("[data-g]", function (b) { return b.dataset.g === state.g; });
+      pressed("[data-c]", function (b) { return b.dataset.c === state.c; });
+      pressed("[data-sortopt]", function (b) { return b.dataset.sortopt === state.sort; });
+      pressed("[data-color-f]", function (b) { return state.colors.indexOf(b.dataset.colorF) > -1; });
+      document.querySelectorAll("[data-size-f]").forEach(function (i) { i.checked = state.sizes.indexOf(i.value) > -1; });
+      document.querySelector("[data-stock-f]").checked = state.stock;
+      document.querySelector("[data-sort-label]").textContent = ": " + sortNames[state.sort];
+      var n = state.sizes.length + state.colors.length + (state.stock ? 1 : 0) + (state.g !== "all") + (state.c !== "all");
+      var nEl = document.querySelector("[data-active-n]"); nEl.hidden = !n; nEl.textContent = n;
       document.querySelector("[data-count]").textContent = shown + (shown === 1 ? " product" : " products");
+      document.querySelector("[data-show-n]").textContent = shown;
       document.querySelector("[data-empty]").hidden = shown > 0;
       var t = [labels[state.g], labels[state.c]].filter(Boolean).join(" ");
       title.textContent = state.l ? (state.g !== "all" ? labels[state.g] + "'s " : "") + state.l
         : t ? (state.g !== "all" && state.c !== "all" ? labels[state.g] + "'s " + labels[state.c] : t) : (state.q ? "Search" : "Shop All");
+      document.querySelector("[data-crumb]").textContent = (state.g === "all" ? "All" : labels[state.g] + "'s") + " · " + (state.l || (state.c === "all" ? "All products" : labels[state.c]));
       document.title = title.textContent + " | Above The Norm";
       qBox.hidden = !state.q || !!state.l;
       qBox.querySelector("[data-query-text]").textContent = "“" + state.q + "”";
@@ -149,14 +169,59 @@
         if (g === state.g && c === state.c) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
       });
     }
+    function toggle(list, v) { var i = list.indexOf(v); if (i > -1) list.splice(i, 1); else list.push(v); }
     document.querySelectorAll("[data-g]").forEach(function (b) {
       b.addEventListener("click", function () { dropLabel(); state.g = b.dataset.g; apply(true); });
     });
     document.querySelectorAll("[data-c]").forEach(function (b) {
       b.addEventListener("click", function () { dropLabel(); state.c = b.dataset.c; apply(true); });
     });
-    document.querySelector("[data-sort]").addEventListener("change", function (ev) { state.sort = ev.target.value; apply(false); });
-    document.querySelector("[data-reset]").addEventListener("click", function () { state.g = state.c = "all"; state.q = ""; state.l = null; apply(true); });
+    document.querySelectorAll("[data-size-f]").forEach(function (i) {
+      i.addEventListener("change", function () { toggle(state.sizes, i.value); apply(false); });
+    });
+    document.querySelectorAll("[data-color-f]").forEach(function (b) {
+      b.addEventListener("click", function () { toggle(state.colors, b.dataset.colorF); apply(false); });
+    });
+    document.querySelector("[data-stock-f]").addEventListener("change", function (ev) { state.stock = ev.target.checked; apply(false); });
+
+    // sort: from the sidebar list or the toolbar dropdown
+    var sortBtn = document.querySelector("[data-sort-toggle]"), sortMenu = document.querySelector("[data-sort-menu]");
+    function closeSort() { sortMenu.hidden = true; sortBtn.setAttribute("aria-expanded", "false"); }
+    sortBtn.addEventListener("click", function () { var open = sortMenu.hidden; sortMenu.hidden = !open; sortBtn.setAttribute("aria-expanded", open); });
+    document.addEventListener("click", function (ev) { if (!ev.target.closest(".sortmenu")) closeSort(); });
+    document.querySelectorAll("[data-sortopt]").forEach(function (b) {
+      b.addEventListener("click", function () { state.sort = b.dataset.sortopt; closeSort(); apply(false); });
+    });
+
+    // filter sidebar: open beside the grid on desktop, a slide-in panel on phones
+    var wide = window.matchMedia("(min-width: 1024px)");
+    var fBtn = document.querySelector("[data-filter-toggle]");
+    function setFilters(open) {
+      shop.classList.toggle("is-filtering", open);
+      fBtn.setAttribute("aria-expanded", open);
+      document.body.style.overflow = open && !wide.matches ? "hidden" : "";
+    }
+    setFilters(wide.matches);
+    fBtn.addEventListener("click", function () { setFilters(!shop.classList.contains("is-filtering")); });
+    document.querySelectorAll("[data-filter-close]").forEach(function (b) { b.addEventListener("click", function () { setFilters(false); }); });
+    document.addEventListener("keydown", function (ev) {
+      if (ev.key === "Escape") { closeSort(); if (!wide.matches) setFilters(false); }
+    });
+
+    // grid density, remembered per visitor
+    function setCols(n) {
+      grid.dataset.cols = n;
+      pressed("[data-cols]", function (b) { return b.dataset.cols === String(n); });
+      store("atn_cols", n);
+    }
+    document.querySelectorAll("[data-cols]").forEach(function (b) { b.addEventListener("click", function () { setCols(b.dataset.cols); }); });
+    setCols(stored("atn_cols") || 4);
+
+    document.querySelectorAll("[data-reset]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        state.g = state.c = "all"; state.q = ""; state.l = null; state.sizes = []; state.colors = []; state.stock = false; apply(true);
+      });
+    });
     document.querySelector("[data-clear-q]").addEventListener("click", function () { state.q = ""; apply(true); });
     apply(false);
   }

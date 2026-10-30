@@ -270,7 +270,7 @@ def card(p, r="", order=0):
     if len(p["images"]) > 1:
         second = f'<img class="card__alt" src="{r}{img(p, 1)}" alt="" loading="lazy" width="600" height="600">'
     ph = " is-ph" if p["placeholder"] else ""
-    return f"""<a class="card" href="{r}products/{p['id']}.html" data-cat="{p['cat']}" data-gender="{' '.join(p['gender'])}" data-price="{low(p)}" data-order="{order}" data-text="{e(search_text(p))}">
+    return f"""<a class="card" href="{r}products/{p['id']}.html" data-cat="{p['cat']}" data-gender="{' '.join(p['gender'])}" data-price="{low(p)}" data-order="{order}" data-name="{e(p['name'].lower())}" data-sizes="{e('|'.join(p['sizes']))}" data-color="{e(p['color'])}" data-stock="{1 if p['in_stock'] else 0}" data-text="{e(search_text(p))}">
   <div class="card__img{ph}"><img src="{r}{img(p)}" alt="{e(p['name'])}{(' in ' + e(p['color'])) if p['color'] else ''}" loading="lazy" width="600" height="600">{second}</div>
   <div class="card__meta"><span class="card__name">{e(p['name'])}</span><span class="card__price">{money(low(p))}</span></div>
   <span class="card__sub">{e(p['color'] or CAT_NAME[p['cat']])} · {gender_label(p)}</span>
@@ -418,36 +418,66 @@ def build_home():
     page("index.html", "", "Above The Norm® is independent streetwear from Above The Norm LLC: graphic tees, hoodies, sweats, headwear and accessories for men and women, in small runs since 2019.", body, cls="home")
 
 
+FILTER_SIZES = ["XS", "S", "M", "L", "XL", "2XL", "3XL", "One Size"]
+GRID_ICON = {2: '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="1" width="6" height="14"/><rect x="9" y="1" width="6" height="14"/></svg>',
+             3: '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="0.5" y="1" width="4" height="14"/><rect x="6" y="1" width="4" height="14"/><rect x="11.5" y="1" width="4" height="14"/></svg>',
+             4: '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="1" width="6" height="6"/><rect x="9" y="1" width="6" height="6"/><rect x="1" y="9" width="6" height="6"/><rect x="9" y="9" width="6" height="6"/></svg>'}
+SORTS = [("featured", "Featured"), ("low", "Price, low to high"), ("high", "Price, high to low"), ("az", "Alphabetically, A–Z"), ("za", "Alphabetically, Z–A")]
+
+
 def build_shop():
     cards = "".join(card(p, order=i) for i, p in enumerate(PRODUCTS))
-    gchips = '<button type="button" class="chip" data-g="all" aria-pressed="true">All</button>' + "".join(
-        f'<button type="button" class="chip" data-g="{k}" aria-pressed="false">{v}</button>' for k, v in GENDERS)
-    cchips = '<button type="button" class="chip" data-c="all" aria-pressed="true">All</button>' + "".join(
-        f'<button type="button" class="chip" data-c="{k}" aria-pressed="false">{v}</button>' for k, v in CATS)
+    opt = lambda attr, k, v, on: f'<button type="button" class="fopt" {attr}="{k}" aria-pressed="{"true" if on else "false"}">{v}</button>'
+    gopts = opt("data-g", "all", "All", True) + "".join(opt("data-g", k, v, False) for k, v in GENDERS)
+    copts = opt("data-c", "all", "All", True) + "".join(opt("data-c", k, v, False) for k, v in CATS)
+    sopts = "".join(opt("data-sortopt", k, v, k == "featured") for k, v in SORTS)
+    sizes = "".join(f'<label class="fcheck"><input type="checkbox" value="{s}" data-size-f><span>{s}</span></label>' for s in FILTER_SIZES)
+    counts = {}
+    for p in PRODUCTS:
+        if p["color"]:
+            counts[p["color"]] = counts.get(p["color"], 0) + 1
+    colors = "".join(f'<button type="button" class="fswatch" data-color-f="{e(c)}" aria-pressed="false" title="{e(c)} ({n})"><i style="--sw:{SWATCH.get(c, "#ccc")}"></i><span>{e(c)}</span></button>'
+                     for c, n in sorted(counts.items(), key=lambda x: -x[1]))
+    views = "".join(f'<button type="button" class="tbar__view" data-cols="{n}" aria-pressed="{"true" if n == 4 else "false"}" aria-label="{n} per row">{GRID_ICON[n]}</button>' for n in (2, 3, 4))
+    sortlist = "".join(f'<li><button type="button" data-sortopt="{k}" aria-pressed="{"true" if k == "featured" else "false"}">{v}</button></li>' for k, v in SORTS)
     body = f"""
 <section class="page-hero wrap">
   <p class="kicker">The collection</p>
   <h1 data-shop-title>Shop All</h1>
   <p class="page-hero__lede">Tees, hoodies, sweats, headwear and accessories. Filter by who it's for and what it is.</p>
 </section>
-<section class="wrap shop">
-  <div class="filters" role="group" aria-label="Filter products">
-    <div class="filters__row"><span class="filters__label">Shop for</span><div class="chips">{gchips}</div></div>
-    <div class="filters__row"><span class="filters__label">Category</span><div class="chips">{cchips}</div></div>
-    <div class="filters__row filters__row--end">
-      <span class="filters__count" data-count>{len(PRODUCTS)} products</span>
-      <label class="sort">Sort
-        <select data-sort>
-          <option value="featured">Featured</option>
-          <option value="low">Price: low to high</option>
-          <option value="high">Price: high to low</option>
-        </select>
-      </label>
+<section class="shop" data-shop>
+  <div class="tbar">
+    <div class="tbar__l">
+      <div class="tbar__views" role="group" aria-label="Products per row">{views}</div>
+      <label class="tbar__stock"><input type="checkbox" data-stock-f> In stock</label>
+      <span class="tbar__count" data-count>{len(PRODUCTS)} products</span>
+    </div>
+    <div class="tbar__r">
+      <button type="button" class="tbar__btn" data-filter-toggle aria-expanded="true" aria-controls="fside">Filter<span class="tbar__n" data-active-n hidden></span></button>
+      <span class="tbar__sep" aria-hidden="true"></span>
+      <div class="sortmenu">
+        <button type="button" class="tbar__btn" data-sort-toggle aria-expanded="false" aria-haspopup="true">Sort<span class="tbar__sortlabel" data-sort-label>: Featured</span></button>
+        <ul class="sortmenu__list" data-sort-menu hidden>{sortlist}</ul>
+      </div>
     </div>
   </div>
-  <div class="grid" data-grid>{cards}</div>
-  <p class="shop__query" data-query hidden>Showing results for <strong data-query-text></strong> · <button type="button" class="link-btn" data-clear-q>Clear search</button></p>
-  <p class="empty" data-empty hidden>Nothing matches those filters yet. <button type="button" class="link-btn" data-reset>Clear filters</button></p>
+  <div class="shop__body">
+    <aside class="fside" id="fside" data-fside aria-label="Filters">
+      <div class="fside__head"><p class="fside__crumb" data-crumb>All · All products</p><button type="button" class="fside__close" data-filter-close aria-label="Close filters">{ICON['close']}</button></div>
+      <details class="fgroup fgroup--sort" open><summary>Sort by</summary><div class="fopts">{sopts}</div></details>
+      <details class="fgroup" open><summary>Shop for</summary><div class="fopts">{gopts}</div></details>
+      <details class="fgroup" open><summary>Category</summary><div class="fopts">{copts}</div></details>
+      <details class="fgroup" open><summary>Size</summary><div class="fchecks">{sizes}</div></details>
+      <details class="fgroup" open><summary>Color</summary><div class="fswatches">{colors}</div></details>
+      <div class="fside__foot"><button type="button" class="link-btn" data-reset>Clear all</button><button type="button" class="btn fside__show" data-filter-close>Show <span data-show-n>{len(PRODUCTS)}</span> products</button></div>
+    </aside>
+    <div class="shop__main">
+      <p class="shop__query" data-query hidden>Showing results for <strong data-query-text></strong> · <button type="button" class="link-btn" data-clear-q>Clear search</button></p>
+      <div class="grid" data-grid data-cols="4">{cards}</div>
+      <p class="empty" data-empty hidden>Nothing matches those filters yet. <button type="button" class="link-btn" data-reset>Clear filters</button></p>
+    </div>
+  </div>
 </section>
 """
     page("shop.html", "Shop All", "Shop the full Above The Norm collection for men and women: tops, bottoms, headwear and accessories.", body, active="shop")
