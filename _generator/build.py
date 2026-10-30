@@ -585,16 +585,16 @@ def build_checkout():
 <section class="wrap checkout">
   <form class="co" data-checkout-form novalidate>
     <fieldset data-fs="1"><legend><span>1</span>Contact</legend>
-      <label>Email<input type="email" name="email" autocomplete="email" required></label>
-      <label>Phone<input type="tel" name="phone" autocomplete="tel" required></label>
+      <label>Email<input type="email" name="email" autocomplete="email" placeholder="you@example.com" required></label>
+      <label>Phone<input type="tel" name="phone" autocomplete="tel" placeholder="(555) 123-4567" required></label>
     </fieldset>
     <fieldset data-fs="2"><legend><span>2</span>Shipping address</legend>
-      <div class="co__two"><label>First name<input name="first" autocomplete="given-name" required></label><label>Last name<input name="last" autocomplete="family-name" required></label></div>
-      <label>Address<input name="address1" autocomplete="address-line1" required></label>
-      <label>Apartment, suite, etc. (optional)<input name="address2" autocomplete="address-line2"></label>
-      <div class="co__three"><label>City<input name="city" autocomplete="address-level2" required></label>
+      <div class="co__two"><label>First name<input name="first" autocomplete="given-name" placeholder="Jordan" required></label><label>Last name<input name="last" autocomplete="family-name" placeholder="Taylor" required></label></div>
+      <label>Address<input name="address1" autocomplete="address-line1" placeholder="Street address" required></label>
+      <label>Apartment, suite, etc. (optional)<input name="address2" autocomplete="address-line2" placeholder="Apartment, suite, unit"></label>
+      <div class="co__three"><label>City<input name="city" autocomplete="address-level2" placeholder="City" required></label>
       <label>State<select name="state" autocomplete="address-level1" required><option value="">Select</option>{opts}</select></label>
-      <label>ZIP code<input name="zip" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{{5}}(-[0-9]{{4}})?" required></label></div>
+      <label>ZIP code<input name="zip" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{{5}}(-[0-9]{{4}})?" placeholder="12345" required></label></div>
       <label>Country<input name="country" value="United States" readonly></label>
     </fieldset>
     <fieldset data-fs="3"><legend><span>3</span>Delivery</legend>
@@ -606,7 +606,7 @@ def build_checkout():
       <div class="co__pay">{ICON['lock']}<div><strong>Card payment</strong><p>Card details are entered in a secure, encrypted form provided by our payment processor. {BIZ['brand']} never sees or stores your full card number.</p></div></div>
       <!-- Card inputs have no "name", so their values are never submitted or saved. Swap for the processor's hosted fields when connected. -->
       <div class="co__card" data-card-fields aria-label="Card details">
-        <label>Name on card<input data-cc="name" autocomplete="cc-name" required></label>
+        <label>Name on card<input data-cc="name" autocomplete="cc-name" placeholder="Name as it appears on card" required></label>
         <label>Card number<span class="co__ccwrap"><input data-cc="number" inputmode="numeric" autocomplete="cc-number" placeholder="1234 5678 9012 3456" maxlength="23" required><em class="co__brand" data-cc-brand></em></span></label>
         <div class="co__two"><label>Expiry<input data-cc="exp" inputmode="numeric" autocomplete="cc-exp" placeholder="MM / YY" maxlength="7" required></label><label>Security code<input data-cc="cvc" inputmode="numeric" autocomplete="cc-csc" placeholder="CVC" maxlength="4" required></label></div>
         <p class="co__cards">We accept Visa, Mastercard, American Express and Discover.</p>
@@ -815,7 +815,7 @@ def build_contact():
     <li class="contact__note">Online store only. This address is for correspondence and isn't open to the public.</li>
   </ul>
   <form class="co contact__form" data-contact-form novalidate>
-    <div class="co__two"><label>Name<input name="name" autocomplete="name" required></label><label>Email<input type="email" name="email" autocomplete="email" required></label></div>
+    <div class="co__two"><label>Name<input name="name" autocomplete="name" required></label><label>Email<input type="email" name="email" autocomplete="email" placeholder="you@example.com" required></label></div>
     <label>Order number (optional)<input name="order"></label>
     <label>Topic<select name="topic"><option>Order question</option><option>Sizing</option><option>Damaged or incorrect item</option><option>Cancellation</option><option>Wholesale or collaboration</option><option>Other</option></select></label>
     <label>Message<textarea name="message" rows="6" required></textarea></label>
@@ -845,7 +845,7 @@ def build_track():
   <form class="co track__help" data-track-help novalidate>
     <h2>No tracking email yet?</h2>
     <p>Orders are produced and dispatched within {SHIP['processing']}, and we email your tracking number the moment your package is handed to the carrier. Please check your spam or promotions folder first.</p>
-    <div class="co__two"><label>Order number<input name="order" required></label><label>Email used at checkout<input type="email" name="email" autocomplete="email" required></label></div>
+    <div class="co__two"><label>Order number<input name="order" required></label><label>Email used at checkout<input type="email" name="email" autocomplete="email" placeholder="you@example.com" required></label></div>
     <button class="btn btn--ghost-dark" type="submit">Email us about my order</button>
     <p class="co__msg" data-track-help-msg role="status"></p>
   </form>

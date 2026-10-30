@@ -93,16 +93,16 @@
 <section class="wrap checkout">
   <form class="co" data-checkout-form novalidate>
     <fieldset data-fs="1"><legend><span>1</span>Contact</legend>
-      <label>Email<input type="email" name="email" autocomplete="email" required></label>
-      <label>Phone<input type="tel" name="phone" autocomplete="tel" required></label>
+      <label>Email<input type="email" name="email" autocomplete="email" placeholder="you@example.com" required></label>
+      <label>Phone<input type="tel" name="phone" autocomplete="tel" placeholder="(555) 123-4567" required></label>
     </fieldset>
     <fieldset data-fs="2"><legend><span>2</span>Shipping address</legend>
-      <div class="co__two"><label>First name<input name="first" autocomplete="given-name" required></label><label>Last name<input name="last" autocomplete="family-name" required></label></div>
-      <label>Address<input name="address1" autocomplete="address-line1" required></label>
-      <label>Apartment, suite, etc. (optional)<input name="address2" autocomplete="address-line2"></label>
-      <div class="co__three"><label>City<input name="city" autocomplete="address-level2" required></label>
+      <div class="co__two"><label>First name<input name="first" autocomplete="given-name" placeholder="Jordan" required></label><label>Last name<input name="last" autocomplete="family-name" placeholder="Taylor" required></label></div>
+      <label>Address<input name="address1" autocomplete="address-line1" placeholder="Street address" required></label>
+      <label>Apartment, suite, etc. (optional)<input name="address2" autocomplete="address-line2" placeholder="Apartment, suite, unit"></label>
+      <div class="co__three"><label>City<input name="city" autocomplete="address-level2" placeholder="City" required></label>
       <label>State<select name="state" autocomplete="address-level1" required><option value="">Select</option><option>AA</option><option>AE</option><option>AP</option><option>AL</option><option>AK</option><option>AZ</option><option>AR</option><option>CA</option><option>CO</option><option>CT</option><option>DE</option><option>DC</option><option>FL</option><option>GA</option><option>HI</option><option>ID</option><option>IL</option><option>IN</option><option>IA</option><option>KS</option><option>KY</option><option>LA</option><option>ME</option><option>MD</option><option>MA</option><option>MI</option><option>MN</option><option>MS</option><option>MO</option><option>MT</option><option>NE</option><option>NV</option><option>NH</option><option>NJ</option><option>NM</option><option>NY</option><option>NC</option><option>ND</option><option>OH</option><option>OK</option><option>OR</option><option>PA</option><option>RI</option><option>SC</option><option>SD</option><option>TN</option><option>TX</option><option>UT</option><option>VT</option><option>VA</option><option>WA</option><option>WV</option><option>WI</option><option>WY</option></select></label>
-      <label>ZIP code<input name="zip" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{5}(-[0-9]{4})?" required></label></div>
+      <label>ZIP code<input name="zip" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{5}(-[0-9]{4})?" placeholder="12345" required></label></div>
       <label>Country<input name="country" value="United States" readonly></label>
     </fieldset>
     <fieldset data-fs="3"><legend><span>3</span>Delivery</legend>
@@ -114,7 +114,7 @@
       <div class="co__pay"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><div><strong>Card payment</strong><p>Card details are entered in a secure, encrypted form provided by our payment processor. Above The Norm never sees or stores your full card number.</p></div></div>
       <!-- Card inputs have no "name", so their values are never submitted or saved. Swap for the processor's hosted fields when connected. -->
       <div class="co__card" data-card-fields aria-label="Card details">
-        <label>Name on card<input data-cc="name" autocomplete="cc-name" required></label>
+        <label>Name on card<input data-cc="name" autocomplete="cc-name" placeholder="Name as it appears on card" required></label>
         <label>Card number<span class="co__ccwrap"><input data-cc="number" inputmode="numeric" autocomplete="cc-number" placeholder="1234 5678 9012 3456" maxlength="23" required><em class="co__brand" data-cc-brand></em></span></label>
         <div class="co__two"><label>Expiry<input data-cc="exp" inputmode="numeric" autocomplete="cc-exp" placeholder="MM / YY" maxlength="7" required></label><label>Security code<input data-cc="cvc" inputmode="numeric" autocomplete="cc-csc" placeholder="CVC" maxlength="4" required></label></div>
         <p class="co__cards">We accept Visa, Mastercard, American Express and Discover.</p>
