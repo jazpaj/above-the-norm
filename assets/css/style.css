@@ -380,11 +380,11 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .facts span { font-size: 13px; color: var(--muted); }
 @media (min-width: 700px) { .facts { grid-template-columns: repeat(3, 1fr); } }
 
-.about-hero { background: var(--night); color: var(--bone); padding: clamp(48px, 8vw, 96px) 0; margin-bottom: clamp(40px, 6vw, 72px); }
-.about-hero__grid { display: grid; gap: 32px; align-items: center; }
-.about-hero h1 { font-size: clamp(40px, 6.4vw, 92px); }
-.about-hero h1 em { display: block; font-family: var(--serif); font-weight: 400; text-transform: none; color: var(--beam); }
-.about-hero img { width: min(240px, 50vw); justify-self: center; transform: rotate(6deg); }
+.about-hero { background: var(--night); color: var(--bone); padding: clamp(36px, 5vw, 60px) 0; margin-bottom: clamp(36px, 5vw, 60px); }
+.about-hero__grid { display: grid; gap: 24px; align-items: center; }
+.about-hero h1 { font-size: clamp(30px, 3.8vw, 52px); line-height: 1; }
+.about-hero h1 em { display: block; margin-top: 4px; font-family: var(--serif); font-weight: 400; text-transform: none; color: var(--beam); }
+.about-hero img { width: min(140px, 24vw); justify-self: center; transform: rotate(6deg); }
 @media (min-width: 900px) { .about-hero__grid { grid-template-columns: 1.6fr 1fr; } }
 
 .contact { display: grid; gap: 40px; padding-bottom: 40px; }
