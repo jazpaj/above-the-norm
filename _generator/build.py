@@ -683,7 +683,7 @@ def build_policies():
     brows = "".join(f"<tr><td>{a}</td><td>{b}</td><td>{c}</td><td>{d}</td></tr>" for a, b, c, d in bottoms)
     prose("size-guide.html", "Size Guide", "Customer care", "Above The Norm size chart for tops and bottoms.", f"""
 <p>All measurements are in inches and taken with the garment laid flat. Our tops run boxy with dropped shoulders: take your usual size for our intended fit, or size up for an oversized look. Women's fitted styles (baby tees, tanks, leggings) run one size smaller, so size up if you're between sizes.</p>
-<h2>Tees &amp; Shirts: tees, long sleeves, crewnecks, hoodies</h2>
+<h2>Tees &amp; Tops: tees, long sleeves, crewnecks, hoodies</h2>
 <table class="tbl"><thead><tr><th>Size</th><th>Chest (pit to pit)</th><th>Body length</th><th>Sleeve</th></tr></thead><tbody>{trows}</tbody></table>
 <h2>Pants &amp; Shorts: joggers, sweats, shorts</h2>
 <table class="tbl"><thead><tr><th>Size</th><th>Waist</th><th>Inseam (pants)</th><th>Hip</th></tr></thead><tbody>{brows}</tbody></table>

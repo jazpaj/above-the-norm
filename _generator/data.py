@@ -57,7 +57,7 @@ COUPON = {
 }
 
 CATS = [
-    ("tops", "Tees & Shirts"),
+    ("tops", "Tees & Tops"),
     ("bottoms", "Pants & Shorts"),
     ("headwear", "Hats & Caps"),
     ("accessories", "Extras"),
