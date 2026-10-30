@@ -57,10 +57,10 @@ COUPON = {
 }
 
 CATS = [
-    ("tops", "Tops"),
-    ("bottoms", "Bottoms"),
-    ("headwear", "Headwear"),
-    ("accessories", "Accessories"),
+    ("tops", "Tees & Shirts"),
+    ("bottoms", "Pants & Shorts"),
+    ("headwear", "Hats & Caps"),
+    ("accessories", "Extras"),
 ]
 
 GENDERS = [("men", "Men"), ("women", "Women")]

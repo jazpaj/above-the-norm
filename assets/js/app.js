@@ -65,7 +65,7 @@
   }
 
   /* search */
-  var CAT_LABEL = { tops: "Tops", bottoms: "Bottoms", headwear: "Headwear", accessories: "Accessories" };
+  var CAT_LABEL = { tops: "Tees & Shirts", bottoms: "Pants & Shorts", headwear: "Hats & Caps", accessories: "Extras" };
   function tokens(q) { return q.toLowerCase().split(/\s+/).filter(Boolean); }
   function matches(text, toks) { return toks.every(function (t) { return text.indexOf(t) > -1; }); }
   var search = document.querySelector("[data-search]");
@@ -74,7 +74,7 @@
     var sResults = search.querySelector("[data-search-results]");
     var index = Object.keys(CAT.products).map(function (id) {
       var p = CAT.products[id];
-      return { id: id, p: p, text: (p.n + " " + p.c + " " + CAT_LABEL[p.k]).toLowerCase() };
+      return { id: id, p: p, text: (p.n + " " + p.c + " " + p.k).toLowerCase() };
     });
     function openSearch() { search.hidden = false; document.body.style.overflow = "hidden"; sInput.focus(); render(); }
     function closeSearch() { search.hidden = true; document.body.style.overflow = ""; }
@@ -107,7 +107,7 @@
     var qBox = document.querySelector("[data-query]");
     var cards = Array.prototype.slice.call(grid.children);
     var title = document.querySelector("[data-shop-title]");
-    var labels = { all: "", men: "Men", women: "Women", tops: "Tops", bottoms: "Bottoms", headwear: "Headwear", accessories: "Accessories" };
+    var labels = { all: "", men: "Men", women: "Women", tops: "Tees & Shirts", bottoms: "Pants & Shorts", headwear: "Hats & Caps", accessories: "Extras" };
 
     function apply(push) {
       var shown = 0, toks = tokens(state.q);

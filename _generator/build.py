@@ -69,7 +69,7 @@ MEGA_IMG = {"men": "sent-from-above-hoodie-black", "women": "atn-angels-hoodie-s
 
 
 def search_text(p):
-    return (p["name"] + " " + p["color"] + " " + CAT_NAME[p["cat"]] + " " + p.get("type", "")).lower()
+    return (p["name"] + " " + p["color"] + " " + p["cat"] + " " + p.get("type", "")).lower()
 
 
 def mega(r, g):
@@ -260,7 +260,7 @@ def card(p, r="", order=0):
     if len(p["images"]) > 1:
         second = f'<img class="card__alt" src="{r}{img(p, 1)}" alt="" loading="lazy" width="600" height="600">'
     ph = " is-ph" if p["placeholder"] else ""
-    return f"""<a class="card" href="{r}products/{p['id']}.html" data-cat="{p['cat']}" data-gender="{' '.join(p['gender'])}" data-price="{low(p)}" data-order="{order}" data-text="{e((p['name'] + ' ' + p['color'] + ' ' + CAT_NAME[p['cat']] + ' ' + p.get('type', '')).lower())}">
+    return f"""<a class="card" href="{r}products/{p['id']}.html" data-cat="{p['cat']}" data-gender="{' '.join(p['gender'])}" data-price="{low(p)}" data-order="{order}" data-text="{e(search_text(p))}">
   <div class="card__img{ph}"><img src="{r}{img(p)}" alt="{e(p['name'])}{(' in ' + e(p['color'])) if p['color'] else ''}" loading="lazy" width="600" height="600">{second}</div>
   <div class="card__meta"><span class="card__name">{e(p['name'])}</span><span class="card__price">{money(low(p))}</span></div>
   <span class="card__sub">{e(p['color'] or CAT_NAME[p['cat']])} · {gender_label(p)}</span>
@@ -683,9 +683,9 @@ def build_policies():
     brows = "".join(f"<tr><td>{a}</td><td>{b}</td><td>{c}</td><td>{d}</td></tr>" for a, b, c, d in bottoms)
     prose("size-guide.html", "Size Guide", "Customer care", "Above The Norm size chart for tops and bottoms.", f"""
 <p>All measurements are in inches and taken with the garment laid flat. Our tops run boxy with dropped shoulders: take your usual size for our intended fit, or size up for an oversized look. Women's fitted styles (baby tees, tanks, leggings) run one size smaller, so size up if you're between sizes.</p>
-<h2>Tops: tees, long sleeves, crewnecks, hoodies</h2>
+<h2>Tees &amp; Shirts: tees, long sleeves, crewnecks, hoodies</h2>
 <table class="tbl"><thead><tr><th>Size</th><th>Chest (pit to pit)</th><th>Body length</th><th>Sleeve</th></tr></thead><tbody>{trows}</tbody></table>
-<h2>Bottoms: joggers, sweats, shorts</h2>
+<h2>Pants &amp; Shorts: joggers, sweats, shorts</h2>
 <table class="tbl"><thead><tr><th>Size</th><th>Waist</th><th>Inseam (pants)</th><th>Hip</th></tr></thead><tbody>{brows}</tbody></table>
 <h2>How to measure</h2>
 <p>Lay a shirt that fits you well flat and measure straight across from armpit to armpit, then from the highest point of the shoulder to the hem. Compare with the chart above.</p>
