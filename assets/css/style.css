@@ -495,3 +495,12 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .stars--lg { margin: 10px 0 0; font-size: 13px; }
 .stars--lg .stars__bar { font-size: 16px; }
 .stars--lg b { color: var(--ink); font-weight: 700; }
+
+/* cookie banner */
+.cookies { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 75; display: grid; gap: 14px; max-width: 460px; padding: 18px 20px; background: var(--night); color: var(--bone); border: 1px solid rgba(242, 194, 48, .35); box-shadow: 0 18px 50px rgba(0, 0, 0, .3); font-size: 13px; line-height: 1.55; animation: pop .3s var(--ease); }
+.cookies[hidden] { display: none; }
+.cookies p { margin: 0; }
+.cookies a { color: var(--beam); }
+.cookies__btns { display: flex; gap: 8px; }
+.cookies__btns .btn { flex: 1; min-height: 42px; padding: 0 14px; font-size: 11px; }
+@media (min-width: 560px) { .cookies { left: 24px; right: auto; bottom: 24px; } }

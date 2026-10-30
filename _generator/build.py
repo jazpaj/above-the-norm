@@ -156,6 +156,13 @@ def promo(r):
 </div>"""
 
 
+def cookie_bar(r):
+    return f"""<div class="cookies" data-cookies hidden role="region" aria-label="Cookie preferences">
+  <p>We use cookies to keep your bag and checkout working, and to understand how the site is used. See our <a href="{r}privacy.html#cookies">Privacy Policy</a>.</p>
+  <div class="cookies__btns"><button class="btn btn--ghost" type="button" data-cookies-choice="essential">Essential only</button><button class="btn btn--light" type="button" data-cookies-choice="all">Accept all</button></div>
+</div>"""
+
+
 def coupon_box():
     return """<form class="coupon" data-coupon novalidate>
       <label for="coupon-code">Discount code</label>
@@ -192,6 +199,7 @@ def page(path, title, desc, body, active="", cls=""):
 </main>
 {footer(r)}
 {"" if path in ("cart.html", "checkout.html") else promo(r)}
+{cookie_bar(r)}
 <script src="{r}assets/js/catalog.js"></script>
 <script src="{r}assets/js/app.js"></script>
 </body>
@@ -586,8 +594,8 @@ def build_policies():
 <li>To comply with legal, tax and accounting obligations.</li></ul>
 <h2>How we share it</h2>
 <p>We do not sell your personal information. We share it only with service providers who help us run the store, such as our payment processor, shipping carriers, website hosting and email providers, and only as needed for them to perform those services. We may also disclose information if required by law.</p>
-<h2>Cookies</h2>
-<p>We use essential cookies and browser storage to keep items in your bag and make checkout work. You can block or delete cookies in your browser settings; some features may not work without them.</p>
+<h2 id="cookies">Cookies</h2>
+<p>We use essential cookies and browser storage to keep items in your bag and make checkout work. These are always on. With your permission, we may also use analytics cookies to understand how the site is used. When you first visit, a banner lets you choose "Accept all" or "Essential only", and your choice is saved in your browser. You can change it by clearing your browser's site data, or block or delete cookies in your browser settings; some features may not work without them.</p>
 <h2>Data security and retention</h2>
 <p>This site is served over an encrypted (HTTPS) connection and payments are handled by a PCI-DSS compliant processor. We keep order records for as long as needed for tax and accounting purposes, and other information only as long as it's useful for the purposes above.</p>
 <h2>Your rights</h2>

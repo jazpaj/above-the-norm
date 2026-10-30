@@ -241,15 +241,33 @@
     l.addEventListener("click", function () { if (CAT.coupon) store(CKEY, CAT.coupon.code); });
   });
 
-  /* welcome pop-up: once per visitor, a few seconds after the first page view */
+  /* cookie banner: asks once, then remembers the choice */
+  var cookieBar = document.querySelector("[data-cookies]");
+  var cookieWait = [];
+  var cookiesChosen = function () { return !!stored("atn_cookies"); };
+  if (cookieBar && !cookiesChosen()) {
+    cookieBar.hidden = false;
+    cookieBar.querySelectorAll("[data-cookies-choice]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        store("atn_cookies", b.dataset.cookiesChoice);
+        cookieBar.hidden = true;
+        cookieWait.forEach(function (fn) { fn(); });
+      });
+    });
+  }
+
+  /* welcome pop-up: once per visitor, a few seconds after the first page view (and after the cookie choice) */
   var promo = document.querySelector("[data-promo]");
   if (promo && CAT.coupon && !stored("atn_promo_seen")) {
     var pImg = promo.querySelector("img");
     if (pImg) pImg.loading = "eager"; // fetch the photo now so it's ready when the pop-up opens
     var closePromo = function () { promo.hidden = true; document.body.style.overflow = ""; store("atn_promo_seen", "1"); };
-    setTimeout(function () {
-      if (!document.querySelector(".search:not([hidden]), .drawer:not([hidden])")) { promo.hidden = false; document.body.style.overflow = "hidden"; }
-    }, 4000);
+    var openPromo = function (delay) {
+      setTimeout(function () {
+        if (!document.querySelector(".search:not([hidden]), .drawer:not([hidden])")) { promo.hidden = false; document.body.style.overflow = "hidden"; }
+      }, delay);
+    };
+    if (cookiesChosen() || !cookieBar) openPromo(4000); else cookieWait.push(function () { openPromo(1200); });
     promo.querySelectorAll("[data-promo-close]").forEach(function (b) { b.addEventListener("click", closePromo); });
     promo.addEventListener("click", function (ev) { if (ev.target === promo) closePromo(); });
     document.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && !promo.hidden) closePromo(); });
