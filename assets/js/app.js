@@ -142,8 +142,11 @@
   if (grid) {
     var shop = document.querySelector("[data-shop]");
     var params = new URLSearchParams(location.search);
-    var state = { g: params.get("g") || "all", c: params.get("c") || "all", q: (params.get("q") || "").trim(), sort: "featured",
-                  l: params.get("l"), sizes: [], colors: [], stock: false };
+    var SORT_URL = { featured: "", low: "price-ascending", high: "price-descending", az: "title-ascending", za: "title-descending" };
+    var sortFromUrl = Object.keys(SORT_URL).filter(function (k) { return SORT_URL[k] && SORT_URL[k] === params.get("sort_by"); })[0];
+    var list = function (k) { return (params.get(k) || "").split(",").filter(Boolean); };
+    var state = { g: params.get("g") || "all", c: params.get("c") || "all", q: (params.get("q") || "").trim(), sort: sortFromUrl || "featured",
+                  l: params.get("l"), sizes: list("size"), colors: list("color"), stock: params.get("stock") === "1" };
     // "l" is the menu label for a sub-category link (e.g. Hoodies); it's dropped once the shopper changes filters.
     function dropLabel() { if (state.l) { state.l = null; state.q = ""; } }
     var qBox = document.querySelector("[data-query]");
@@ -184,23 +187,28 @@
       document.querySelector("[data-sort-label]").textContent = ": " + sortNames[state.sort];
       var n = state.sizes.length + state.colors.length + (state.stock ? 1 : 0) + (state.g !== "all") + (state.c !== "all");
       var nEl = document.querySelector("[data-active-n]"); nEl.hidden = !n; nEl.textContent = n;
+      document.querySelector("[data-apply-n]").textContent = n;
+      shop.classList.toggle("has-cat", state.c !== "all");
       document.querySelector("[data-count]").textContent = shown + (shown === 1 ? " product" : " products");
-      document.querySelector("[data-show-n]").textContent = shown;
       document.querySelector("[data-empty]").hidden = shown > 0;
       var t = [labels[state.g], labels[state.c]].filter(Boolean).join(" ");
       title.textContent = state.l ? (state.g !== "all" ? labels[state.g] + "'s " : "") + state.l
         : t ? (state.g !== "all" && state.c !== "all" ? labels[state.g] + "'s " + labels[state.c] : t) : (state.q ? "Search" : "Shop All");
-      document.querySelector("[data-crumb]").textContent = (state.g === "all" ? "All" : labels[state.g] + "'s") + " · " + (state.l || (state.c === "all" ? "All products" : labels[state.c]));
+      document.querySelector("[data-crumb]").textContent = (state.g === "all" ? "All" : labels[state.g] + "'s") + " | " + (state.l || (state.c === "all" ? "Shop all" : labels[state.c]));
       document.title = title.textContent + " | Above The Norm";
       qBox.hidden = !state.q || !!state.l;
       qBox.querySelector("[data-query-text]").textContent = "“" + state.q + "”";
-      if (push) {
+      if (push !== false) {
         var q = new URLSearchParams();
         if (state.g !== "all") q.set("g", state.g);
         if (state.c !== "all") q.set("c", state.c);
         if (state.q) q.set("q", state.q);
         if (state.l) q.set("l", state.l);
-        history.replaceState(null, "", location.pathname + (q.toString() ? "?" + q : ""));
+        if (state.sizes.length) q.set("size", state.sizes.join(","));
+        if (state.colors.length) q.set("color", state.colors.join(","));
+        if (state.stock) q.set("stock", "1");
+        if (SORT_URL[state.sort]) q.set("sort_by", SORT_URL[state.sort]);
+        history.replaceState(null, "", location.pathname + (q.toString() ? "?" + q.toString().replace(/%2C/g, ",") : ""));
       }
       document.querySelectorAll(".hdr__nav a").forEach(function (a) {
         var u = new URL(a.href, location.href);
@@ -214,39 +222,46 @@
       b.addEventListener("click", function () { dropLabel(); state.g = b.dataset.g; apply(true); });
     });
     document.querySelectorAll("[data-c]").forEach(function (b) {
-      b.addEventListener("click", function () { dropLabel(); state.c = b.dataset.c; apply(true); });
+      b.addEventListener("click", function () {
+        dropLabel();
+        state.c = b.classList.contains("ctile") && state.c === b.dataset.c ? "all" : b.dataset.c;
+        apply(true);
+      });
     });
     document.querySelectorAll("[data-size-f]").forEach(function (i) {
-      i.addEventListener("change", function () { toggle(state.sizes, i.value); apply(false); });
+      i.addEventListener("change", function () { toggle(state.sizes, i.value); apply(); });
     });
     document.querySelectorAll("[data-color-f]").forEach(function (b) {
-      b.addEventListener("click", function () { toggle(state.colors, b.dataset.colorF); apply(false); });
+      b.addEventListener("click", function () { toggle(state.colors, b.dataset.colorF); apply(); });
     });
-    document.querySelector("[data-stock-f]").addEventListener("change", function (ev) { state.stock = ev.target.checked; apply(false); });
+    document.querySelector("[data-stock-f]").addEventListener("change", function (ev) { state.stock = ev.target.checked; apply(); });
 
-    // sort: from the sidebar list or the toolbar dropdown
-    var sortBtn = document.querySelector("[data-sort-toggle]"), sortMenu = document.querySelector("[data-sort-menu]");
-    function closeSort() { sortMenu.hidden = true; sortBtn.setAttribute("aria-expanded", "false"); }
-    sortBtn.addEventListener("click", function () { var open = sortMenu.hidden; sortMenu.hidden = !open; sortBtn.setAttribute("aria-expanded", open); });
-    document.addEventListener("click", function (ev) { if (!ev.target.closest(".sortmenu")) closeSort(); });
     document.querySelectorAll("[data-sortopt]").forEach(function (b) {
-      b.addEventListener("click", function () { state.sort = b.dataset.sortopt; closeSort(); apply(false); });
+      b.addEventListener("click", function () { state.sort = b.dataset.sortopt; apply(true); });
     });
 
-    // filter sidebar: open beside the grid on desktop, a slide-in panel on phones
+    // one panel for both buttons (like Malbon): Filter opens it, Sort opens it at "Sort by".
+    // Beside the grid on desktop, a slide-in panel on smaller screens. Starts closed so the grid is full width.
     var wide = window.matchMedia("(min-width: 1024px)");
-    var fBtn = document.querySelector("[data-filter-toggle]");
-    function setFilters(open) {
+    var fBtn = document.querySelector("[data-filter-toggle]"), sBtn = document.querySelector("[data-sort-toggle]");
+    var sortGroup = document.querySelector("[data-sort-group]");
+    var fside = document.querySelector("[data-fside]");
+    function isOpen() { return shop.classList.contains("is-filtering"); }
+    function setPanel(open, focusSort) {
       shop.classList.toggle("is-filtering", open);
-      fBtn.setAttribute("aria-expanded", open);
+      sortGroup.open = !!(open && focusSort);
+      fBtn.setAttribute("aria-expanded", open && !focusSort);
+      sBtn.setAttribute("aria-expanded", !!(open && focusSort));
       document.body.style.overflow = open && !wide.matches ? "hidden" : "";
+      if (open) fside.scrollTop = 0;
+      if (open && wide.matches && shop.getBoundingClientRect().top < 0) window.scrollTo({ top: shop.querySelector(".tbar").getBoundingClientRect().top + scrollY - 90, behavior: "smooth" });
     }
-    setFilters(wide.matches);
-    fBtn.addEventListener("click", function () { setFilters(!shop.classList.contains("is-filtering")); });
-    document.querySelectorAll("[data-filter-close]").forEach(function (b) { b.addEventListener("click", function () { setFilters(false); }); });
-    document.addEventListener("keydown", function (ev) {
-      if (ev.key === "Escape") { closeSort(); if (!wide.matches) setFilters(false); }
-    });
+    setPanel(false);
+    fBtn.addEventListener("click", function () { setPanel(!(isOpen() && !sortGroup.open), false); });
+    sBtn.addEventListener("click", function () { setPanel(!(isOpen() && sortGroup.open), true); });
+    document.querySelectorAll("[data-filter-close]").forEach(function (b) { b.addEventListener("click", function () { setPanel(false); }); });
+    document.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && isOpen() && !wide.matches) setPanel(false); });
+    shop.addEventListener("click", function (ev) { if (!wide.matches && isOpen() && ev.target === shop) setPanel(false); });
 
     // grid density, remembered per visitor
     function setCols(n) {

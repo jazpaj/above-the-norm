@@ -428,6 +428,9 @@ FILTER_SIZES = ["XS", "S", "M", "L", "XL", "2XL", "3XL", "One Size"]
 GRID_ICON = {2: '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="1" width="6" height="14"/><rect x="9" y="1" width="6" height="14"/></svg>',
              3: '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="0.5" y="1" width="4" height="14"/><rect x="6" y="1" width="4" height="14"/><rect x="11.5" y="1" width="4" height="14"/></svg>',
              4: '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="1" width="6" height="6"/><rect x="9" y="1" width="6" height="6"/><rect x="1" y="9" width="6" height="6"/><rect x="9" y="9" width="6" height="6"/></svg>'}
+# Category tiles above the shop toolbar: lifestyle shot per category (view 3 of a real product).
+CAT_TILE = {"tops": "sent-from-above-l-s-charcoal-grey", "bottoms": "atn-logo-joggers-black",
+            "headwear": "black-jesus-trucker-hat-red", "accessories": "atn-logo-wallet-chain-white"}
 SORTS = [("featured", "Featured"), ("low", "Price, low to high"), ("high", "Price, high to low"), ("az", "Alphabetically, A–Z"), ("za", "Alphabetically, Z–A")]
 
 
@@ -445,7 +448,8 @@ def build_shop():
     colors = "".join(f'<button type="button" class="fswatch" data-color-f="{e(c)}" aria-pressed="false" title="{e(c)} ({n})"><i style="--sw:{SWATCH.get(c, "#ccc")}"></i><span>{e(c)}</span></button>'
                      for c, n in sorted(counts.items(), key=lambda x: -x[1]))
     views = "".join(f'<button type="button" class="tbar__view" data-cols="{n}" aria-pressed="{"true" if n == 4 else "false"}" aria-label="{n} per row">{GRID_ICON[n]}</button>' for n in (2, 3, 4))
-    sortlist = "".join(f'<li><button type="button" data-sortopt="{k}" aria-pressed="{"true" if k == "featured" else "false"}">{v}</button></li>' for k, v in SORTS)
+    by_id = {p["id"]: p for p in PRODUCTS}
+    tiles = "".join(f'<button type="button" class="ctile" data-c="{k}" aria-pressed="false"><img src="{img(by_id[CAT_TILE[k]], 2)}" alt="" loading="lazy" width="600" height="750"><span>{v}</span></button>' for k, v in CATS)
     body = f"""
 <section class="page-hero wrap">
   <p class="kicker">The collection</p>
@@ -453,6 +457,7 @@ def build_shop():
   <p class="page-hero__lede">Tees, hoodies, sweats, headwear and accessories. Filter by who it's for and what it is.</p>
 </section>
 <section class="shop" data-shop>
+  <div class="ctiles" role="group" aria-label="Shop by category">{tiles}</div>
   <div class="tbar">
     <div class="tbar__l">
       <div class="tbar__views" role="group" aria-label="Products per row">{views}</div>
@@ -460,22 +465,21 @@ def build_shop():
       <span class="tbar__count" data-count>{len(PRODUCTS)} products</span>
     </div>
     <div class="tbar__r">
-      <button type="button" class="tbar__btn" data-filter-toggle aria-expanded="true" aria-controls="fside"><svg class="tbar__ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>Filter<span class="tbar__n" data-active-n hidden></span><svg class="tbar__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+      <button type="button" class="tbar__btn" data-filter-toggle aria-expanded="false" aria-controls="fside"><svg class="tbar__ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>Filter<span class="tbar__n" data-active-n hidden></span><svg class="tbar__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
       <div class="sortmenu">
         <button type="button" class="tbar__btn" data-sort-toggle aria-expanded="false" aria-haspopup="true">Sort<span class="tbar__sortlabel" data-sort-label>: Featured</span><svg class="tbar__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
-        <ul class="sortmenu__list" data-sort-menu hidden>{sortlist}</ul>
       </div>
     </div>
   </div>
   <div class="shop__body">
     <aside class="fside" id="fside" data-fside aria-label="Filters">
       <div class="fside__head"><p class="fside__crumb" data-crumb>All · All products</p><button type="button" class="fside__close" data-filter-close aria-label="Close filters">{ICON['close']}</button></div>
-      <details class="fgroup fgroup--sort" open><summary>Sort by</summary><div class="fopts">{sopts}</div></details>
+      <details class="fgroup fgroup--sort" data-sort-group><summary>Sort by</summary><div class="fopts">{sopts}</div></details>
       <details class="fgroup" open><summary>Shop for</summary><div class="fopts">{gopts}</div></details>
       <details class="fgroup" open><summary>Category</summary><div class="fopts">{copts}</div></details>
       <details class="fgroup" open><summary>Size</summary><div class="fchecks">{sizes}</div></details>
       <details class="fgroup" open><summary>Color</summary><div class="fswatches">{colors}</div></details>
-      <div class="fside__foot"><button type="button" class="link-btn" data-reset>Clear all</button><button type="button" class="btn fside__show" data-filter-close>Show <span data-show-n>{len(PRODUCTS)}</span> products</button></div>
+      <div class="fside__foot"><button type="button" class="btn fside__apply" data-filter-close><span>Apply (<span data-apply-n>0</span>) filters</span></button><button type="button" class="fside__clear" data-reset>Clear</button></div>
     </aside>
     <div class="shop__main">
       <p class="shop__query" data-query hidden>Showing results for <strong data-query-text></strong> · <button type="button" class="link-btn" data-clear-q>Clear search</button></p>
