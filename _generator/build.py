@@ -479,7 +479,7 @@ def build_shop():
       <details class="fgroup" open><summary>Category</summary><div class="fopts">{copts}</div></details>
       <details class="fgroup" open><summary>Size</summary><div class="fchecks">{sizes}</div></details>
       <details class="fgroup" open><summary>Color</summary><div class="fswatches">{colors}</div></details>
-      <div class="fside__foot"><button type="button" class="btn fside__apply" data-filter-close><span>Apply (<span data-apply-n>0</span>) filters</span></button><button type="button" class="fside__clear" data-reset>Clear</button></div>
+      <div class="fside__foot"><button type="button" class="btn fside__apply" data-filter-apply><span>Apply (<span data-apply-n>0</span>) filters</span></button><button type="button" class="fside__clear" data-reset>Clear</button></div>
     </aside>
     <div class="shop__main">
       <p class="shop__query" data-query hidden>Showing results for <strong data-query-text></strong> · <button type="button" class="link-btn" data-clear-q>Clear search</button></p>

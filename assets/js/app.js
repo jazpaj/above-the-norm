@@ -260,6 +260,12 @@
     fBtn.addEventListener("click", function () { setPanel(!(isOpen() && !sortGroup.open), false); });
     sBtn.addEventListener("click", function () { setPanel(!(isOpen() && sortGroup.open), true); });
     document.querySelectorAll("[data-filter-close]").forEach(function (b) { b.addEventListener("click", function () { setPanel(false); }); });
+    // Apply: the column stays open beside the results on desktop; on smaller screens the slide-in panel closes to show them
+    document.querySelector("[data-filter-apply]").addEventListener("click", function () {
+      if (!wide.matches) { setPanel(false); return; }
+      var top = shop.querySelector(".tbar").getBoundingClientRect().top + scrollY - 90;
+      if (scrollY > top) window.scrollTo({ top: top, behavior: "smooth" });
+    });
     document.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && isOpen() && !wide.matches) setPanel(false); });
     shop.addEventListener("click", function (ev) { if (!wide.matches && isOpen() && ev.target === shop) setPanel(false); });
 
