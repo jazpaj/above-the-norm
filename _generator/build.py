@@ -465,9 +465,9 @@ def build_shop():
       <span class="tbar__count" data-count>{len(PRODUCTS)} products</span>
     </div>
     <div class="tbar__r">
-      <button type="button" class="tbar__btn" data-filter-toggle aria-expanded="false" aria-controls="fside"><svg class="tbar__ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>Filter<span class="tbar__n" data-active-n hidden></span><svg class="tbar__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+      <button type="button" class="tbar__btn" data-filter-toggle aria-expanded="false" aria-controls="fside"><svg class="tbar__ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>Filter<span class="tbar__n" data-active-n hidden></span></button>
       <div class="sortmenu">
-        <button type="button" class="tbar__btn" data-sort-toggle aria-expanded="false" aria-haspopup="true">Sort<span class="tbar__sortlabel" data-sort-label>: Featured</span><svg class="tbar__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+        <button type="button" class="tbar__btn" data-sort-toggle aria-expanded="false" aria-controls="fside"><svg class="tbar__ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v16M7 20l-3-3M7 20l3-3M17 20V4M17 4l-3 3M17 4l3 3"/></svg>Sort<span class="tbar__sortlabel" data-sort-label>: Featured</span></button>
       </div>
     </div>
   </div>
