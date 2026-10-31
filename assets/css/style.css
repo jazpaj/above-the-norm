@@ -816,3 +816,9 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 @media (min-width: 1024px) { .fside__foot { position: sticky; bottom: 0; background: var(--bg); } }
 @media (max-width: 759px) { .ctiles { scroll-padding-inline: var(--gut); } }
 .fside__apply > span { white-space: nowrap; }
+/* panel footer buttons: compact, always fit the panel width */
+.fside { overflow-x: hidden; }
+.fside__foot { gap: 8px; }
+.fside__apply { flex: 1 1 auto; min-width: 0; min-height: 40px; padding: 0 14px; font-size: 13px; }
+.fside__clear { flex: none; min-height: 40px; padding: 0 14px; font-size: 13px; }
+.fopts { margin: -4px 0 0 -12px; }
