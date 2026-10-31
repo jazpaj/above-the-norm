@@ -189,6 +189,10 @@
       var nEl = document.querySelector("[data-active-n]"); nEl.hidden = !n; nEl.textContent = n;
       document.querySelector("[data-apply-n]").textContent = n;
       shop.classList.toggle("has-cat", state.c !== "all");
+      document.querySelectorAll(".ctile img").forEach(function (im) {
+        var src = im.getAttribute("data-img-" + state.g) || im.getAttribute("data-img-all");
+        if (im.getAttribute("src") !== src) im.setAttribute("src", src);
+      });
       document.querySelector("[data-count]").textContent = shown + (shown === 1 ? " product" : " products");
       document.querySelector("[data-empty]").hidden = shown > 0;
       var t = [labels[state.g], labels[state.c]].filter(Boolean).join(" ");

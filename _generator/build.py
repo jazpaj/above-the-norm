@@ -428,9 +428,15 @@ FILTER_SIZES = ["XS", "S", "M", "L", "XL", "2XL", "3XL", "One Size"]
 GRID_ICON = {2: '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="1" width="6" height="14"/><rect x="9" y="1" width="6" height="14"/></svg>',
              3: '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="0.5" y="1" width="4" height="14"/><rect x="6" y="1" width="4" height="14"/><rect x="11.5" y="1" width="4" height="14"/></svg>',
              4: '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="1" width="6" height="6"/><rect x="9" y="1" width="6" height="6"/><rect x="1" y="9" width="6" height="6"/><rect x="9" y="9" width="6" height="6"/></svg>'}
-# Category tiles above the shop toolbar: lifestyle shot per category (view 3 of a real product).
-CAT_TILE = {"tops": "sent-from-above-l-s-charcoal-grey", "bottoms": "atn-logo-joggers-black",
-            "headwear": "black-jesus-trucker-hat-red", "accessories": "atn-logo-wallet-chain-white"}
+# Category tiles above the shop toolbar: a lifestyle shot (view 3) per category, swapped for Men / Women.
+CAT_TILE = {
+    "all": {"tops": "sent-from-above-l-s-charcoal-grey", "bottoms": "atn-logo-joggers-black",
+            "headwear": "black-jesus-trucker-hat-red", "accessories": "atn-logo-wallet-chain-white"},
+    "men": {"tops": "night-shift-mesh-jersey-washed-black", "bottoms": "beam-denim-sky-blue",
+            "headwear": "motel-atn-fitted-cap-charcoal", "accessories": "ascension-belt-silver"},
+    "women": {"tops": "above-all-baby-tee-navy", "bottoms": "star-wide-leg-sweats-navy",
+              "headwear": "mothership-fuzzy-bucket-hat-sky-blue", "accessories": "mothership-hoop-earrings-silver"},
+}
 SORTS = [("featured", "Featured"), ("low", "Price, low to high"), ("high", "Price, high to low"), ("az", "Alphabetically, A–Z"), ("za", "Alphabetically, Z–A")]
 
 
@@ -449,7 +455,11 @@ def build_shop():
                      for c, n in sorted(counts.items(), key=lambda x: -x[1]))
     views = "".join(f'<button type="button" class="tbar__view" data-cols="{n}" aria-pressed="{"true" if n == 4 else "false"}" aria-label="{n} per row">{GRID_ICON[n]}</button>' for n in (2, 3, 4))
     by_id = {p["id"]: p for p in PRODUCTS}
-    tiles = "".join(f'<button type="button" class="ctile" data-c="{k}" aria-pressed="false"><img src="{img(by_id[CAT_TILE[k]], 2)}" alt="" loading="lazy" width="600" height="750"><span>{v}</span></button>' for k, v in CATS)
+    def tile(k, v):
+        srcs = " ".join(f'data-img-{g}="{img(by_id[CAT_TILE[g][k]], 2)}"' for g in CAT_TILE)
+        return (f'<button type="button" class="ctile" data-c="{k}" aria-pressed="false">'
+                f'<img src="{img(by_id[CAT_TILE["all"][k]], 2)}" {srcs} alt="" width="600" height="750"><span>{v}</span></button>')
+    tiles = "".join(tile(k, v) for k, v in CATS)
     body = f"""
 <section class="page-hero wrap">
   <p class="kicker">The collection</p>
