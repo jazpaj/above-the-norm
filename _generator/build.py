@@ -78,7 +78,7 @@ def mega(r, g):
         toks = words.split()
         return sum(1 for p in PRODUCTS if g in p["gender"] and p["cat"] == cat and all(t in search_text(p) for t in toks))
     cols = [f"""<div class="mega__col"><h3>Featured</h3>
-        <a href="{r}shop.html?g={g}">Shop All {label}</a>
+        <a href="{r}shop.html?g={g}">Explore {label}'s Catalog</a>
         <a href="{r}size-guide.html">Size Guide</a>
         <a href="{r}shipping.html">Shipping</a>
         <a href="{r}returns.html">Returns &amp; Refunds</a>
@@ -97,7 +97,7 @@ def header(r, active):
         cur = ' aria-current="page"' if key == active else ""
         return f'<a href="{r}{href}"{cur}>{label}</a>'
 
-    cats = nav("shop.html", "Shop All", "shop") + "".join(nav(f"shop.html?c={k}", v, k) for k, v in CATS)
+    cats = nav("shop.html", "Explore Catalog", "shop") + "".join(nav(f"shop.html?c={k}", v, k) for k, v in CATS)
 
     return f"""
 <header class="hdr">
@@ -153,7 +153,7 @@ def footer(r):
     def col(title, links):
         items = "".join(f'<li><a href="{r}{h}">{t}</a></li>' for h, t in links)
         return f'<nav class="ftr__col" aria-label="{title}"><ul>{items}</ul></nav>'
-    shop = [("shop.html", "Shop All"), ("shop.html?g=men", "Men"), ("shop.html?g=women", "Women")] + [(f"shop.html?c={k}", v) for k, v in CATS]
+    shop = [("shop.html", "Explore Catalog"), ("shop.html?g=men", "Men"), ("shop.html?g=women", "Women")] + [(f"shop.html?c={k}", v) for k, v in CATS]
     help_ = [("contact.html", "Contact Us"), ("track.html", "Track Your Order"), ("faq.html", "FAQ"), ("size-guide.html", "Size Guide"),
              ("shipping.html", "Shipping Policy"), ("returns.html", "Returns &amp; Refunds")]
     company = [("about.html", "About Us"), ("privacy.html", "Privacy Policy"), ("terms.html", "Terms of Service")]
@@ -458,7 +458,7 @@ def build_shop():
     body = f"""
 <section class="page-hero wrap">
   <p class="kicker">The collection</p>
-  <h1 data-shop-title>Shop All</h1>
+  <h1 data-shop-title>Explore Catalog</h1>
   <p class="page-hero__lede">Tees, hoodies, sweats, headwear and accessories. Filter by who it's for and what it is.</p>
 </section>
 <section class="shop" data-shop>
@@ -494,7 +494,7 @@ def build_shop():
   </div>
 </section>
 """
-    page("shop.html", "Shop All", "Shop the full Above The Norm collection for men and women: tops, bottoms, headwear and accessories.", body, active="shop")
+    page("shop.html", "Explore Catalog", "Shop the full Above The Norm collection for men and women: tops, bottoms, headwear and accessories.", body, active="shop")
 
 
 def complete_look(p):

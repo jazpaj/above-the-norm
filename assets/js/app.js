@@ -197,8 +197,8 @@
       document.querySelector("[data-empty]").hidden = shown > 0;
       var t = [labels[state.g], labels[state.c]].filter(Boolean).join(" ");
       title.textContent = state.l ? (state.g !== "all" ? labels[state.g] + "'s " : "") + state.l
-        : t ? (state.g !== "all" && state.c !== "all" ? labels[state.g] + "'s " + labels[state.c] : t) : (state.q ? "Search" : "Shop All");
-      document.querySelector("[data-crumb]").textContent = (state.g === "all" ? "All" : labels[state.g] + "'s") + " | " + (state.l || (state.c === "all" ? "Shop all" : labels[state.c]));
+        : t ? (state.g !== "all" && state.c !== "all" ? labels[state.g] + "'s " + labels[state.c] : t) : (state.q ? "Search" : "Explore Catalog");
+      document.querySelector("[data-crumb]").textContent = (state.g === "all" ? "All" : labels[state.g] + "'s") + " | " + (state.l || (state.c === "all" ? "Explore catalog" : labels[state.c]));
       document.title = title.textContent + " | Above The Norm";
       qBox.hidden = !state.q || !!state.l;
       qBox.querySelector("[data-query-text]").textContent = "“" + state.q + "”";
