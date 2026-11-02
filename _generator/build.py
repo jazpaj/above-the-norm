@@ -842,23 +842,35 @@ def build_about():
 
 
 def build_contact():
-    phone = f'<li><strong>Phone</strong><a href="tel:{BIZ["phone"]}">{BIZ["phone"]}</a></li>' if BIZ["phone"] else ""
+    phone = f'<li>{ICON["mail"]}<div><strong>Phone</strong><a href="tel:{BIZ["phone"]}">{BIZ["phone"]}</a></div></li>' if BIZ["phone"] else ""
+    topics = "".join(f'<label class="ctopic"><input type="radio" name="topic" value="{t}"{" checked" if i == 0 else ""}><span>{t}</span></label>'
+                     for i, t in enumerate(["Order question", "Sizing", "Problem with my item", "Cancellation", "Wholesale or collaboration", "Other"]))
     body = f"""
 <section class="page-hero wrap"><p class="kicker">Customer care</p><h1>Contact us</h1><p class="page-hero__lede">Questions about sizing, an order or a collaboration? Expect an answer in 1–2 business days.</p></section>
 <section class="wrap contact">
-  <ul class="contact__info">
-    <li><strong>Email</strong><a href="mailto:{BIZ['email']}">{BIZ['email']}</a></li>{phone}
-    <li><strong>Hours</strong>{BIZ['hours']}</li>
-    <li><strong>Mailing address</strong>{BIZ['legal']}<br>{BIZ['street']}<br>{BIZ['city']}, {BIZ['state']} {BIZ['zip']}<br>{BIZ['country']}</li>
-    <li><strong>Social</strong><a href="{BIZ['instagram']}" target="_blank" rel="noopener">Instagram @abovethenorm.us</a></li>
-    <li class="contact__note">Online store only. This address is for correspondence and isn't open to the public.</li>
-  </ul>
-  <form class="co contact__form" data-contact-form novalidate>
-    <div class="co__two"><label>Name<input name="name" autocomplete="name" required></label><label>Email<input type="email" name="email" autocomplete="email" placeholder="you@example.com" required></label></div>
-    <label>Order number (optional)<input name="order"></label>
-    <label>Topic<select name="topic"><option>Order question</option><option>Sizing</option><option>Problem with my item</option><option>Cancellation</option><option>Wholesale or collaboration</option><option>Other</option></select></label>
-    <label>Message<textarea name="message" rows="6" required></textarea></label>
-    <button class="btn" type="submit">Send message</button>
+  <aside class="cinfo">
+    <h2>Talk to the team</h2>
+    <ul>
+      <li>{ICON['mail']}<div><strong>Email</strong><a href="mailto:{BIZ['email']}">{BIZ['email']}</a></div></li>{phone}
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><strong>Hours</strong>{BIZ['hours']}</div></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg><div><strong>Mailing address</strong>{BIZ['legal']}<br>{BIZ['street']}<br>{BIZ['city']}, {BIZ['state']} {BIZ['zip']}<br>{BIZ['country']}</div></li>
+      <li>{ICON['instagram']}<div><strong>Instagram</strong><a href="{BIZ['instagram']}" target="_blank" rel="noopener">@abovethenorm.us</a></div></li>
+    </ul>
+    <p class="cinfo__note">Online store only. This address is for correspondence and isn't open to the public.</p>
+  </aside>
+  <form class="co cform" data-contact-form novalidate>
+    <h2>Send us a message</h2>
+    <div class="ctopics" role="radiogroup" aria-labelledby="ctopics-label">
+      <p id="ctopics-label">What's this about?</p>
+      <div class="ctopics__row">{topics}</div>
+    </div>
+    <div class="co__two">
+      <label class="ffield"><input name="name" autocomplete="name" placeholder=" " required><span>Your name</span></label>
+      <label class="ffield"><input type="email" name="email" autocomplete="email" placeholder=" " required><span>Email address</span></label>
+    </div>
+    <label class="ffield"><input name="order" placeholder=" "><span>Order number (optional)</span></label>
+    <label class="ffield ffield--area"><textarea name="message" rows="6" placeholder=" " required></textarea><span>How can we help?</span></label>
+    <button class="btn btn--block btn--cta" type="submit">{ICON['mail']}<span>Send message</span></button>
     <p class="co__msg" data-contact-msg role="status"></p>
   </form>
 </section>

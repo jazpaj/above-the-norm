@@ -840,3 +840,36 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .coupon__hint button { margin: 0 2px; padding: 2px 8px; border: 1px dashed var(--night); border-radius: 6px; background: none; color: var(--night); font: 700 12px var(--sans); letter-spacing: .06em; cursor: pointer; transition: background .15s, color .15s; }
 .coupon__hint button:hover { background: var(--night); color: var(--beam); border-style: solid; }
 .summary__disc[hidden] { display: none; }
+
+/* forms: normal-case labels everywhere */
+.co label { font-size: 13px; letter-spacing: 0; text-transform: none; }
+
+/* contact page: info card + conversational form */
+.contact { align-items: start; gap: 24px; }
+@media (min-width: 900px) { .contact { grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr); gap: 28px; } }
+.contact > * { min-width: 0; }
+.cinfo { padding: 28px; background: var(--night); border-radius: 24px; color: var(--bone); }
+.cinfo h2 { margin-bottom: 22px; font-size: 22px; color: var(--bone); }
+.cinfo ul { display: grid; gap: 18px; margin: 0; padding: 0; list-style: none; font-size: 14px; line-height: 1.5; }
+.cinfo li { display: flex; gap: 14px; overflow-wrap: anywhere; }
+.cinfo svg { flex: none; width: 38px; height: 38px; padding: 9px; border-radius: 50%; background: rgba(242, 194, 48, .14); color: var(--beam); fill: none; stroke: currentColor; stroke-width: 1.7; }
+.cinfo strong { display: block; margin-bottom: 1px; font-weight: 600; }
+.cinfo a { color: var(--beam); }
+.cinfo__note { margin: 22px 0 0; padding-top: 16px; border-top: 1px solid rgba(238, 243, 249, .15); color: rgba(238, 243, 249, .65); font-size: 12px; }
+.cform { padding: clamp(20px, 3vw, 32px); background: var(--surface); border: 1px solid var(--line); border-radius: 24px; box-shadow: 0 12px 30px rgba(15, 22, 56, .06); }
+.cform h2 { font-size: 22px; }
+.ctopics > p { margin: 0 0 10px; font-size: 14px; font-weight: 600; }
+.ctopics__row { display: flex; flex-wrap: wrap; gap: 8px; }
+.co label.ctopic { display: block; font-weight: 500; cursor: pointer; }
+.ctopic input { position: absolute; opacity: 0; width: 1px; height: 1px; min-height: 0; padding: 0; }
+.ctopic span { display: inline-flex; align-items: center; min-height: 38px; padding: 0 15px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--bg); font-size: 13px; transition: background .15s, border-color .15s, color .15s; }
+.ctopic:hover span { border-color: var(--night); }
+.ctopic input:checked + span { background: var(--night); border-color: var(--night); color: var(--bone); }
+.ctopic input:focus-visible + span { outline: 2px solid var(--night); outline-offset: 2px; }
+.co label.ffield { position: relative; display: block; font-weight: 400; }
+.co .ffield input, .co .ffield textarea { display: block; width: 100%; min-height: 60px; padding: 25px 16px 9px; border-color: transparent; border-radius: 16px; background: var(--bg); }
+.co .ffield textarea { min-height: 150px; padding-top: 30px; }
+.ffield span { position: absolute; left: 17px; top: 19px; color: var(--muted); font-size: 15px; pointer-events: none; transition: top .15s, font-size .15s, color .15s; }
+.ffield input:focus + span, .ffield input:not(:placeholder-shown) + span, .ffield textarea:focus + span, .ffield textarea:not(:placeholder-shown) + span { top: 9px; color: var(--ink-2); font-size: 12px; font-weight: 600; }
+.co .ffield input:focus, .co .ffield textarea:focus { border-color: var(--night); background: var(--surface); }
+.co .ffield .is-invalid { border-color: var(--err); }
