@@ -83,10 +83,10 @@ FAQ = [
      f"Yes, within {SHIP['cancel_hours']} hours of placing it, as long as it hasn't started production. "
      "Email us with your order number and you'll receive a full refund to your original payment method."),
     ("How do your pieces fit?",
-     "Most tops and hoodies have a square, roomy cut and a dropped shoulder. Take your usual size for the shape we designed, or go one up for extra room. "
+     "Most tops and hoodies have a relaxed fit with dropped shoulders. Order your usual size, or go up one size for a looser feel. "
      "Each product page lists its fit, and the size guide has full measurements."),
     ("Which payment methods do you accept?",
-     "Visa, Mastercard, American Express and Discover, credit or debit. Card payments travel over an encrypted connection, and your full number is never kept on our side."),
+     "Visa, Mastercard, American Express and Discover, credit or debit. Card payments are encrypted, and your complete card number is never saved on our site."),
     ("Can you deliver outside the U.S.?",
      "Right now we only deliver inside the United States. Live somewhere else? Write to us before you order and we'll see what's possible."),
     ("How should I wash my pieces?",

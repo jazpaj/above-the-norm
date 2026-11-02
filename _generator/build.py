@@ -202,7 +202,7 @@ def promo(r):
 
 def cookie_bar(r):
     return f"""<div class="cookies" data-cookies hidden role="region" aria-label="Cookie preferences">
-  <p>Cookies keep your bag and checkout running and show us how the site gets used. Details are in our <a href="{r}privacy.html#cookies">Privacy Policy</a>.</p>
+  <p>This site uses cookies to save your bag, run checkout and help us improve the store. Learn more in our <a href="{r}privacy.html#cookies">Privacy Policy</a>.</p>
   <div class="cookies__btns"><button class="btn btn--ghost" type="button" data-cookies-choice="essential">Essential only</button><button class="btn btn--light" type="button" data-cookies-choice="all">Accept all</button></div>
 </div>"""
 
@@ -284,7 +284,7 @@ def section_head(kicker, title, link=None):
 
 
 ASSURE = [
-    ("lock", "Secure checkout", "Card payments travel over an encrypted connection, and your full number is never kept on our side.", "privacy.html"),
+    ("lock", "Secure checkout", "Card payments are encrypted, and your complete card number is never saved on our site.", "privacy.html"),
     ("truck", f"Ships in {SHIP['processing_short']}", "Made in limited batches, then sent with tracking anywhere in the U.S.", "shipping.html"),
     ("shield", "Arrives right or we fix it", f"Broken, faulty or the wrong piece? Let us know no later than {SHIP['claim_days']} days after it arrives.", "returns.html"),
     ("mail", "Talk to the team", f"Email {BIZ['email']}. Expect a reply in 1–2 business days.", "contact.html"),
@@ -639,7 +639,7 @@ def build_checkout():
       <p class="co__note">Every order is made and sent out within {SHIP['processing']}. Delivery time starts after that.</p>
     </fieldset>
     <fieldset data-fs="4"><legend><span>4</span>Payment</legend>
-      <div class="co__pay">{ICON['lock']}<div><strong>Card payment</strong><p>You'll type your card details into a protected form run by our payment processor. Your full number never stays with {BIZ['brand']}.</p></div></div>
+      <div class="co__pay">{ICON['lock']}<div><strong>Card payment</strong><p>You'll type your card details into a protected form run by our payment processor. Your complete card number is never saved on our site.</p></div></div>
       <!-- Card inputs have no "name", so their values are never submitted or saved. Swap for the processor's hosted fields when connected. -->
       <div class="co__card" data-card-fields aria-label="Card details">
         <label>Name on card<input data-cc="name" autocomplete="cc-name" placeholder="Name as it appears on card" required></label>
@@ -741,7 +741,7 @@ def build_policies():
 <h2>Information we collect</h2>
 <ul>
 <li><strong>Order information:</strong> your name, phone number, email, shipping and billing address, and the items you purchase.</li>
-<li><strong>Payment information:</strong> card details go straight into a protected form run by our payment processor, which handles the charge. Your full card number and security code never stay on our systems.</li>
+<li><strong>Payment information:</strong> card details go straight into a protected form run by our payment processor, which handles the charge. Your complete card number and security code are never saved on our systems.</li>
 <li><strong>Communications:</strong> anything you send us by email or through our contact form.</li>
 <li><strong>Device and usage data:</strong> basic information such as browser type, pages viewed and referring site, gathered by cookies and browser storage.</li>
 </ul>
@@ -752,7 +752,7 @@ def build_policies():
 <li>To send marketing emails, only if you've opted in. You can unsubscribe at any time.</li>
 <li>To comply with legal, tax and accounting obligations.</li></ul>
 <h2>How we share it</h2>
-<p>Your personal information is not for sale. The only outside companies that see it are the ones helping us run the store (payment processor, carriers, web hosting, email), and they get just what they need for that job. We'll also hand over information when the law requires it.</p>
+<p>We never sell your personal data. The only outside companies that see it are the ones helping us run the store (payment processor, carriers, web hosting, email), and they get just what they need for that job. We'll also hand over information when the law requires it.</p>
 <h2 id="cookies">Cookies</h2>
 <p>Some cookies and browser storage are always on, because your bag and checkout depend on them. Analytics cookies, which show us how people use the site, only run if you allow them. On your first visit a banner asks you to pick "Accept all" or "Essential only", and your browser remembers the answer. To change it, clear this site's data in your browser. You can also block or remove cookies there, though some pages may stop working.</p>
 <h2>Keeping your data safe, and for how long</h2>
@@ -799,7 +799,7 @@ def build_policies():
     trows = "".join(f"<tr><td>{a}</td><td>{b}</td><td>{c}</td><td>{d}</td></tr>" for a, b, c, d in tops)
     brows = "".join(f"<tr><td>{a}</td><td>{b}</td><td>{c}</td><td>{d}</td></tr>" for a, b, c, d in bottoms)
     prose("size-guide.html", "Size Guide", "Customer care", "Above The Norm size chart for tops and bottoms.", f"""
-<p>All measurements are in inches and taken with the garment laid flat. Our tops have a square, roomy cut and a dropped shoulder: take your usual size for the shape we designed, or go one up for extra room. Women's fitted styles (baby tees, tanks, leggings) are cut about a size smaller, so pick the larger size if you're in between.</p>
+<p>All measurements are in inches and taken with the garment laid flat. Our tops have a relaxed fit with dropped shoulders. Order your usual size, or go up one size for a looser feel. Women's fitted styles (baby tees, tanks, leggings) are cut about a size smaller, so pick the larger size if you're in between.</p>
 <h2>Tees &amp; Tops: tees, long sleeves, crewnecks, hoodies</h2>
 <table class="tbl"><thead><tr><th>Size</th><th>Chest (pit to pit)</th><th>Body length</th><th>Sleeve</th></tr></thead><tbody>{trows}</tbody></table>
 <h2>Pants &amp; Shorts: joggers, sweats, shorts</h2>
