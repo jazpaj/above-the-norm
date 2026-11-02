@@ -39,7 +39,7 @@ SHIP = {
     "processing": "7 to 14 business days",
     "processing_short": "7–14 business days",
     "standard_rate": 8.00,
-    "free_over": 150.00,
+    "free_over": 125.00,
     "standard_time": "3–7 working days once shipped",
     "express_rate": 20.00,
     "express_time": "1–3 working days once shipped",
@@ -71,7 +71,7 @@ FAQ = [
      "Enter it in your bag or at checkout. It applies to the merchandise subtotal only, one code per order, "
      "and can't be combined with other offers."),
     ("How long until my order ships?",
-     f"Every piece is printed and finished in small runs, so orders leave us within {SHIP['processing']}. "
+     f"Every piece is printed and finished in limited batches, so orders leave us within {SHIP['processing']}. "
      "You'll get an email with tracking the moment your package is handed to the carrier."),
     ("What does shipping cost?",
      f"Standard U.S. delivery is ${SHIP['standard_rate']:.0f}, and it's on us once your order reaches ${SHIP['free_over']:.0f} after discounts. "
@@ -83,10 +83,10 @@ FAQ = [
      f"Yes, within {SHIP['cancel_hours']} hours of placing it, as long as it hasn't started production. "
      "Email us with your order number and you'll receive a full refund to your original payment method."),
     ("How do your pieces fit?",
-     "Most tops and hoodies are cut boxy with dropped shoulders. They're true to size; size up for an oversized look. "
+     "Most tops and hoodies have a square, roomy cut and a dropped shoulder. Take your usual size for the shape we designed, or go one up for extra room. "
      "Each product page lists its fit, and the size guide has full measurements."),
     ("Which payment methods do you accept?",
-     "Major credit and debit cards. Payments are processed over an encrypted connection and we never store your full card number."),
+     "Visa, Mastercard, American Express and Discover, credit or debit. Card payments travel over an encrypted connection, and your full number is never kept on our side."),
     ("Can you deliver outside the U.S.?",
      "Right now we only deliver inside the United States. Live somewhere else? Write to us before you order and we'll see what's possible."),
     ("How should I wash my pieces?",

@@ -177,7 +177,7 @@ def footer(r):
   <div class="ftr__bar wrap">
     <a class="ftr__ig" href="{BIZ['instagram']}" rel="noopener" target="_blank" aria-label="Follow us on Instagram">{ICON['instagram']}</a>
     <p>© 2026 {BIZ['legal']}. All rights reserved. ABOVE THE NORM® is a registered trademark, U.S. Reg. No. {BIZ['tm_reg']}.</p>
-    <p class="ftr__pay"><span>{ICON['lock']} Secure checkout</span> · Visa · Mastercard · American Express · Discover</p>
+    <p class="ftr__pay"><span>{ICON['lock']} Secure checkout</span> · We take Visa, Mastercard, Amex and Discover</p>
   </div>
 </footer>"""
 
@@ -202,7 +202,7 @@ def promo(r):
 
 def cookie_bar(r):
     return f"""<div class="cookies" data-cookies hidden role="region" aria-label="Cookie preferences">
-  <p>We use cookies to keep your bag and checkout working, and to understand how the site is used. See our <a href="{r}privacy.html#cookies">Privacy Policy</a>.</p>
+  <p>Cookies keep your bag and checkout running and show us how the site gets used. Details are in our <a href="{r}privacy.html#cookies">Privacy Policy</a>.</p>
   <div class="cookies__btns"><button class="btn btn--ghost" type="button" data-cookies-choice="essential">Essential only</button><button class="btn btn--light" type="button" data-cookies-choice="all">Accept all</button></div>
 </div>"""
 
@@ -284,10 +284,10 @@ def section_head(kicker, title, link=None):
 
 
 ASSURE = [
-    ("lock", "Secure checkout", "Encrypted payment processing. We never store your full card number.", "privacy.html"),
-    ("truck", f"Ships in {SHIP['processing_short']}", "Small-run production, then tracked delivery anywhere in the U.S.", "shipping.html"),
+    ("lock", "Secure checkout", "Card payments travel over an encrypted connection, and your full number is never kept on our side.", "privacy.html"),
+    ("truck", f"Ships in {SHIP['processing_short']}", "Made in limited batches, then sent with tracking anywhere in the U.S.", "shipping.html"),
     ("shield", "Arrives right or we fix it", f"Broken, faulty or the wrong piece? Let us know no later than {SHIP['claim_days']} days after it arrives.", "returns.html"),
-    ("mail", "Real people, real replies", f"Email {BIZ['email']}. Expect a reply in 1–2 business days.", "contact.html"),
+    ("mail", "Talk to the team", f"Email {BIZ['email']}. Expect a reply in 1–2 business days.", "contact.html"),
 ]
 
 
@@ -312,7 +312,7 @@ def home_faq():
   <div class="home-faq__intro">
     <p class="kicker">Good to know</p>
     <h2>Before You Order</h2>
-    <p>Shipping, sizing, returns and more. Can't find it here? Email <a href="mailto:{BIZ['email']}">{BIZ['email']}</a> and a real person replies within 1–2 business days.</p>
+    <p>Shipping, sizing, returns and more. Can't find it here? Email <a href="mailto:{BIZ['email']}">{BIZ['email']}</a> and someone on the team will answer in 1–2 business days.</p>
     <a class="link-arrow" href="faq.html">All FAQs →</a>
   </div>
   <div class="home-faq__list">{items}</div>
@@ -351,7 +351,7 @@ def build_home():
     <div class="hero__copy">
       <p class="kicker kicker--light">Collection {UPDATED[-4:]} · Est. {BIZ['founded']}</p>
       <h1 class="hero__title"><span>Refuse</span><span>to be</span><span class="hero__strike">normal.</span></h1>
-      <p class="hero__lede">Independent streetwear about angels, outsiders and everything that doesn't fit the mold. Printed in small runs, made to be worn hard.</p>
+      <p class="hero__lede">Independent streetwear about angels, outsiders and everything that doesn't fit the mold. Printed in limited batches and made to take a beating.</p>
       <div class="hero__cta">
         <a class="btn btn--light" href="shop.html">Shop the collection</a>
         <a class="btn btn--ghost" href="about.html">Our story</a>
@@ -390,8 +390,8 @@ def build_home():
     <p class="manifesto__quote">“For the ones who were never <em>built to blend in.</em>”</p>
     <div class="manifesto__cols">
       <div><span>01</span><h3>Designed, not templated</h3><p>Every graphic starts as an original illustration. No stock art, no generic designs with a logo slapped on.</p></div>
-      <div><span>02</span><h3>Small runs</h3><p>We produce in limited quantities so pieces stay special and nothing ends up in a landfill sale bin.</p></div>
-      <div><span>03</span><h3>Heavy and built to last</h3><p>Heavyweight cottons, puff and screen prints, sewn-in labels. Clothes that get better with every wash.</p></div>
+      <div><span>02</span><h3>Limited batches</h3><p>We make only a set number of each piece, so they stay special and nothing ends up in a landfill sale bin.</p></div>
+      <div><span>03</span><h3>Made to hold up</h3><p>Substantial cotton fabrics, puff and screen prints, stitched-in labels. Pieces meant to stay in your rotation.</p></div>
     </div>
   </div>
 </section>
@@ -416,7 +416,7 @@ def build_home():
 
 {assurances()}
 """
-    page("index.html", "", "Above The Norm® is independent streetwear from Above The Norm LLC: graphic tees, hoodies, sweats, headwear and accessories for men and women, in small runs since 2019.", body, cls="home")
+    page("index.html", "", "Above The Norm® is independent streetwear from Above The Norm LLC: graphic tees, hoodies, sweats, headwear and accessories for men and women, made in limited batches since 2019.", body, cls="home")
 
 
 FILTER_SIZES = ["XS", "S", "M", "L", "XL", "2XL", "3XL", "One Size"]
@@ -558,10 +558,10 @@ def build_products():
     </div>
     <ul class="pdp__facts">
       <li>{ICON['truck']} Ships in {SHIP['processing_short']} · delivery is on us from {money(SHIP['free_over'])}</li>
-      <li>{ICON['lock']} Secure, encrypted checkout</li>
+      <li>{ICON['lock']} Your payment details are protected at checkout</li>
     </ul>
-    <details class="acc" open><summary>Details &amp; care</summary><ul>{details}{CARE_LINE if p['cat'] in ("tops", "bottoms") else ""}</ul></details>
-    <details class="acc"><summary>Shipping</summary><p>Orders are produced and dispatched within {SHIP['processing']}. Standard U.S. delivery takes {SHIP['standard_time']} and costs {money(SHIP['standard_rate'])}, or nothing once your order reaches {money(SHIP['free_over'])}. <a href="../shipping.html">Full shipping policy</a>.</p></details>
+    <details class="acc" open><summary>Details &amp; care</summary><ul>{details}{CARE_LINE if p['cat'] in ("tops", "bottoms") and not any(d.startswith("Care") for d in p["details"]) else ""}</ul></details>
+    <details class="acc"><summary>Shipping</summary><p>Orders are made and sent out within {SHIP['processing']}. Standard U.S. delivery takes {SHIP['standard_time']} and costs {money(SHIP['standard_rate'])}, or nothing once your order reaches {money(SHIP['free_over'])}. <a href="../shipping.html">Full shipping policy</a>.</p></details>
     <details class="acc"><summary>Returns &amp; refunds</summary><p>Every sale is final. If your piece turns up broken, faulty or not what you chose, write to us no later than {SHIP['claim_days']} days after it arrives and we'll send a new one or refund you in full. <a href="../returns.html">Returns &amp; refunds policy</a>.</p></details>
   </div>
 </section>
@@ -636,16 +636,16 @@ def build_checkout():
     <fieldset data-fs="3"><legend><span>3</span>Delivery</legend>
       <label class="radio"><input type="radio" name="ship" value="standard" checked><span><strong>Standard</strong> {SHIP['standard_time']}</span><em data-std-price>{money(SHIP['standard_rate'])}</em></label>
       <label class="radio"><input type="radio" name="ship" value="express"><span><strong>Express</strong> {SHIP['express_time']}</span><em>{money(SHIP['express_rate'])}</em></label>
-      <p class="co__note">All orders are produced and dispatched within {SHIP['processing']} before transit.</p>
+      <p class="co__note">Every order is made and sent out within {SHIP['processing']}. Delivery time starts after that.</p>
     </fieldset>
     <fieldset data-fs="4"><legend><span>4</span>Payment</legend>
-      <div class="co__pay">{ICON['lock']}<div><strong>Card payment</strong><p>Card details are entered in a secure, encrypted form provided by our payment processor. {BIZ['brand']} never sees or stores your full card number.</p></div></div>
+      <div class="co__pay">{ICON['lock']}<div><strong>Card payment</strong><p>You'll type your card details into a protected form run by our payment processor. Your full number never stays with {BIZ['brand']}.</p></div></div>
       <!-- Card inputs have no "name", so their values are never submitted or saved. Swap for the processor's hosted fields when connected. -->
       <div class="co__card" data-card-fields aria-label="Card details">
         <label>Name on card<input data-cc="name" autocomplete="cc-name" placeholder="Name as it appears on card" required></label>
         <label>Card number<span class="co__ccwrap"><input data-cc="number" inputmode="numeric" autocomplete="cc-number" placeholder="1234 5678 9012 3456" maxlength="23" required><em class="co__brand" data-cc-brand></em></span></label>
         <div class="co__two"><label>Expiry<input data-cc="exp" inputmode="numeric" autocomplete="cc-exp" placeholder="MM / YY" maxlength="7" required></label><label>Security code<input data-cc="cvc" inputmode="numeric" autocomplete="cc-csc" placeholder="CVC" maxlength="4" required></label></div>
-        <p class="co__cards">We accept Visa, Mastercard, American Express and Discover.</p>
+        <p class="co__cards">Cards we take: Visa, Mastercard, American Express, Discover.</p>
       </div>
     </fieldset>
     <label class="check"><input type="checkbox" name="agree" required><span>I have read and agree to the <a href="terms.html" target="_blank">Terms of Service</a>, <a href="returns.html" target="_blank">Returns &amp; Refunds Policy</a> (every sale is final unless a piece arrives broken, faulty or wrong) and <a href="privacy.html" target="_blank">Privacy Policy</a>.</span></label>
@@ -704,7 +704,7 @@ def build_policies():
     prose("shipping.html", "Shipping Policy", "Customer care", "How and when Above The Norm orders are produced, shipped and delivered.", f"""{upd}
 <p>This policy covers how {BIZ['legal']} ("Above The Norm", "we", "us") makes and delivers orders placed on this website.</p>
 <h2>Processing time</h2>
-<p>Our pieces are printed and finished in small runs. Orders are produced, packed and dispatched within <strong>{s['processing']}</strong> of purchase (excluding weekends and U.S. federal holidays). Processing time for each item is also shown on its product page.</p>
+<p>Our pieces are printed and finished in limited batches. Orders are made, packed and sent out within <strong>{s['processing']}</strong> of purchase (excluding weekends and U.S. federal holidays). Processing time for each item is also shown on its product page.</p>
 <h2>Shipping rates and delivery times</h2>
 <table class="tbl"><thead><tr><th>Method</th><th>Cost</th><th>Transit time</th></tr></thead><tbody>
 <tr><td>Standard</td><td>{money(s['standard_rate'])}, or on us once your order reaches {money(s['free_over'])} after discounts</td><td>{s['standard_time']}</td></tr>
@@ -722,7 +722,7 @@ def build_policies():
 <h2>Contact</h2>{company_block()}""")
 
     prose("returns.html", "Returns & Refunds", "Customer care", "Above The Norm returns, refunds, cancellations and damaged-item policy.", f"""{upd}
-<p>Because every piece is made in limited runs, <strong>every sale is final</strong>. We can't take a piece back or swap it because you changed your mind or picked the wrong size, so have a look at the <a href="size-guide.html">size guide</a> before ordering. We stand behind every order, though, and the exceptions below always apply.</p>
+<p>Because every piece is made in limited batches, <strong>every sale is final</strong>. We can't take a piece back or swap it because you changed your mind or picked the wrong size, so have a look at the <a href="size-guide.html">size guide</a> before ordering. We stand behind every order, though, and the exceptions below always apply.</p>
 <h2>If something's wrong with your order</h2>
 <p>Did a piece turn up broken or faulty, or is it the wrong style, size or color? Write to <a href="mailto:{BIZ['email']}">{BIZ['email']}</a> no later than <strong>{s['claim_days']} days after it arrives</strong> and include:</p>
 <ul><li>the number on your order,</li><li>a short note on what went wrong, and</li><li>pictures of the piece and how it was packed.</li></ul>
@@ -737,28 +737,28 @@ def build_policies():
 <p>Not sure about a piece before you buy? Ask us anything about fit or sizing.</p>{company_block()}""")
 
     prose("privacy.html", "Privacy Policy", "Legal", "How Above The Norm LLC collects, uses and protects your personal information.", f"""{upd}
-<p>{BIZ['legal']} ("we", "us"), operates this website. This policy describes what personal information we collect, how we use it, and the choices you have.</p>
+<p>{BIZ['legal']} ("we", "us"), operates this website. This policy explains which personal details we gather, why we need them, and what control you have over them.</p>
 <h2>Information we collect</h2>
 <ul>
-<li><strong>Order information:</strong> name, email, phone number, shipping and billing address, and the items you purchase.</li>
-<li><strong>Payment information:</strong> card details are entered directly into our payment processor's secure form and processed by them. We do not receive or store your full card number or security code.</li>
+<li><strong>Order information:</strong> your name, phone number, email, shipping and billing address, and the items you purchase.</li>
+<li><strong>Payment information:</strong> card details go straight into a protected form run by our payment processor, which handles the charge. Your full card number and security code never stay on our systems.</li>
 <li><strong>Communications:</strong> anything you send us by email or through our contact form.</li>
-<li><strong>Device and usage data:</strong> basic information such as browser type, pages viewed and referring site, collected through cookies and similar technologies.</li>
+<li><strong>Device and usage data:</strong> basic information such as browser type, pages viewed and referring site, gathered by cookies and browser storage.</li>
 </ul>
-<h2>How we use it</h2>
+<h2>What we use it for</h2>
 <ul><li>To process, ship and support your orders, including sending order confirmations and tracking.</li>
 <li>To respond to your questions and requests.</li>
 <li>To prevent fraud and keep the site secure.</li>
 <li>To send marketing emails, only if you've opted in. You can unsubscribe at any time.</li>
 <li>To comply with legal, tax and accounting obligations.</li></ul>
 <h2>How we share it</h2>
-<p>We do not sell your personal information. We share it only with service providers who help us run the store, such as our payment processor, shipping carriers, website hosting and email providers, and only as needed for them to perform those services. We may also disclose information if required by law.</p>
+<p>Your personal information is not for sale. The only outside companies that see it are the ones helping us run the store (payment processor, carriers, web hosting, email), and they get just what they need for that job. We'll also hand over information when the law requires it.</p>
 <h2 id="cookies">Cookies</h2>
-<p>We use essential cookies and browser storage to keep items in your bag and make checkout work. These are always on. With your permission, we may also use analytics cookies to understand how the site is used. When you first visit, a banner lets you choose "Accept all" or "Essential only", and your choice is saved in your browser. You can change it by clearing your browser's site data, or block or delete cookies in your browser settings; some features may not work without them.</p>
-<h2>Data security and retention</h2>
-<p>This site is served over an encrypted (HTTPS) connection and payments are handled by a PCI-DSS compliant processor. We keep order records for as long as needed for tax and accounting purposes, and other information only as long as it's useful for the purposes above.</p>
+<p>Some cookies and browser storage are always on, because your bag and checkout depend on them. Analytics cookies, which show us how people use the site, only run if you allow them. On your first visit a banner asks you to pick "Accept all" or "Essential only", and your browser remembers the answer. To change it, clear this site's data in your browser. You can also block or remove cookies there, though some pages may stop working.</p>
+<h2>Keeping your data safe, and for how long</h2>
+<p>Pages on this site load over an encrypted (HTTPS) connection, and card payments run through a processor that meets the PCI-DSS security standard. Order records stay on file while tax and accounting rules need them. Anything else is deleted once it no longer serves the uses listed above.</p>
 <h2>Your rights</h2>
-<p>You can ask us to access, correct or delete the personal information we hold about you, or to stop sending you marketing emails, by emailing <a href="mailto:{BIZ['email']}">{BIZ['email']}</a>. Depending on where you live (for example, California), you may have additional rights under local law, and we will honor them. We will not discriminate against you for exercising these rights.</p>
+<p>Write to <a href="mailto:{BIZ['email']}">{BIZ['email']}</a> to see, fix or erase the personal details we have on file for you, or to stop our marketing emails. Residents of California and some other places may have extra rights under local privacy laws, and we respect those too. Using any of these rights won't change how we treat you.</p>
 <h2>Children</h2>
 <p>This site is not directed to children under 13, and we do not knowingly collect their personal information.</p>
 <h2>Changes</h2>
@@ -775,7 +775,7 @@ def build_policies():
 <h2>3. Orders</h2>
 <p>Your order is an offer to buy. We accept it when we email you an order confirmation. We may refuse or cancel an order, for example if a product is unavailable, there's an obvious pricing error, or we suspect fraud. If we cancel after you've been charged, we'll refund you in full.</p>
 <h2>4. Payment</h2>
-<p>We accept major credit and debit cards. Payment is taken at the time of order through our third-party payment processor. You confirm that you are authorized to use the payment method you provide.</p>
+<p>We take Visa, Mastercard, American Express and Discover, credit or debit. You're charged when you place your order, through an outside payment processor. By paying, you confirm you have the right to use that payment method.</p>
 <h2>5. Shipping, returns and refunds</h2>
 <p>Shipping is governed by our <a href="shipping.html">Shipping Policy</a>, and returns, cancellations and refunds by our <a href="returns.html">Returns &amp; Refunds Policy</a>. Both are part of these Terms. Title and risk of loss pass to you when the order is delivered to your shipping address.</p>
 <h2>6. Intellectual property</h2>
@@ -799,7 +799,7 @@ def build_policies():
     trows = "".join(f"<tr><td>{a}</td><td>{b}</td><td>{c}</td><td>{d}</td></tr>" for a, b, c, d in tops)
     brows = "".join(f"<tr><td>{a}</td><td>{b}</td><td>{c}</td><td>{d}</td></tr>" for a, b, c, d in bottoms)
     prose("size-guide.html", "Size Guide", "Customer care", "Above The Norm size chart for tops and bottoms.", f"""
-<p>All measurements are in inches and taken with the garment laid flat. Our tops run boxy with dropped shoulders: take your usual size for our intended fit, or size up for an oversized look. Women's fitted styles (baby tees, tanks, leggings) run one size smaller, so size up if you're between sizes.</p>
+<p>All measurements are in inches and taken with the garment laid flat. Our tops have a square, roomy cut and a dropped shoulder: take your usual size for the shape we designed, or go one up for extra room. Women's fitted styles (baby tees, tanks, leggings) are cut about a size smaller, so pick the larger size if you're in between.</p>
 <h2>Tees &amp; Tops: tees, long sleeves, crewnecks, hoodies</h2>
 <table class="tbl"><thead><tr><th>Size</th><th>Chest (pit to pit)</th><th>Body length</th><th>Sleeve</th></tr></thead><tbody>{trows}</tbody></table>
 <h2>Pants &amp; Shorts: joggers, sweats, shorts</h2>
@@ -821,13 +821,13 @@ def build_about():
 <p class="lede">Above The Norm started in {BIZ['founded']} with one idea: the people who don't fit in are usually the ones worth paying attention to.</p>
 <p>We make streetwear for outsiders, believers, late-night thinkers and anyone who's ever been told to just be normal. Our graphics pull from angels and aliens, old Hollywood, church flyers and back-yard UFO sightings, and turn them into pieces you'll want to wear until they fall apart.</p>
 <h2>How we make things</h2>
-<p>Every design is drawn in-house. We print in small runs on heavyweight blanks, with screen printing, puff print and embroidery, and add our own sewn-in labels. Producing in limited quantities means less waste, and it's why orders ship within {SHIP['processing_short']}: your piece is finished for you, not pulled from a warehouse of overstock.</p>
+<p>Our graphics are original artwork made for Above The Norm. We print limited batches on substantial garments, using screen printing, puff print and embroidery, and finish them with our own stitched-in labels. Making fewer pieces means less waste, and it's why orders ship within {SHIP['processing_short']}: your piece is finished for you, not pulled from a warehouse of overstock.</p>
 <h2>Who we are</h2>
 <p>Above The Norm is a registered trademark of {BIZ['legal']} (U.S. Reg. No. {BIZ['tm_reg']}). We're an independent, owner-operated brand: no investors, no licensing deals, just a small team and a community we call the #ATNFAMILY.</p>
 <div class="facts">
   <div><strong>{BIZ['founded']}</strong><span>First pieces released</span></div>
   <div><strong>®</strong><span>Federally registered trademark</span></div>
-  <div><strong>Small runs</strong><span>Limited production, less waste</span></div>
+  <div><strong>Limited batches</strong><span>Fewer pieces, less waste</span></div>
 </div>
 <h2>Business information</h2>
 {business_info()}
@@ -841,7 +841,7 @@ def build_about():
 def build_contact():
     phone = f'<li><strong>Phone</strong><a href="tel:{BIZ["phone"]}">{BIZ["phone"]}</a></li>' if BIZ["phone"] else ""
     body = f"""
-<section class="page-hero wrap"><p class="kicker">Customer care</p><h1>Contact us</h1><p class="page-hero__lede">Questions about sizing, an order or a collaboration? We reply within 1–2 business days.</p></section>
+<section class="page-hero wrap"><p class="kicker">Customer care</p><h1>Contact us</h1><p class="page-hero__lede">Questions about sizing, an order or a collaboration? Expect an answer in 1–2 business days.</p></section>
 <section class="wrap contact">
   <ul class="contact__info">
     <li><strong>Email</strong><a href="mailto:{BIZ['email']}">{BIZ['email']}</a></li>{phone}
@@ -880,7 +880,7 @@ def build_track():
   </form>
   <form class="co track__help" data-track-help novalidate>
     <h2>No tracking email yet?</h2>
-    <p>Orders are produced and dispatched within {SHIP['processing']}, and we email your tracking number the moment your package is handed to the carrier. Please check your spam or promotions folder first.</p>
+    <p>Orders are made and sent out within {SHIP['processing']}, and we email your tracking number the moment your package is handed to the carrier. Please check your spam or promotions folder first.</p>
     <div class="co__two"><label>Order number<input name="order" required></label><label>Email used at checkout<input type="email" name="email" autocomplete="email" placeholder="you@example.com" required></label></div>
     <button class="btn btn--ghost-dark" type="submit">Email us about my order</button>
     <p class="co__msg" data-track-help-msg role="status"></p>
@@ -890,7 +890,7 @@ def build_track():
   <h2>What to expect</h2>
   <ol class="track__steps">
     <li><strong>Order confirmed</strong>You'll get a confirmation email right after you place your order.</li>
-    <li><strong>Made for you</strong>Your pieces are produced, packed and dispatched within {SHIP['processing']}.</li>
+    <li><strong>Made for you</strong>Your pieces are made, packed and sent out within {SHIP['processing']}.</li>
     <li><strong>Shipped</strong>We email your tracking number as soon as the carrier has your package.</li>
     <li><strong>Delivered</strong>Standard delivery takes {SHIP['standard_time']}; express takes {SHIP['express_time']}.</li>
   </ol>
