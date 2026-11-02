@@ -47,6 +47,24 @@ SHIP = {
     "cancel_hours": 24,
 }
 
+# Reviews supplied by the owner. Written to assets/js/reviews.js and shown on the homepage only with ?mockup=1
+# until REVIEWS_PUBLIC is set True, which should wait for confirmation that they come from real customers.
+REVIEWS_PUBLIC = False
+REVIEWS = [
+    {"name": "Tyler Brooks", "stars": 5, "title": "Worth adding to the rotation",
+     "text": "Got the Sent From Above hoodie and I'm really happy with it. Comfortable fit, clean design, and looks great with pretty much anything."},
+    {"name": "DeAndre Williams", "stars": 5, "title": "Definitely stands out",
+     "text": "The graphics are crazy in a good way. Wore my tee out over the weekend and had two people ask where I got it."},
+    {"name": "Kayla Robinson", "stars": 4, "title": "Great piece overall",
+     "text": "Really happy with the shirt. The print looks sharp and the fabric feels good. I'd just recommend checking the size guide before ordering."},
+    {"name": "Brianna Mitchell", "stars": 5, "title": "My new favorite hoodie",
+     "text": "The material has a nice weight to it without feeling uncomfortable. I like how the design speaks for itself without being too much."},
+    {"name": "Anthony Rivera", "stars": 5, "title": "Clean from top to bottom",
+     "text": "Picked up a tee and a hat. Both look great together and the details are really nice. Simple ordering process too."},
+    {"name": "Ashley Morgan", "stars": 4, "title": "Really nice fit",
+     "text": "Love the oversized look and the overall quality. Shipping took a little longer than I expected, but the hoodie was worth it."},
+]
+
 # Welcome offer shown in the first-visit pop-up and redeemable in the bag/checkout.
 COUPON = {
     "code": "ABOVE10",

@@ -696,5 +696,24 @@
     if (pdpEl) { var h1 = pdpEl.querySelector("h1"); if (h1) h1.after(starEl(pdpEl.dataset.product, true)); }
   }
 
+  /* homepage reviews: loaded only in the mock-up view until they're switched on in data.py */
+  var faqSection = document.querySelector(".home-faq");
+  if (faqSection && (mock || CAT.reviewsPublic)) {
+    var rs = document.createElement("script");
+    rs.src = ROOT + "assets/js/reviews.js";
+    rs.onload = function () {
+      var sec = document.createElement("section");
+      sec.className = "wrap block reviews";
+      sec.setAttribute("aria-label", "Customer reviews");
+      sec.innerHTML = '<div class="sec-head"><div><p class="kicker">Reviews</p><h2>From the community</h2></div></div><div class="reviews__grid">' +
+        window.ATN_REVIEWS.map(function (r) {
+          return '<figure class="review"><span class="stars" role="img" aria-label="Rated ' + r.stars + ' out of 5"><span class="stars__bar" style="--fill:' + (r.stars * 20) + '%"></span></span>' +
+            "<h3>" + esc(r.title) + "</h3><blockquote>" + esc(r.text) + "</blockquote><figcaption>" + esc(r.name) + "</figcaption></figure>";
+        }).join("") + "</div>";
+      faqSection.parentNode.insertBefore(sec, faqSection);
+    };
+    document.head.appendChild(rs);
+  }
+
   badge();
 })();

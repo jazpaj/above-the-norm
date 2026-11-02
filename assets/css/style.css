@@ -899,3 +899,13 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .cinfo { display: flex; flex-direction: column; }
 .cinfo__note { margin-top: auto; }
 .cinfo ul { margin-bottom: 14px; }
+
+/* homepage reviews */
+.reviews__grid { display: grid; gap: 14px; }
+@media (min-width: 700px) { .reviews__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .reviews__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; } }
+.review { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 24px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; }
+.review .stars { margin: 0; }
+.review h3 { font-size: 16px; line-height: 1.2; letter-spacing: -.02em; }
+.review blockquote { flex: 1; margin: 0; color: var(--ink-2); font-size: 15px; line-height: 1.55; }
+.review figcaption { padding-top: 12px; border-top: 1px solid var(--line); font-size: 14px; font-weight: 600; }
