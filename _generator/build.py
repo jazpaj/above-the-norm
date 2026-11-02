@@ -286,8 +286,8 @@ def section_head(kicker, title, link=None):
 ASSURE = [
     ("lock", "Secure checkout", "Encrypted payment processing. We never store your full card number.", "privacy.html"),
     ("truck", f"Ships in {SHIP['processing_short']}", "Small-run production, then tracked delivery anywhere in the U.S.", "shipping.html"),
-    ("shield", "Arrives right or we fix it", f"Damaged, defective or wrong item? Tell us within {SHIP['claim_days']} days.", "returns.html"),
-    ("mail", "Real people, real replies", f"Email {BIZ['email']}. We answer within 1–2 business days.", "contact.html"),
+    ("shield", "Arrives right or we fix it", f"Broken, faulty or the wrong piece? Let us know no later than {SHIP['claim_days']} days after it arrives.", "returns.html"),
+    ("mail", "Real people, real replies", f"Email {BIZ['email']}. Expect a reply in 1–2 business days.", "contact.html"),
 ]
 
 
@@ -515,6 +515,9 @@ def look_item(q, r):
             f'<span class="look__type">{CAT_NAME[q["cat"]]}</span><strong>{e(q["name"])}</strong><span class="look__price">{money(low(q))}</span></a>')
 
 
+CARE_LINE = "<li>Turn inside out and machine wash cold. Hang to dry, or use the dryer's lowest heat.</li>"
+
+
 def build_products():
     for p in PRODUCTS:
         r = "../"
@@ -554,12 +557,12 @@ def build_products():
       <p class="pdp__msg" data-msg role="status"></p>
     </div>
     <ul class="pdp__facts">
-      <li>{ICON['truck']} Ships in {SHIP['processing_short']} · free U.S. shipping on orders {money(SHIP['free_over'])}+</li>
+      <li>{ICON['truck']} Ships in {SHIP['processing_short']} · delivery is on us from {money(SHIP['free_over'])}</li>
       <li>{ICON['lock']} Secure, encrypted checkout</li>
     </ul>
-    <details class="acc" open><summary>Details &amp; care</summary><ul>{details}<li>Wash cold, inside out. Air dry or tumble dry low.</li></ul></details>
-    <details class="acc"><summary>Shipping</summary><p>Orders are produced and dispatched within {SHIP['processing']}. Standard U.S. delivery takes {SHIP['standard_time']} and costs {money(SHIP['standard_rate'])}, free on orders of {money(SHIP['free_over'])} or more. <a href="../shipping.html">Full shipping policy</a>.</p></details>
-    <details class="acc"><summary>Returns &amp; refunds</summary><p>All sales are final. If your item arrives damaged, defective or isn't what you ordered, email us within {SHIP['claim_days']} days of delivery for a replacement or full refund. <a href="../returns.html">Returns &amp; refunds policy</a>.</p></details>
+    <details class="acc" open><summary>Details &amp; care</summary><ul>{details}{CARE_LINE if p['cat'] in ("tops", "bottoms") else ""}</ul></details>
+    <details class="acc"><summary>Shipping</summary><p>Orders are produced and dispatched within {SHIP['processing']}. Standard U.S. delivery takes {SHIP['standard_time']} and costs {money(SHIP['standard_rate'])}, or nothing once your order reaches {money(SHIP['free_over'])}. <a href="../shipping.html">Full shipping policy</a>.</p></details>
+    <details class="acc"><summary>Returns &amp; refunds</summary><p>Every sale is final. If your piece turns up broken, faulty or not what you chose, write to us no later than {SHIP['claim_days']} days after it arrives and we'll send a new one or refund you in full. <a href="../returns.html">Returns &amp; refunds policy</a>.</p></details>
   </div>
 </section>
 <section class="wrap block look" data-look>
@@ -645,7 +648,7 @@ def build_checkout():
         <p class="co__cards">We accept Visa, Mastercard, American Express and Discover.</p>
       </div>
     </fieldset>
-    <label class="check"><input type="checkbox" name="agree" required><span>I have read and agree to the <a href="terms.html" target="_blank">Terms of Service</a>, <a href="returns.html" target="_blank">Returns &amp; Refunds Policy</a> (all sales final, except damaged, defective or incorrect items) and <a href="privacy.html" target="_blank">Privacy Policy</a>.</span></label>
+    <label class="check"><input type="checkbox" name="agree" required><span>I have read and agree to the <a href="terms.html" target="_blank">Terms of Service</a>, <a href="returns.html" target="_blank">Returns &amp; Refunds Policy</a> (every sale is final unless a piece arrives broken, faulty or wrong) and <a href="privacy.html" target="_blank">Privacy Policy</a>.</span></label>
     <button class="btn btn--block btn--cta" type="submit" data-place>{ICON['lock']}<span>Place order</span></button>
     <p class="co__msg" data-co-msg role="status"></p>
   </form>
@@ -699,17 +702,17 @@ def build_policies():
     s = SHIP
     upd = f'<p class="doc__upd">Last updated: {UPDATED}</p>'
     prose("shipping.html", "Shipping Policy", "Customer care", "How and when Above The Norm orders are produced, shipped and delivered.", f"""{upd}
-<p>This policy explains how orders placed on this website are processed and delivered by {BIZ['legal']} ("Above The Norm", "we", "us").</p>
+<p>This policy covers how {BIZ['legal']} ("Above The Norm", "we", "us") makes and delivers orders placed on this website.</p>
 <h2>Processing time</h2>
 <p>Our pieces are printed and finished in small runs. Orders are produced, packed and dispatched within <strong>{s['processing']}</strong> of purchase (excluding weekends and U.S. federal holidays). Processing time for each item is also shown on its product page.</p>
 <h2>Shipping rates and delivery times</h2>
 <table class="tbl"><thead><tr><th>Method</th><th>Cost</th><th>Transit time</th></tr></thead><tbody>
-<tr><td>Standard</td><td>{money(s['standard_rate'])}, free on orders of {money(s['free_over'])} or more (after discounts)</td><td>{s['standard_time']}</td></tr>
+<tr><td>Standard</td><td>{money(s['standard_rate'])}, or on us once your order reaches {money(s['free_over'])} after discounts</td><td>{s['standard_time']}</td></tr>
 <tr><td>Express</td><td>{money(s['express_rate'])}</td><td>{s['express_time']}</td></tr>
 </tbody></table>
 <p>The shipping cost for your order is always shown at checkout before you pay.</p>
 <h2>Where we ship</h2>
-<p>We currently ship to addresses in all 50 U.S. states, Washington D.C. and APO/FPO addresses. We do not currently ship internationally. If you're outside the U.S., email us before ordering.</p>
+<p>We deliver across the 50 states and Washington D.C., military APO/FPO mailboxes included. Orders can't be sent abroad right now. Live somewhere else? Write to us before you order and we'll see what's possible.</p>
 <h2>Order confirmation and tracking</h2>
 <p>You'll receive an order confirmation email right after purchase, and a second email with your tracking number when your order is handed to the carrier. You can follow your package anytime on our <a href="track.html">Track Your Order</a> page.</p>
 <h2>Delays, lost and stolen packages</h2>
@@ -719,19 +722,19 @@ def build_policies():
 <h2>Contact</h2>{company_block()}""")
 
     prose("returns.html", "Returns & Refunds", "Customer care", "Above The Norm returns, refunds, cancellations and damaged-item policy.", f"""{upd}
-<p>Because every piece is made in limited runs, <strong>all sales are final</strong>. We do not accept returns or exchanges for change of mind or sizing, so please check the <a href="size-guide.html">size guide</a> before ordering. We stand behind every order, though, and the exceptions below always apply.</p>
-<h2>Damaged, defective or incorrect items</h2>
-<p>If your order arrives damaged, has a manufacturing defect, or isn't the item, size or color you ordered, email <a href="mailto:{BIZ['email']}">{BIZ['email']}</a> within <strong>{s['claim_days']} days of delivery</strong> with:</p>
-<ul><li>your order number,</li><li>a description of the issue, and</li><li>a photo of the item and its packaging.</li></ul>
-<p>Once we confirm the issue, we'll send a replacement at no cost or, if a replacement isn't available, issue a full refund including original shipping. We may ask you to return the item; if so, we'll email you a prepaid return label.</p>
+<p>Because every piece is made in limited runs, <strong>every sale is final</strong>. We can't take a piece back or swap it because you changed your mind or picked the wrong size, so have a look at the <a href="size-guide.html">size guide</a> before ordering. We stand behind every order, though, and the exceptions below always apply.</p>
+<h2>If something's wrong with your order</h2>
+<p>Did a piece turn up broken or faulty, or is it the wrong style, size or color? Write to <a href="mailto:{BIZ['email']}">{BIZ['email']}</a> no later than <strong>{s['claim_days']} days after it arrives</strong> and include:</p>
+<ul><li>the number on your order,</li><li>a short note on what went wrong, and</li><li>pictures of the piece and how it was packed.</li></ul>
+<p>After we've looked into it, a new one goes out free of charge. If we can't supply one, you get a full refund, original delivery cost included. If we need the piece back, we'll email you a prepaid label.</p>
 <h2>Cancellations</h2>
 <p>You can cancel an order within <strong>{s['cancel_hours']} hours</strong> of placing it, as long as production hasn't started, by emailing us with your order number. Cancelled orders are refunded in full.</p>
 <h2>Lost packages</h2>
-<p>If a package is lost in transit, see our <a href="shipping.html">Shipping Policy</a>. We'll file a carrier claim and send a replacement or refund once the carrier confirms the loss.</p>
+<p>Did the carrier lose your parcel? Our <a href="shipping.html">Shipping Policy</a> explains what happens next. We'll file a claim with them and, once they confirm it's gone, send a new one or refund you.</p>
 <h2>How refunds are issued</h2>
-<p>Approved refunds go back to the original payment method. We process them within 3 business days of approval; your bank or card issuer may take 5 to 10 business days to post the credit.</p>
+<p>Approved refunds go back to the original payment method. We send them no more than 3 business days after approval; your bank or card issuer may take 5 to 10 business days to post the credit.</p>
 <h2>Questions</h2>
-<p>If you have any questions about an item before ordering, please contact us. We're happy to help with fit and sizing.</p>{company_block()}""")
+<p>Not sure about a piece before you buy? Ask us anything about fit or sizing.</p>{company_block()}""")
 
     prose("privacy.html", "Privacy Policy", "Legal", "How Above The Norm LLC collects, uses and protects your personal information.", f"""{upd}
 <p>{BIZ['legal']} ("we", "us"), operates this website. This policy describes what personal information we collect, how we use it, and the choices you have.</p>
@@ -850,7 +853,7 @@ def build_contact():
   <form class="co contact__form" data-contact-form novalidate>
     <div class="co__two"><label>Name<input name="name" autocomplete="name" required></label><label>Email<input type="email" name="email" autocomplete="email" placeholder="you@example.com" required></label></div>
     <label>Order number (optional)<input name="order"></label>
-    <label>Topic<select name="topic"><option>Order question</option><option>Sizing</option><option>Damaged or incorrect item</option><option>Cancellation</option><option>Wholesale or collaboration</option><option>Other</option></select></label>
+    <label>Topic<select name="topic"><option>Order question</option><option>Sizing</option><option>Problem with my item</option><option>Cancellation</option><option>Wholesale or collaboration</option><option>Other</option></select></label>
     <label>Message<textarea name="message" rows="6" required></textarea></label>
     <button class="btn" type="submit">Send message</button>
     <p class="co__msg" data-contact-msg role="status"></p>

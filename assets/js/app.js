@@ -442,7 +442,7 @@
     var ship = shipping(net, "standard");
     cartEl.querySelector("[data-ship]").textContent = ship ? money(ship) + " standard" : "Free standard";
     var left = CAT.ship.free_over - net;
-    cartEl.querySelector("[data-free-note]").textContent = left > 0 ? "Add " + money(left) + " more for free U.S. shipping." : "Your order ships free.";
+    cartEl.querySelector("[data-free-note]").textContent = left > 0 ? "You're " + money(left) + " away from free delivery." : "Delivery on this order is on us.";
   }
   if (cartEl) {
     cartEl.addEventListener("click", function (ev) {

@@ -40,9 +40,9 @@ SHIP = {
     "processing_short": "7–14 business days",
     "standard_rate": 8.00,
     "free_over": 150.00,
-    "standard_time": "3 to 7 business days after dispatch",
+    "standard_time": "3–7 working days once shipped",
     "express_rate": 20.00,
-    "express_time": "1 to 3 business days after dispatch",
+    "express_time": "1–3 working days once shipped",
     "claim_days": 7,
     "cancel_hours": 24,
 }
@@ -74,11 +74,11 @@ FAQ = [
      f"Every piece is printed and finished in small runs, so orders leave us within {SHIP['processing']}. "
      "You'll get an email with tracking the moment your package is handed to the carrier."),
     ("What does shipping cost?",
-     f"Standard U.S. shipping is ${SHIP['standard_rate']:.0f}, and free on orders of ${SHIP['free_over']:.0f} or more after discounts. "
+     f"Standard U.S. delivery is ${SHIP['standard_rate']:.0f}, and it's on us once your order reaches ${SHIP['free_over']:.0f} after discounts. "
      f"Express is ${SHIP['express_rate']:.0f}. The exact cost is always shown before you pay."),
     ("Can I return or exchange something?",
-     "All sales are final, so please check the size guide before ordering. If your order arrives damaged, "
-     f"defective or isn't what you ordered, email us within {SHIP['claim_days']} days of delivery and we'll replace it or refund you."),
+     "Every sale is final, so have a look at the size guide first. If a piece turns up broken, faulty or not what you chose, "
+     f"write to us no later than {SHIP['claim_days']} days after it arrives and we'll send a new one or refund you."),
     ("Can I cancel my order?",
      f"Yes, within {SHIP['cancel_hours']} hours of placing it, as long as it hasn't started production. "
      "Email us with your order number and you'll receive a full refund to your original payment method."),
@@ -87,8 +87,8 @@ FAQ = [
      "Each product page lists its fit, and the size guide has full measurements."),
     ("Which payment methods do you accept?",
      "Major credit and debit cards. Payments are processed over an encrypted connection and we never store your full card number."),
-    ("Do you ship internationally?",
-     "We currently ship within the United States. Email us before ordering if you're outside the U.S. and we'll tell you whether we can reach you."),
-    ("How do I care for my garments?",
-     "Wash cold, inside out, and air dry or tumble dry low. Don't iron directly over prints, puff or embroidery."),
+    ("Can you deliver outside the U.S.?",
+     "Right now we only deliver inside the United States. Live somewhere else? Write to us before you order and we'll see what's possible."),
+    ("How should I wash my pieces?",
+     "Turn them inside out and use a cold machine wash. Hang to dry, or pick the dryer's lowest heat. Keep the iron away from graphics, puff print and stitching."),
 ]
