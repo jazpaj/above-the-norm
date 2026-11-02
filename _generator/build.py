@@ -353,7 +353,7 @@ def build_home():
       <h1 class="hero__title"><span>Refuse</span><span>to be</span><span class="hero__strike">normal.</span></h1>
       <p class="hero__lede">Independent streetwear about angels, outsiders and everything that doesn't fit the mold. Printed in limited batches and made to take a beating.</p>
       <div class="hero__cta">
-        <a class="btn btn--light" href="shop.html">Shop the collection</a>
+        <a class="btn btn--light" href="shop.html">Explore the catalog</a>
         <a class="btn btn--ghost" href="about.html">Our story</a>
       </div>
     </div>
@@ -381,7 +381,7 @@ def build_home():
 </section>
 
 <section class="wrap block">
-  {section_head("Just landed", "New arrivals", ("shop.html", "View all"))}
+  {section_head("Just landed", "New Addition", ("shop.html", "View all"))}
   <div class="grid">{arrivals}</div>
 </section>
 
@@ -834,7 +834,7 @@ def build_about():
 </div>
 <h2>Business information</h2>
 {business_info()}
-<p><a class="btn" href="shop.html">Shop the collection</a></p>
+<p><a class="btn" href="shop.html">Explore the catalog</a></p>
 </div></section>
 {assurances()}
 """
