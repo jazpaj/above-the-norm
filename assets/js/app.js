@@ -696,7 +696,7 @@
     if (pdpEl) { var h1 = pdpEl.querySelector("h1"); if (h1) h1.after(starEl(pdpEl.dataset.product, true)); }
   }
 
-  /* homepage reviews: loaded only in the mock-up view until they're switched on in data.py */
+  /* homepage reviews: on/off with REVIEWS_PUBLIC in data.py */
   var faqSection = document.querySelector(".home-faq");
   if (faqSection && (mock || CAT.reviewsPublic)) {
     var rs = document.createElement("script");

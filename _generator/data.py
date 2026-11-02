@@ -47,9 +47,8 @@ SHIP = {
     "cancel_hours": 24,
 }
 
-# Reviews supplied by the owner. Written to assets/js/reviews.js and shown on the homepage only with ?mockup=1
-# until REVIEWS_PUBLIC is set True, which should wait for confirmation that they come from real customers.
-REVIEWS_PUBLIC = False
+# Customer reviews collected and confirmed real by the owner (2026-11-03). Written to assets/js/reviews.js.
+REVIEWS_PUBLIC = True
 REVIEWS = [
     {"name": "Tyler Brooks", "stars": 5, "title": "Worth adding to the rotation",
      "text": "Got the Sent From Above hoodie and I'm really happy with it. Comfortable fit, clean design, and looks great with pretty much anything."},
