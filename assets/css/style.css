@@ -873,3 +873,29 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .ffield input:focus + span, .ffield input:not(:placeholder-shown) + span, .ffield textarea:focus + span, .ffield textarea:not(:placeholder-shown) + span { top: 9px; color: var(--ink-2); font-size: 12px; font-weight: 600; }
 .co .ffield input:focus, .co .ffield textarea:focus { border-color: var(--night); background: var(--surface); }
 .co .ffield .is-invalid { border-color: var(--err); }
+
+/* contact page: tighter spacing */
+.contact { padding-bottom: clamp(40px, 5vw, 72px); }
+@media (min-width: 900px) { .contact { align-items: stretch; gap: 20px; } }
+.cinfo { padding: 22px; border-radius: 20px; }
+.cinfo h2, .cform h2 { margin: 0; font-size: 19px; }
+.cinfo h2 { margin-bottom: 16px; }
+.cinfo ul { gap: 12px; font-size: 13px; }
+.cinfo li { gap: 11px; }
+.cinfo svg { width: 32px; height: 32px; padding: 7px; }
+.cinfo__note { margin-top: 14px; padding-top: 12px; }
+.cform { gap: 10px; padding: 22px; border-radius: 20px; }
+.ctopics > p { margin-bottom: 7px; font-size: 13px; }
+.ctopics__row { gap: 6px; }
+.ctopic span { min-height: 32px; padding: 0 12px; font-size: 12.5px; }
+.cform .co__two { gap: 10px; }
+.co .ffield input { min-height: 50px; padding: 20px 14px 6px; border-radius: 13px; font-size: 15px; }
+.co .ffield textarea { min-height: 104px; padding: 22px 14px 8px; border-radius: 13px; font-size: 15px; }
+.ffield span { left: 15px; top: 15px; font-size: 14px; }
+.ffield input:focus + span, .ffield input:not(:placeholder-shown) + span, .ffield textarea:focus + span, .ffield textarea:not(:placeholder-shown) + span { top: 6px; font-size: 11px; }
+.cform .btn--cta { min-height: 48px; margin-top: 2px; }
+.cform .co__msg:empty { display: none; }
+@media (max-width: 899px) { .contact { gap: 14px; } }
+.cinfo { display: flex; flex-direction: column; }
+.cinfo__note { margin-top: auto; }
+.cinfo ul { margin-bottom: 14px; }

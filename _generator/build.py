@@ -846,7 +846,7 @@ def build_contact():
     topics = "".join(f'<label class="ctopic"><input type="radio" name="topic" value="{t}"{" checked" if i == 0 else ""}><span>{t}</span></label>'
                      for i, t in enumerate(["Order question", "Sizing", "Problem with my item", "Cancellation", "Wholesale or collaboration", "Other"]))
     body = f"""
-<section class="page-hero wrap"><p class="kicker">Customer care</p><h1>Contact us</h1><p class="page-hero__lede">Questions about sizing, an order or a collaboration? Expect an answer in 1–2 business days.</p></section>
+<section class="page-hero wrap"><p class="kicker">Customer care</p><h1>Contact us</h1><p class="page-hero__lede">Questions about sizing, an order or a collaboration? Expect an answer in <span style="white-space:nowrap">1–2 business days</span>.</p></section>
 <section class="wrap contact">
   <aside class="cinfo">
     <h2>Talk to the team</h2>
@@ -869,12 +869,11 @@ def build_contact():
       <label class="ffield"><input type="email" name="email" autocomplete="email" placeholder=" " required><span>Email address</span></label>
     </div>
     <label class="ffield"><input name="order" placeholder=" "><span>Order number (optional)</span></label>
-    <label class="ffield ffield--area"><textarea name="message" rows="6" placeholder=" " required></textarea><span>How can we help?</span></label>
+    <label class="ffield ffield--area"><textarea name="message" rows="4" placeholder=" " required></textarea><span>How can we help?</span></label>
     <button class="btn btn--block btn--cta" type="submit">{ICON['mail']}<span>Send message</span></button>
     <p class="co__msg" data-contact-msg role="status"></p>
   </form>
 </section>
-<section class="wrap doc"><div class="doc__body doc__body--wide"><h2>Business information</h2>{business_info()}</div></section>
 """
     page("contact.html", "Contact Us", f"Contact Above The Norm LLC customer care at {BIZ['email']}.", body, active="contact")
 
