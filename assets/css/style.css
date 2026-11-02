@@ -834,3 +834,9 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .look__price { color: rgba(238, 243, 249, .75); }
 @media (max-width: 899px) { .look__item { flex-basis: calc((100% - 16px) / 2.3); } }
 @media (max-width: 560px) { .look__nav { display: none; } .look__item { flex-basis: 62%; } .look__panel { border-radius: 20px; } }
+
+/* bag: welcome code reminder under the discount box */
+.coupon__hint { margin: -6px 0 16px; font-size: 13px; color: var(--ink-2); }
+.coupon__hint button { margin: 0 2px; padding: 2px 8px; border: 1px dashed var(--night); border-radius: 6px; background: none; color: var(--night); font: 700 12px var(--sans); letter-spacing: .06em; cursor: pointer; transition: background .15s, color .15s; }
+.coupon__hint button:hover { background: var(--night); color: var(--beam); border-style: solid; }
+.summary__disc[hidden] { display: none; }

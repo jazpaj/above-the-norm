@@ -352,12 +352,15 @@
     var f = scope.querySelector("[data-coupon]");
     if (!f) return;
     var msg = f.querySelector("[data-coupon-msg]");
+    var hint = scope.querySelector("[data-coupon-hint]");
+    if (hint) hint.querySelector("[data-coupon-use]").addEventListener("click", function () { f.code.value = CAT.coupon.code; f.requestSubmit(); });
     function paint() {
       var c = coupon();
       f.code.value = c ? c.code : f.code.value;
       f.querySelector("button").textContent = c ? "Remove" : "Apply";
       f.code.readOnly = !!c;
       if (c) { msg.className = "coupon__msg is-ok"; msg.textContent = c.pct + "% off applied to your merchandise subtotal."; }
+      if (hint) hint.hidden = !!c;
     }
     f.addEventListener("submit", function (ev) {
       ev.preventDefault();

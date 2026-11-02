@@ -587,6 +587,7 @@ def build_cart():
   <aside class="summary" data-cart-summary>
     <h2>Order summary</h2>
     {coupon_box()}
+    <p class="coupon__hint" data-coupon-hint hidden>First order? Tap <button type="button" data-coupon-use>{COUPON['code']}</button> for {COUPON['pct']}% off.</p>
     <dl><div><dt>Subtotal</dt><dd data-sub>$0</dd></div>
     <div class="summary__disc" data-disc-row hidden><dt>Discount <span data-disc-code></span></dt><dd data-disc>−$0</dd></div>
     <div><dt>Shipping</dt><dd data-ship>Calculated at checkout</dd></div></dl>
