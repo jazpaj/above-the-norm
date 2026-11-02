@@ -374,11 +374,6 @@
     paint();
   }
 
-  /* announcement bar offer: following it applies the code to the bag */
-  document.querySelectorAll("[data-apply-coupon]").forEach(function (l) {
-    l.addEventListener("click", function () { if (CAT.coupon) store(CKEY, CAT.coupon.code); });
-  });
-
   /* cookie banner: asks once, then remembers the choice */
   var cookieBar = document.querySelector("[data-cookies]");
   var cookieWait = [];
@@ -636,6 +631,22 @@
         if (fs) window.scrollTo({ top: fs.getBoundingClientRect().top + scrollY - 110, behavior: "smooth" });
       });
     });
+  }
+
+  /* product page: Complete the look rail arrows */
+  var rail = document.querySelector("[data-look-rail]");
+  if (rail) {
+    var prev = document.querySelector("[data-look-prev]"), next = document.querySelector("[data-look-next]");
+    var syncRail = function () {
+      prev.disabled = rail.scrollLeft < 4;
+      next.disabled = rail.scrollLeft + rail.clientWidth > rail.scrollWidth - 4;
+    };
+    var slide = function (dir) { rail.scrollBy({ left: dir * rail.clientWidth * 0.8, behavior: "smooth" }); };
+    prev.addEventListener("click", function () { slide(-1); });
+    next.addEventListener("click", function () { slide(1); });
+    rail.addEventListener("scroll", syncRail, { passive: true });
+    window.addEventListener("resize", syncRail);
+    syncRail();
   }
 
   /* contact form: opens the visitor's email app, addressed to support */

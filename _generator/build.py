@@ -100,11 +100,6 @@ def header(r, active):
     cats = nav("shop.html", "Shop All", "shop") + "".join(nav(f"shop.html?c={k}", v, k) for k, v in CATS)
 
     return f"""
-<div class="announce"><div class="announce__track">
-  <span><a class="announce__offer" href="{r}shop.html" data-apply-coupon>{COUPON['pct']}% off your first order · code <b>{COUPON['code']}</b></a></span><span aria-hidden="true">✦</span>
-  <span>Free U.S. shipping on orders {money(SHIP['free_over'])}+</span><span aria-hidden="true">✦</span>
-  <span>Every order ships with tracking</span>
-</div></div>
 <header class="hdr">
   <div class="hdr__in">
     <button class="hdr__burger" type="button" aria-label="Open menu" data-menu-open>{ICON['menu']}</button>
@@ -502,6 +497,24 @@ def build_shop():
     page("shop.html", "Shop All", "Shop the full Above The Norm collection for men and women: tops, bottoms, headwear and accessories.", body, active="shop")
 
 
+def complete_look(p):
+    """Two pieces from each other category plus two alike, for the same shopper. The id picks them, so each page differs but stays stable."""
+    seed = sum(map(ord, p["id"]))
+    picks = []
+    for cat, _ in CATS:
+        pool = [q for q in PRODUCTS if q["cat"] == cat and q["id"] != p["id"] and set(q["gender"]) & set(p["gender"])]
+        if pool:
+            picks.append([pool[(seed + i * 7) % len(pool)] for i in range(2) if i < len(pool)])
+    # lead with the other categories, then the same one
+    picks.sort(key=lambda g: g[0]["cat"] == p["cat"])
+    return list({q["id"]: q for g in picks for q in g}.values())
+
+
+def look_item(q, r):
+    return (f'<a class="look__item" href="{r}products/{q["id"]}.html"><span class="look__img"><img src="{r}{img(q)}" alt="" loading="lazy" width="400" height="400"></span>'
+            f'<span class="look__type">{CAT_NAME[q["cat"]]}</span><strong>{e(q["name"])}</strong><span class="look__price">{money(low(q))}</span></a>')
+
+
 def build_products():
     for p in PRODUCTS:
         r = "../"
@@ -517,10 +530,7 @@ def build_products():
             f'<button type="button" class="size" data-size="{e(s)}" data-price="{v}" aria-pressed="{"true" if one else "false"}">{e(s)}</button>'
             for s, v in p["prices"].items())
         details = "".join(f"<li>{e(d)}</li>" for d in p["details"]) or "<li>Full product details coming soon.</li>"
-        related = [q for q in PRODUCTS if q["cat"] == p["cat"] and q["id"] != p["id"] and not q["placeholder"]][:4]
-        if len(related) < 4:
-            related += [q for q in PRODUCTS if q["cat"] == p["cat"] and q["id"] != p["id"] and q not in related][:4 - len(related)]
-        rel = "".join(card(q, r) for q in related)
+        look_items = "".join(look_item(q, r) for q in complete_look(p))
         size_note = ('<a class="pdp__guide" href="../size-guide.html">Size guide</a>'
                      if p["cat"] in ("tops", "bottoms") else "")
         body = f"""
@@ -552,9 +562,17 @@ def build_products():
     <details class="acc"><summary>Returns &amp; refunds</summary><p>All sales are final. If your item arrives damaged, defective or isn't what you ordered, email us within {SHIP['claim_days']} days of delivery for a replacement or full refund. <a href="../returns.html">Returns &amp; refunds policy</a>.</p></details>
   </div>
 </section>
-<section class="wrap block">
-  {section_head("You may also like", "More " + CAT_NAME[p['cat']].lower(), ("../shop.html?c=" + p['cat'], "View all"))}
-  <div class="grid">{rel}</div>
+<section class="wrap block look" data-look>
+  <div class="look__panel">
+    <div class="look__head">
+      <div><p class="kicker kicker--light">Style it with</p><h2>Complete the look</h2></div>
+      <div class="look__nav">
+        <button type="button" data-look-prev aria-label="Previous products"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>
+        <button type="button" data-look-next aria-label="More products"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+      </div>
+    </div>
+    <div class="look__rail" data-look-rail>{look_items}</div>
+  </div>
 </section>
 """
         desc = f"{p['name']}{(' in ' + p['color']) if p['color'] else ''} by Above The Norm. {money(low(p))}. " + "; ".join(p["details"][:3])
