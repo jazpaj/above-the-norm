@@ -154,7 +154,7 @@ def footer(r):
     def col(title, links):
         items = "".join(f'<li><a href="{r}{h}">{t}</a></li>' for h, t in links)
         return f'<nav class="ftr__col" aria-label="{title}"><ul>{items}</ul></nav>'
-    shop = [("shop.html", "Explore Catalog"), ("shop.html?g=men", "Men"), ("shop.html?g=women", "Women")] + [(f"shop.html?c={k}", v) for k, v in CATS]
+    shop = [("shop.html", "Explore Catalog"), ("shop.html?g=men", "Men"), ("shop.html?g=women", "Women"), ("shop.html?c=accessories", dict(CATS)["accessories"])]
     help_ = [("contact.html", "Contact Us"), ("track.html", "Track Your Order"), ("faq.html", "FAQ"), ("size-guide.html", "Size Guide"),
              ("shipping.html", "Shipping Policy"), ("returns.html", "Returns &amp; Refunds")]
     company = [("about.html", "About Us"), ("privacy.html", "Privacy Policy"), ("terms.html", "Terms of Service")]
