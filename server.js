@@ -62,6 +62,14 @@ http
     }
     const file = resolve(urlPath);
     const headOnly = req.method === "HEAD";
+    if (file && file.endsWith(".html")) {
+      // One address per page: /shop.html, /shop/ -> /shop and /index.html -> /
+      const clean = "/" + urlPath.split("/").filter(Boolean).join("/").replace(/\.html$/, "").replace(/(^|\/)index$/, "$1");
+      if (clean !== urlPath) {
+        res.writeHead(301, { Location: encodeURI(clean) + new URL(req.url, "http://localhost").search });
+        return res.end();
+      }
+    }
     if (file) return send(res, 200, file, headOnly);
     send(res, 404, path.join(ROOT, "404.html"), headOnly);
   })

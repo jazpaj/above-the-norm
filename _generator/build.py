@@ -8,6 +8,7 @@ generated HTML; change the data or templates here and rebuild.
 """
 import json
 import os
+import re
 from html import escape as e
 from urllib.parse import quote
 
@@ -215,6 +216,16 @@ def coupon_box():
     </form>"""
 
 
+def clean_links(html):
+    """Drop .html from internal links: shop.html?c=x -> shop?c=x, ../index.html -> ../"""
+    def fix(m):
+        attr, base = m.group(1), m.group(2)
+        if base == "index" or base.endswith("/index"):
+            base = base[:-5] or "./"
+        return f'{attr}="{base}'
+    return re.sub(r'\b(href|action)="([^"#?:]*?)\.html(?=[?#"])', fix, html)
+
+
 def page(path, title, desc, body, active="", cls=""):
     depth = path.count("/")
     r = "../" * depth
@@ -252,7 +263,7 @@ def page(path, title, desc, body, active="", cls=""):
     dest = os.path.join(OUT, path)
     os.makedirs(os.path.dirname(dest), exist_ok=True)
     with open(dest, "w", encoding="utf-8") as f:
-        f.write(html.replace("{R}", r))
+        f.write(clean_links(html.replace("{R}", r)))
 
 
 # ---------------------------------------------------------------- components

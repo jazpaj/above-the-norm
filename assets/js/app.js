@@ -92,7 +92,7 @@
       return out;
     }
     function tile(x) {
-      return '<a class="strend" href="' + ROOT + "products/" + x.id + '.html"><span class="strend__img"><img src="' + ROOT + x.p.i + '" alt="" loading="lazy"></span><strong>' +
+      return '<a class="strend" href="' + ROOT + "products/" + x.id + '"><span class="strend__img"><img src="' + ROOT + x.p.i + '" alt="" loading="lazy"></span><strong>' +
         esc(x.p.n) + "</strong><span>" + money(lowPrice(x.p)) + "</span></a>";
     }
     function render() {
@@ -106,7 +106,7 @@
             return '<button type="button" class="schip" data-fill="' + esc(w) + '">' + esc(w) + "</button>";
           }).join("") + "</div>" +
           '<p class="search__label">Shop by category</p><div class="search__cats">' + CAT_ORDER.map(function (k) {
-            return '<a class="scat" href="' + ROOT + "shop.html?c=" + k + '">' + esc(CAT_LABEL[k]) + "<span>" + counts[k] + "</span></a>";
+            return '<a class="scat" href="' + ROOT + "shop?c=" + k + '">' + esc(CAT_LABEL[k]) + "<span>" + counts[k] + "</span></a>";
           }).join("") + "</div>" +
           '<p class="search__label">Trending now</p><div class="search__trend">' + index.slice(0, 4).map(tile).join("") + "</div>";
         return;
@@ -114,16 +114,16 @@
       var hits = index.filter(function (x) { return matches(x.text, toks); });
       if (!hits.length) {
         sResults.innerHTML = '<div class="search__none"><strong>No results for “' + esc(q) + '”</strong><p>Try a broader word, or browse a category.</p><div class="search__cats">' +
-          CAT_ORDER.map(function (k) { return '<a class="scat" href="' + ROOT + "shop.html?c=" + k + '">' + esc(CAT_LABEL[k]) + "</a>"; }).join("") + "</div></div>";
+          CAT_ORDER.map(function (k) { return '<a class="scat" href="' + ROOT + "shop?c=" + k + '">' + esc(CAT_LABEL[k]) + "</a>"; }).join("") + "</div></div>";
         return;
       }
       sResults.innerHTML = '<p class="search__label">Products <span>' + hits.length + "</span></p>" +
         '<div class="search__list">' + hits.slice(0, 6).map(function (x) {
-          return '<a class="sres" href="' + ROOT + "products/" + x.id + '.html"><span class="sres__img"><img src="' + ROOT + x.p.i + '" alt="" loading="lazy"></span>' +
+          return '<a class="sres" href="' + ROOT + "products/" + x.id + '"><span class="sres__img"><img src="' + ROOT + x.p.i + '" alt="" loading="lazy"></span>' +
             '<span class="sres__txt"><strong>' + mark(x.p.n, toks) + "</strong><span>" + esc([x.p.c, CAT_LABEL[x.p.k]].filter(Boolean).join(" · ")) + "</span></span>" +
             '<span class="sres__price">' + money(lowPrice(x.p)) + "</span></a>";
         }).join("") + "</div>" +
-        '<a class="btn search__all" href="' + ROOT + "shop.html?q=" + encodeURIComponent(q) + '">' + (hits.length === 1 ? "See 1 result" : "See all " + hits.length + " results") + "</a>";
+        '<a class="btn search__all" href="' + ROOT + "shop?q=" + encodeURIComponent(q) + '">' + (hits.length === 1 ? "See 1 result" : "See all " + hits.length + " results") + "</a>";
     }
     sResults.addEventListener("click", function (ev) {
       var chip = ev.target.closest("[data-fill]");
@@ -331,7 +331,7 @@
       }
       add(id, chosen, Math.max(1, Math.min(10, +qtyIn.value || 1)));
       msg.className = "pdp__msg is-ok";
-      msg.innerHTML = "Added to your bag. <a href=\"" + ROOT + "cart.html\">View bag</a>";
+      msg.innerHTML = "Added to your bag. <a href=\"" + ROOT + "cart\">View bag</a>";
       var btn = pdp.querySelector("[data-add]"), label = btn.querySelector("[data-add-label]");
       btn.classList.add("is-added"); label.textContent = "Added ✓";
       clearTimeout(btn._t);
@@ -427,7 +427,7 @@
     items.hidden = empty;
     items.innerHTML = ls.map(function (l, i) {
       var p = CAT.products[l.id];
-      var url = ROOT + "products/" + l.id + ".html";
+      var url = ROOT + "products/" + l.id;
       return '<div class="line"><a class="line__img" href="' + url + '"><img src="' + ROOT + p.i + '" alt=""></a>' +
         '<div><a class="line__name" href="' + url + '">' + esc(p.n) + '</a>' +
         '<p class="line__meta">' + esc([p.c, "Size " + l.size].filter(Boolean).join(" · ")) + " · " + money(p.p[l.size]) + "</p>" +
@@ -462,7 +462,7 @@
     var ls = lines();
     var box = document.querySelector("[data-co-lines]");
     if (!ls.length) {
-      box.innerHTML = '<p class="summary__fine">Your bag is empty. <a href="' + ROOT + 'shop.html">Continue shopping</a>.</p>';
+      box.innerHTML = '<p class="summary__fine">Your bag is empty. <a href="' + ROOT + 'shop">Continue shopping</a>.</p>';
       co.querySelector("[data-place]").disabled = true;
     } else {
       box.innerHTML = ls.map(function (l) {
@@ -689,7 +689,7 @@
       return s;
     };
     document.querySelectorAll(".card").forEach(function (c) {
-      var m = c.getAttribute("href").match(/products\/([^/]+)\.html/);
+      var m = c.getAttribute("href").match(/products\/([^/?#]+)/);
       if (m) c.appendChild(starEl(m[1]));
     });
     var pdpEl = document.querySelector("[data-product]");
