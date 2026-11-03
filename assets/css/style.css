@@ -345,6 +345,7 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .co .check input { min-height: 0; width: 18px; height: 18px; margin-top: 2px; accent-color: var(--ink); }
 .co__msg { margin: 0; font-size: 14px; }
 .co__msg.is-err { color: var(--err); }
+.co__msg.is-ok { color: var(--ok); font-weight: 600; }
 .co__msg.is-info { padding: 16px; background: var(--surface); border: 1px solid var(--ink); }
 
 /* documents */

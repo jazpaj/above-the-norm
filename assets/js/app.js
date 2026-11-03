@@ -554,6 +554,37 @@
         msg.className = "co__msg is-err"; msg.textContent = cardBad[1]; cardBad[0].focus();
         return;
       }
+      if (CAT.ordersLive) {
+        // TODO when the gateway is connected: charge first, and only post here once it's approved.
+        var digits = cc.number.value.replace(/\D/g, ""), place = co.querySelector("[data-place]");
+        var orderData = {
+          items: ls.map(function (l) { return { id: l.id, size: l.size, qty: l.qty }; }),
+          coupon: coupon() ? coupon().code : null,
+          ship: co.querySelector("[name=ship]:checked").value,
+          email: co.email.value, first: co.first.value, last: co.last.value,
+          address1: co.address1.value, address2: co.address2.value,
+          city: co.city.value, state: co.state.value, zip: co.zip.value, country: co.country.value,
+          card_last4: digits.slice(-4), card_brand: ccBrand(digits)
+        };
+        place.disabled = true;
+        msg.className = "co__msg is-info"; msg.textContent = "Placing your order…";
+        fetch(ROOT + "api/place-order", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(orderData) })
+          .then(function (r) { return r.json(); })
+          .then(function (r) {
+            if (!r.ok) throw new Error(r.error);
+            Object.keys(cc).forEach(function (k) { cc[k].value = ""; });
+            write([]);
+            store(CKEY, null);
+            msg.className = "co__msg is-ok";
+            msg.textContent = "Thank you! Your order #" + r.order_number + " is confirmed. We've emailed the details to " + orderData.email + ".";
+          })
+          .catch(function () {
+            place.disabled = false;
+            msg.className = "co__msg is-err";
+            msg.textContent = "We couldn't place your order. Please try again, or email " + CAT.email + ".";
+          });
+        return;
+      }
       // Card payments go live once the payment processor's hosted fields are connected here.
       // Until then nothing is charged or sent, and the card details are wiped from the page.
       Object.keys(cc).forEach(function (k) { cc[k].value = ""; });

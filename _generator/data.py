@@ -109,3 +109,6 @@ FAQ = [
     ("How should I wash my pieces?",
      "Turn them inside out and use a cold machine wash. Hang to dry, or pick the dryer's lowest heat. Keep the iron away from graphics, puff print and stitching."),
 ]
+
+# Turn on only once a payment gateway approves charges: checkout then places the order and emails the confirmation.
+ORDERS_LIVE = False
