@@ -19,6 +19,12 @@ Sends `order-confirmation.html` from the store mailbox through Microsoft Graph. 
 curl -X POST https://abovethenorm.us/api/test-email -H "X-Send-Token: YOUR_TOKEN"
 ```
 
+Add `?first=Jazner` to the address to see the greeting with a given name. Real orders use the first name from checkout.
+
+## Fonts
+
+Gmail and Outlook ignore web fonts. The fixed headings are images in Unbounded, from `python3 _generator/email_headings.py`. Text that changes per order (names, prices, addresses) stays live: Unbounded and DM Sans where the mail app allows them, Helvetica or Arial elsewhere.
+
 ## Going live
 
 `ORDERS_LIVE` in `_generator/data.py` is off, so checkout sends nothing and `/api/place-order` refuses orders.

@@ -130,9 +130,10 @@ async function sendConfirmation(order) {
   return number;
 }
 
-function sampleOrder(to) {
+function sampleOrder(to, first) {
+  first = text(first, 80) || "Sample";
   return {
-    email: to, first: "Sample", name: "Sample Customer", address1: "6122 Sterling Ave", address2: "",
+    email: to, first, name: first + " Customer", address1: "6122 Sterling Ave", address2: "",
     cityLine: "Raytown, MO 64133", country: "United States",
     items: [
       { name: "Sample Hoodie", variant: "Black · Size L", qty: 1, total: 75 },

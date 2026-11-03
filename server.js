@@ -114,7 +114,7 @@ async function testEmail(req, res) {
   if (!tokenOk(req)) return json(res, 403, { ok: false, error: "Forbidden." });
   const to = process.env.TEST_RECIPIENT;
   if (!to) return json(res, 500, { ok: false, error: "TEST_RECIPIENT isn't set." });
-  json(res, 200, { ok: true, to, order_number: await sendConfirmation(sampleOrder(to)) });
+  json(res, 200, { ok: true, to, order_number: await sendConfirmation(sampleOrder(to, new URL(req.url, "http://x").searchParams.get("first"))) });
 }
 
 const API = { "/api/place-order": placeOrder, "/api/test-email": testEmail };
