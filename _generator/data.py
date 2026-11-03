@@ -13,7 +13,7 @@ BIZ = {
     "state": "MO",
     "zip": "64133",
     "country": "United States",
-    "email": "family@abovethenorm.us",
+    "email": "support@abovethenorm.us",
     # Most payment processors expect a customer-service phone number. Add one here
     # and it appears in the footer, contact page and policies automatically.
     "phone": "",
