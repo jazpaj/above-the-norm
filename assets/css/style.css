@@ -70,6 +70,14 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .hdr__count { position: absolute; top: 3px; right: 1px; min-width: 17px; height: 17px; padding: 0 4px; border-radius: 9px; background: var(--beam); color: var(--night); font-size: 10px; font-weight: 700; display: grid; place-items: center; }
 .hdr__count[data-zero] { display: none; }
 @media (max-width: 420px) { .brand { gap: 7px; } .brand span { font-size: 13px; } .brand img { width: 18px; } }
+@media (max-width: 374px) {
+  .hdr__in { gap: 8px; }
+  .hdr__tools { gap: 0; }
+  .hdr__tool { width: 36px; }
+  .brand { gap: 5px; }
+  .brand span { font-size: 3.5vw; }
+  .brand img { width: 16px; }
+}
 
 @media (min-width: 1024px) {
   .hdr__in { height: 76px; grid-template-columns: auto 1fr auto; grid-template-areas: "brand nav tools"; gap: 32px; }
@@ -224,7 +232,7 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .assure__item:nth-child(2n) { border-right: 0; }
 .assure__item svg { width: 24px; height: 24px; margin-bottom: 6px; }
 .assure__item strong { font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
-.assure__item span { font-size: 13px; color: var(--muted); }
+.assure__item span { font-size: 13px; color: var(--muted); overflow-wrap: anywhere; }
 @media (min-width: 900px) {
   .assure__grid { grid-template-columns: repeat(4, 1fr); }
   .assure__item { padding: 40px 28px; border-bottom: 0; }
