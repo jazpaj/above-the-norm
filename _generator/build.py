@@ -153,7 +153,7 @@ def header(r, active):
 def footer(r):
     def col(title, links):
         items = "".join(f'<li><a href="{r}{h}">{t}</a></li>' for h, t in links)
-        return f'<nav class="ftr__col" aria-label="{title}"><ul>{items}</ul></nav>'
+        return f'<nav class="ftr__col ftr__col--{title.lower()}" aria-label="{title}"><p class="ftr__title">{title}</p><ul>{items}</ul></nav>'
     shop = [("shop.html", "Explore Catalog"), ("shop.html?g=men", "Men"), ("shop.html?g=women", "Women")]
     help_ = [("contact.html", "Contact Us"), ("track.html", "Track Your Order"), ("faq.html", "FAQ"), ("size-guide.html", "Size Guide"),
              ("shipping.html", "Shipping Policy"), ("returns.html", "Returns &amp; Refunds")]
@@ -165,20 +165,20 @@ def footer(r):
     <div class="ftr__brand">
       <a class="ftr__logo" href="{r}index.html"><img src="{r}assets/img/logo.png" alt="" width="26" height="35"><span>Above The Norm<sup>®</sup></span></a>
       <p>Refuse to be normal.</p>
+      <a class="ftr__ig" href="{BIZ['instagram']}" rel="noopener" target="_blank" aria-label="Follow us on Instagram, @abovethenorm.us"><i>{ICON['instagram']}</i><span><small>Follow us</small>@abovethenorm.us</span></a>
     </div>
     <div class="ftr__cols">
       {col("Shop", shop)}
       {col("Help", help_)}
       {col("Company", company)}
-      <div class="ftr__col ftr__contact"><ul>
+      <div class="ftr__col ftr__contact"><p class="ftr__title">Get in touch</p><ul>
         <li><a href="mailto:{BIZ['email']}">{BIZ['email']}</a></li>{phone}
         <li>{BIZ['legal']}<br>{BIZ['street']}<br>{BIZ['city']}, {BIZ['state']} {BIZ['zip']}</li></ul></div>
     </div>
   </div>
   <div class="ftr__bar wrap">
-    <a class="ftr__ig" href="{BIZ['instagram']}" rel="noopener" target="_blank" aria-label="Follow us on Instagram">{ICON['instagram']}</a>
     <p>© 2026 {BIZ['legal']}. All rights reserved. ABOVE THE NORM® is a registered trademark, U.S. Reg. No. {BIZ['tm_reg']}.</p>
-    <p class="ftr__pay"><span>{ICON['lock']} Secure checkout</span> · We take Visa, Mastercard, Amex and Discover</p>
+    <p class="ftr__pay"><span>{ICON['lock']} Secure checkout</span><span class="ftr__cards">We take Visa, Mastercard, Amex and Discover</span></p>
   </div>
 </footer>"""
 
