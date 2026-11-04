@@ -6,6 +6,7 @@ Reads data.py (business facts, policies) and products.json (catalog), writes eve
 HTML page plus assets/js/catalog.js into the site folder. Don't hand-edit the
 generated HTML; change the data or templates here and rebuild.
 """
+import hashlib
 import json
 import os
 import re
@@ -227,6 +228,12 @@ def clean_links(html):
     return re.sub(r'\b(href|action)="([^"#?:]*?)\.html(?=[?#"])', fix, html)
 
 
+def asset(r, rel):
+    # The host tells browsers to keep these files for a month, so each one's address changes when its contents do.
+    with open(os.path.join(OUT, rel), "rb") as f:
+        return f"{r}{rel}?v={hashlib.md5(f.read()).hexdigest()[:10]}"
+
+
 def page(path, title, desc, body, active="", cls=""):
     depth = path.count("/")
     r = "../" * depth
@@ -245,7 +252,7 @@ def page(path, title, desc, body, active="", cls=""):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{r}assets/css/style.css">
+<link rel="stylesheet" href="{asset(r, "assets/css/style.css")}">
 </head>
 <body class="{cls}" data-root="{r}">
 <a class="skip" href="#main">Skip to content</a>
@@ -256,8 +263,8 @@ def page(path, title, desc, body, active="", cls=""):
 {footer(r)}
 {"" if path in ("cart.html", "checkout.html", "order-confirmed.html") else promo(r)}
 {cookie_bar(r)}
-<script src="{r}assets/js/catalog.js"></script>
-<script src="{r}assets/js/app.js"></script>
+<script src="{asset(r, "assets/js/catalog.js")}"></script>
+<script src="{asset(r, "assets/js/app.js")}"></script>
 </body>
 </html>
 """
