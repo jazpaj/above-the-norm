@@ -24,7 +24,7 @@ function priceOrder(body, catalog) {
     const p = l && catalog.products[l.id];
     const price = p && p.p && p.p[l.size];
     if (typeof price !== "number" || !Number.isInteger(l.qty) || l.qty < 1 || l.qty > 20) return { error: "An item in the order isn't available." };
-    items.push({ name: p.n, variant: [p.c, "Size " + l.size].filter(Boolean).join(" · "), qty: l.qty, total: price * l.qty });
+    items.push({ id: l.id, image: p.i, name: p.n, variant: [p.c, "Size " + l.size].filter(Boolean).join(" · "), qty: l.qty, total: price * l.qty });
   }
   const subtotal = items.reduce((s, i) => s + i.total, 0);
   const coupon = catalog.coupon && body.coupon === catalog.coupon.code ? catalog.coupon : null;
@@ -38,10 +38,18 @@ function priceOrder(body, catalog) {
   return {
     email, first, name: first + " " + last, address1, address2: text(body.address2, 160),
     cityLine: city + ", " + state + " " + zip, country: text(body.country, 60) || "United States",
-    items, subtotal, discount, couponCode: coupon ? coupon.code : "", shipping, tax: 0, total: net + shipping,
+    items, subtotal, discount, couponCode: coupon ? coupon.code : "", shipping, tax: 0, total: net + shipping, ship: express ? "express" : "standard",
     payment: last4 ? (brand || "Card") + " ending " + last4 : "Card"
   };
 }
+
+// The email's own JPEG if there is one, since Outlook on Windows can't show the site's WebP photos.
+function itemImage(item) {
+  const thumb = "assets/img/email/products/" + item.id + ".jpg";
+  return SITE_URL() + "/" + (fs.existsSync(path.join(__dirname, "..", thumb)) ? thumb : item.image);
+}
+
+const orderDate = (now) => now.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "America/Chicago" });
 
 function orderNumber(now) {
   const d = now.toISOString().slice(2, 10).replace(/-/g, "");
@@ -53,14 +61,14 @@ function renderEmail(order, number, now) {
   const block = (tpl, tag, show) =>
     tpl.replace(new RegExp("<!--" + tag + "-->([\\s\\S]*?)<!--/" + tag + "-->"), show ? "$1" : "");
   let html = TEMPLATE.replace(/<!--items-->([\s\S]*?)<!--\/items-->/, (m, row) =>
-    order.items.map((i) => fill(row, { item_name: i.name, item_variant: i.variant, item_quantity: i.qty, item_total: money(i.total) })).join("")
+    order.items.map((i) => fill(row, { item_image: itemImage(i), item_name: i.name, item_variant: i.variant, item_quantity: i.qty, item_total: money(i.total) })).join("")
   );
   html = block(html, "discount", order.discount > 0);
   html = block(html, "line2", !!order.address2);
   return fill(html, {
     customer_name: order.first.toUpperCase(),
     order_number: number,
-    order_date: now.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "America/Chicago" }),
+    order_date: orderDate(now),
     subtotal: money(order.subtotal),
     discount: money(order.discount),
     coupon_code: order.couponCode,
@@ -136,11 +144,11 @@ function sampleOrder(to, first) {
     email: to, first, name: first + " Customer", address1: "6122 Sterling Ave", address2: "",
     cityLine: "Raytown, MO 64133", country: "United States",
     items: [
-      { name: "Sample Hoodie", variant: "Black · Size L", qty: 1, total: 75 },
-      { name: "Sample Tee", variant: "White · Size M", qty: 2, total: 80 }
+      { id: "atn-angels-hoodie-sky-blue", image: "assets/img/products/atn-angels-hoodie-sky-blue-1.webp", name: "ATN Angels Hoodie", variant: "Sky Blue · Size L", qty: 1, total: 75 },
+      { id: "sent-from-above-hoodie-black", image: "assets/img/products/sent-from-above-hoodie-black-1.webp", name: "Sent From Above Hoodie", variant: "Black · Size M", qty: 1, total: 75 }
     ],
-    subtotal: 155, discount: 15.5, couponCode: "ABOVE10", shipping: 0, tax: 0, total: 139.5, payment: "Visa ending 4242"
+    subtotal: 150, discount: 15, couponCode: "ABOVE10", shipping: 0, tax: 0, total: 135, payment: "Visa ending 4242"
   };
 }
 
-module.exports = { priceOrder, renderEmail, sendConfirmation, sampleOrder };
+module.exports = { priceOrder, renderEmail, sendConfirmation, sampleOrder, orderDate };

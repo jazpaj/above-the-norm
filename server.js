@@ -3,7 +3,7 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
-const { priceOrder, sendConfirmation, sampleOrder } = require("./mail/order");
+const { priceOrder, sendConfirmation, sampleOrder, orderDate } = require("./mail/order");
 
 const ROOT = __dirname;
 const PORT = process.env.PORT || 3000;
@@ -106,7 +106,8 @@ async function placeOrder(req, res) {
   if (!body || typeof body !== "object") return json(res, 400, { ok: false, error: "That request couldn't be read." });
   const order = priceOrder(body, CATALOG);
   if (order.error) return json(res, 422, { ok: false, error: order.error });
-  json(res, 200, { ok: true, order_number: await sendConfirmation(order), total: order.total });
+  const number = await sendConfirmation(order);
+  json(res, 200, { ok: true, order_number: number, total: order.total, order: { ...order, number, date: orderDate(new Date()) } });
 }
 
 // Sends a sample email to TEST_RECIPIENT only. Needs the X-Send-Token header.

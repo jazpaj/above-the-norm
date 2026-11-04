@@ -17,7 +17,6 @@ HEADINGS = {
     "headed": ('<span style="color:#14214c">Where it\'s headed</span>', 21, -.03, "#e8edfc"),
     "next": ('<span style="color:#14214c">What\'s next?</span>', 21, -.03, "#f3f5ff"),
     "wordmark": ('<span style="color:#f0f3ff">ABOVE THE NORM<sup style="font-size:.4em">®</sup></span>', 18, .02, "#101a42"),
-    "tile": ('<span style="color:#263667">ATN<sup style="font-size:.45em">®</sup></span>', 15, -.02, "#dbe3fa"),
 }
 
 

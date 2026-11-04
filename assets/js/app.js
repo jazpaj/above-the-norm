@@ -575,6 +575,7 @@
             Object.keys(cc).forEach(function (k) { cc[k].value = ""; });
             write([]);
             store(CKEY, null);
+            try { sessionStorage.setItem("atn_last_order", JSON.stringify(r.order)); location.href = ROOT + "order-confirmed"; return; } catch (e) {}
             msg.className = "co__msg is-ok";
             msg.textContent = "Thank you! Your order #" + r.order_number + " is confirmed. We've emailed the details to " + orderData.email + ".";
           })
@@ -593,6 +594,47 @@
       msg.innerHTML = "Online card payments are being activated and your card has not been charged. " +
         "To order now, email <a href=\"mailto:" + CAT.email + "\">" + CAT.email + "</a> with the items in your bag and we'll send a secure invoice.";
     });
+  }
+
+  /* order confirmation page: shows the order the server just confirmed */
+  var ocPage = document.querySelector("[data-order-page]");
+  if (ocPage) {
+    var oc = null;
+    try { oc = JSON.parse(sessionStorage.getItem("atn_last_order")); } catch (e) {}
+    if (oc && oc.number && Array.isArray(oc.items)) {
+      var h = function (v) { var d = document.createElement("div"); d.textContent = v == null ? "" : v; return d.innerHTML.replace(/"/g, "&quot;"); };
+      var cents = function (v) { return "$" + Number(v).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","); };
+      var row = function (label, value, cls) { return "<div" + (cls ? ' class="' + cls + '"' : "") + "><dt>" + label + "</dt><dd>" + value + "</dd></div>"; };
+      var express = oc.ship === "express", shipInfo = CAT.ship || {};
+      var units = oc.items.reduce(function (n, i) { return n + i.qty; }, 0);
+      var items = oc.items.map(function (i) {
+        return '<li class="oc__item"><a href="' + ROOT + "products/" + encodeURIComponent(i.id) + '"><img src="' + ROOT + h(i.image) + '" alt="" width="96" height="96"></a>' +
+          '<div><a class="oc__name" href="' + ROOT + "products/" + encodeURIComponent(i.id) + '">' + h(i.name) + "</a><p>" + h(i.variant) + " · Qty " + h(i.qty) + "</p></div>" +
+          "<strong>" + cents(i.total) + "</strong></li>";
+      }).join("");
+      ocPage.innerHTML =
+        '<section class="oc__hero"><div class="wrap"><span class="oc__tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span>' +
+          '<p class="kicker kicker--light">Order confirmed</p><h1 tabindex="-1">Thank you, ' + h(oc.first) + ".<em>You're above the norm.</em></h1>" +
+          "<p class=\"oc__sent\">We've emailed your confirmation to <strong>" + h(oc.email) + "</strong>. Can't see it? Check your spam folder.</p>" +
+          '<dl class="oc__facts">' + row("Order number", "#" + h(oc.number)) + row("Placed on", h(oc.date)) + row("Total", cents(oc.total)) + "</dl></div></section>" +
+        '<div class="wrap oc__grid"><div class="oc__main">' +
+          "<section><h2>Your order <span>" + units + (units === 1 ? " item" : " items") + '</span></h2><ul class="oc__items">' + items + "</ul></section>" +
+          '<section><h2>What happens next</h2><ol class="oc__steps">' +
+            "<li><strong>We make and pack it</strong>Your order leaves us within " + h(shipInfo.processing) + ".</li>" +
+            "<li><strong>We email your tracking number</strong>You'll get it as soon as the carrier has your package.</li>" +
+            "<li><strong>It arrives</strong>" + (express ? "Express" : "Standard") + " delivery takes " + h(express ? shipInfo.express_time : shipInfo.standard_time) + ".</li></ol></section></div>" +
+        '<aside class="oc__side"><section class="oc__card"><h2>Summary</h2><dl class="oc__totals">' +
+            row("Subtotal", cents(oc.subtotal)) +
+            (oc.discount > 0 ? row("Discount (" + h(oc.couponCode) + ")", "-" + cents(oc.discount)) : "") +
+            row((express ? "Express" : "Standard") + " shipping", oc.shipping ? cents(oc.shipping) : "Free") +
+            row("Total", cents(oc.total), "oc__total") + "</dl></section>" +
+          '<section class="oc__card"><h2>Shipping to</h2><address>' + h(oc.name) + "<br>" + h(oc.address1) + "<br>" + (oc.address2 ? h(oc.address2) + "<br>" : "") + h(oc.cityLine) + "<br>" + h(oc.country) + "</address>" +
+            "<h2>Payment</h2><p>" + h(oc.payment) + "</p></section>" +
+          '<div class="oc__actions"><a class="btn btn--block" href="' + ROOT + 'shop">Keep shopping</a><a class="btn btn--ghost btn--block" href="' + ROOT + 'track">Track an order</a></div>' +
+          '<p class="oc__help">Questions? Email <a href="mailto:' + h(CAT.email) + '">' + h(CAT.email) + "</a> and quote your order number.</p></aside></div>";
+      var ocH1 = ocPage.querySelector("h1");
+      if (ocH1) ocH1.focus({ preventScroll: true });
+    }
   }
 
   /* order tracking: hands the number to the carrier's own tracking page */

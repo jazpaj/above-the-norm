@@ -237,7 +237,7 @@ def page(path, title, desc, body, active="", cls=""):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{e(full)}</title>
-<meta name="description" content="{e(desc)}">
+<meta name="description" content="{e(desc)}">{'<meta name="robots" content="noindex">' if path == "order-confirmed.html" else ""}
 <meta property="og:title" content="{e(full)}">
 <meta property="og:description" content="{e(desc)}">
 <meta property="og:type" content="website">
@@ -254,7 +254,7 @@ def page(path, title, desc, body, active="", cls=""):
 {body}
 </main>
 {footer(r)}
-{"" if path in ("cart.html", "checkout.html") else promo(r)}
+{"" if path in ("cart.html", "checkout.html", "order-confirmed.html") else promo(r)}
 {cookie_bar(r)}
 <script src="{r}assets/js/catalog.js"></script>
 <script src="{r}assets/js/app.js"></script>
@@ -926,6 +926,14 @@ def build_track():
     page("track.html", "Track Your Order", "Track an Above The Norm order with your USPS, UPS or FedEx tracking number.", body, active="track")
 
 
+def build_order_confirmed():
+    body = """<div data-order-page>
+<section class="page-hero wrap" data-order-empty><p class="kicker">Order confirmation</p><h1>No order to show.</h1><p class="page-hero__lede">Your confirmation email has all your order details. If you can't find it, check your spam folder or get in touch.</p>
+<p class="oc__actions"><a class="btn" href="shop.html">Explore the catalog</a> <a class="btn btn--ghost" href="contact.html">Contact us</a></p></section>
+</div>"""
+    page("order-confirmed.html", "Order Confirmed", "Your Above The Norm order confirmation.", body)
+
+
 def build_404():
     body = """<section class="page-hero wrap notfound"><p class="kicker">404</p><h1>Lost in orbit.</h1><p class="page-hero__lede">That page doesn't exist, or it was beamed up.</p><a class="btn" href="{R}shop.html">Back to the shop</a></section>"""
     page("404.html", "Page not found", "Page not found.", body)
@@ -953,5 +961,6 @@ if __name__ == "__main__":
     build_about()
     build_contact()
     build_track()
+    build_order_confirmed()
     build_404()
     print(f"Built {len(PRODUCTS)} product pages + 13 site pages into {OUT}")

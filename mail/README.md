@@ -25,6 +25,10 @@ Add `?first=Jazner` to the address to see the greeting with a given name. Real o
 
 Gmail and Outlook ignore web fonts. The fixed headings are images in Unbounded, from `python3 _generator/email_headings.py`. Text that changes per order (names, prices, addresses) stays live: Unbounded and DM Sans where the mail app allows them, Helvetica or Arial elsewhere.
 
+## Product photos
+
+The email shows small JPEGs from `assets/img/email/products/`, because Outlook on Windows can't display the site's WebP photos. After adding products, run `python3 _generator/email_thumbs.py`. A product with no JPEG falls back to its WebP photo.
+
 ## Going live
 
 `ORDERS_LIVE` in `_generator/data.py` is off, so checkout sends nothing and `/api/place-order` refuses orders.
