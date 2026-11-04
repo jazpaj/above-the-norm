@@ -111,4 +111,4 @@ FAQ = [
 ]
 
 # Turn on only once a payment gateway approves charges: checkout then places the order and emails the confirmation.
-ORDERS_LIVE = False
+ORDERS_LIVE = True
