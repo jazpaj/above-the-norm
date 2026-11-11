@@ -341,18 +341,18 @@ def home_faq():
 def build_home():
     real = [p for p in PRODUCTS if not p["placeholder"]]
     by_id = {p["id"]: p for p in PRODUCTS}
-    hero = by_id.get("path-to-ascension-hoodie", real[0])
-    picks = ["no-ceilings-tee", "sent-from-above-hoodie-black", "lord-protect-me-tee", "crash-landing-hoodie-yellow",
-             "retired-hoop-dream-sweats-black", "badge-logo-dad-hat-blue", "nn-cult-crewneck", "logo-pearl-necklace"]
+    hero = by_id.get("atn-angels-hoodie-sky-blue", real[0])
+    picks = ["my-mama-says-tee", "sent-from-above-hoodie-black", "lord-protect-me-tee", "crash-landing-hoodie-yellow",
+             "retired-hoop-dream-sweats-black", "badge-logo-dad-hat-blue", "may-the-angels-crewneck", "logo-pearl-necklace"]
     arrivals = "".join(card(by_id[h], order=i) for i, h in enumerate(picks) if h in by_id)
     men_img = by_id.get("levitate-above-the-norm-hoodie-white", real[1])
-    wom_img = by_id.get("your-desires-tee", real[2])
+    wom_img = by_id.get("s-o-s-tee", real[2])
 
     def count(cat):
         return sum(1 for p in PRODUCTS if p["cat"] == cat)
 
     cat_img = {"tops": "norm-the-alien-crewneck-blue", "bottoms": "logo-flared-track-pants",
-               "headwear": "atn-hazard-dad-hat", "accessories": "motel-atn-key-fob"}
+               "headwear": "atn-hazard-dad-hat", "accessories": "logo-pearl-necklace"}
     cats = "".join(f"""<a class="cat" href="shop.html?c={k}">
   <span class="cat__num">0{i + 1}</span>
   <div class="cat__img"><img src="{img(by_id[cat_img[k]])}" alt="" loading="lazy" width="600" height="600"></div>
