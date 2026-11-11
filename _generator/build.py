@@ -346,7 +346,7 @@ def build_home():
              "retired-hoop-dream-sweats-black", "badge-logo-dad-hat-blue", "may-the-angels-crewneck", "logo-pearl-necklace"]
     arrivals = "".join(card(by_id[h], order=i) for i, h in enumerate(picks) if h in by_id)
     men_img = by_id.get("levitate-above-the-norm-hoodie-white", real[1])
-    wom_img = by_id.get("s-o-s-tee", real[2])
+    wom_img = by_id.get("red-stripped-l-s-red-white", real[2])
 
     def count(cat):
         return sum(1 for p in PRODUCTS if p["cat"] == cat)

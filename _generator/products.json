@@ -342,44 +342,6 @@
     "placeholder": false
   },
   {
-    "id": "s-o-s-tee",
-    "name": "S.O.S. Tee",
-    "color": "",
-    "cat": "tops",
-    "type": "Tees",
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL",
-      "2XL"
-    ],
-    "prices": {
-      "S": 50.0,
-      "M": 50.0,
-      "L": 50.0,
-      "XL": 50.0,
-      "2XL": 50.0
-    },
-    "details": [
-      "100% Cotton, 6.5 oz. Tee",
-      "DTG Design Printed On Front + Back",
-      "Made + Printed In LA",
-      "Design Artwork Made By: Emilio [@shlimestar]"
-    ],
-    "images": [
-      "s-o-s-tee-1.webp",
-      "s-o-s-tee-2.webp",
-      "s-o-s-tee-3.webp"
-    ],
-    "in_stock": true,
-    "gender": [
-      "men",
-      "women"
-    ],
-    "placeholder": false
-  },
-  {
     "id": "norm-the-alien-crewneck-blue",
     "name": "Norm The Alien Crewneck",
     "color": "Blue",
@@ -1961,31 +1923,6 @@
       "atn-hazard-dad-hat-1.webp",
       "atn-hazard-dad-hat-2.webp",
       "atn-hazard-dad-hat-3.webp"
-    ],
-    "in_stock": true,
-    "gender": [
-      "men",
-      "women"
-    ],
-    "placeholder": false
-  },
-  {
-    "id": "angels-wallet-chain",
-    "name": "Angels Wallet Chain",
-    "color": "",
-    "cat": "accessories",
-    "type": "Jewelry",
-    "sizes": [
-      "One Size"
-    ],
-    "prices": {
-      "One Size": 55.0
-    },
-    "details": [],
-    "images": [
-      "angels-wallet-chain-1.webp",
-      "angels-wallet-chain-2.webp",
-      "angels-wallet-chain-3.webp"
     ],
     "in_stock": true,
     "gender": [
