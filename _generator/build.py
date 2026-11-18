@@ -304,7 +304,7 @@ def section_head(kicker, title, link=None):
 
 ASSURE = [
     ("lock", "Secure checkout", "Card payments are encrypted, and your complete card number is never saved on our site.", "privacy.html"),
-    ("truck", f"Ships in {SHIP['processing_short']}", "Made in limited batches, then sent with tracking anywhere in the U.S.", "shipping.html"),
+    ("truck", f"Ships in {SHIP['processing_short']}", "Produced in limited batches, then sent with tracking anywhere in the U.S.", "shipping.html"),
     ("shield", "Arrives right or we fix it", f"Broken, faulty or the wrong piece? Let us know no later than {SHIP['claim_days']} days after it arrives.", "returns.html"),
     ("mail", "Talk to the team", f"Email {BIZ['email']}. Expect a reply in 1–2 business days.", "contact.html"),
 ]
@@ -435,7 +435,7 @@ def build_home():
 
 {assurances()}
 """
-    page("index.html", "", "Above The Norm® is independent streetwear from Above The Norm LLC: graphic tees, hoodies, sweats, headwear and accessories for men and women, made in limited batches since 2019.", body, cls="home")
+    page("index.html", "", "Above The Norm® is independent streetwear from Above The Norm LLC: graphic tees, hoodies, sweats, headwear and accessories for men and women, produced in limited batches since 2019.", body, cls="home")
 
 
 FILTER_SIZES = ["XS", "S", "M", "L", "XL", "2XL", "3XL", "One Size"]
@@ -747,7 +747,7 @@ def build_policies():
 <h2>Contact</h2>{company_block()}""")
 
     prose("returns.html", "Returns & Refunds", "Customer care", "Above The Norm returns, refunds, cancellations and damaged-item policy.", f"""{upd}
-<p>Because every piece is made in limited batches, <strong>every sale is final</strong>. We can't take a piece back or swap it because you changed your mind or picked the wrong size, so have a look at the <a href="size-guide.html">size guide</a> before ordering. We stand behind every order, though, and the exceptions below always apply.</p>
+<p>Because every piece is produced in limited batches, <strong>every sale is final</strong>. We can't take a piece back or swap it because you changed your mind or picked the wrong size, so have a look at the <a href="size-guide.html">size guide</a> before ordering. We stand behind every order, though, and the exceptions below always apply.</p>
 <h2>If something's wrong with your order</h2>
 <p>Did a piece turn up broken or faulty, or is it the wrong style, size or color? Write to <a href="mailto:{BIZ['email']}">{BIZ['email']}</a> no later than <strong>{s['claim_days']} days after it arrives</strong> and include:</p>
 <ul><li>the number on your order,</li><li>a short note on what went wrong, and</li><li>pictures of the piece and how it was packed.</li></ul>
