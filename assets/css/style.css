@@ -1028,3 +1028,9 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .perk p { margin: 0; flex: 1; font-size: 13px; line-height: 1.55; color: var(--muted); }
 .perk a { font-size: 13px; font-weight: 600; color: var(--ink); text-underline-offset: 3px; }
 @media (max-width: 520px) { .perks { grid-template-columns: 1fr; } .notes__head, .notes__list { padding-left: 18px; padding-right: 18px; } }
+
+.ctrack { display: flex; align-items: center; gap: 12px; margin: 4px 0 14px; padding: 12px 14px; border-radius: 14px; background: var(--beam); color: var(--night) !important; text-decoration: none; font-size: 13px; line-height: 1.4; transition: transform .15s ease; }
+.ctrack:hover { transform: translateY(-1px); }
+.ctrack svg { width: 32px; height: 32px; padding: 7px; background: rgba(0, 0, 0, .1); color: var(--night); }
+.ctrack strong { display: block; font-size: 14px; }
+.ctrack b { margin-left: auto; font-size: 18px; }

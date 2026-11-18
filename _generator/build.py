@@ -878,6 +878,7 @@ def build_contact():
       <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg><div><strong>Mailing address</strong>{BIZ['legal']}<br>{BIZ['street']}<br>{BIZ['city']}, {BIZ['state']} {BIZ['zip']}<br>{BIZ['country']}</div></li>
       <li>{ICON['instagram']}<div><strong>Instagram</strong><a href="{BIZ['instagram']}" target="_blank" rel="noopener">@abovethenorm.us</a></div></li>
     </ul>
+    <a class="ctrack" href="track.html">{ICON['truck']}<span><strong>Track your order</strong>Have a tracking number? Follow your package here.</span><b aria-hidden="true">&rarr;</b></a>
     <p class="cinfo__note">Online store only. This address is for correspondence and isn't open to the public.</p>
   </aside>
   <form class="co cform" data-contact-form novalidate>
