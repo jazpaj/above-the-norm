@@ -534,7 +534,7 @@ def look_item(q, r):
             f'<span class="look__type">{CAT_NAME[q["cat"]]}</span><strong>{e(q["name"])}</strong><span class="look__price">{money(low(q))}</span></a>')
 
 
-CARE_LINE = "<li>Turn inside out and machine wash cold. Hang to dry, or use the dryer's lowest heat.</li>"
+CARE_LINE = "Turn inside out and machine wash cold. Hang to dry, or use the dryer's lowest heat."
 
 
 def build_products():
@@ -551,10 +551,14 @@ def build_products():
         sizes = "".join(
             f'<button type="button" class="size" data-size="{e(s)}" data-price="{v}" aria-pressed="{"true" if one else "false"}">{e(s)}</button>'
             for s, v in p["prices"].items())
-        details = "".join(f"<li>{e(d)}</li>" for d in p["details"])
+        specs = list(p["details"])
         if p["cat"] in ("tops", "bottoms") and not any(d.startswith("Care") for d in p["details"]):
-            details += CARE_LINE
-        details_block = f'<details class="acc" open><summary>Details &amp; care</summary><ul>{details}</ul></details>' if details else ""
+            specs.append(CARE_LINE)
+        rows = "".join(f'<li><b>{i:02d}</b><span>{e(d)}</span></li>' for i, d in enumerate(specs, 1))
+        spec_block = f"""<section class="notes" aria-labelledby="notes-title">
+      <header class="notes__head"><span class="notes__tag">ATN®</span><h2 id="notes-title">The build</h2><span class="notes__count">{len(specs)} notes</span></header>
+      <ol class="notes__list">{rows}</ol>
+    </section>""" if specs else ""
         look_items = "".join(look_item(q, r) for q in complete_look(p))
         size_note = ('<a class="pdp__guide" href="../size-guide.html">Size guide</a>'
                      if p["cat"] in ("tops", "bottoms") else "")
@@ -577,14 +581,13 @@ def build_products():
         <button type="button" class="btn btn--block btn--bag" data-add {'disabled' if not p['in_stock'] else ''}>{ICON['bag']}<span data-add-label>{'Add to bag' if p['in_stock'] else 'Sold out'}</span></button>
       </div>
       <p class="pdp__msg" data-msg role="status"></p>
+      <p class="buy__safe">{ICON['lock']} Your payment details are protected at checkout</p>
     </div>
-    <ul class="pdp__facts">
-      <li>{ICON['truck']} Ships in {SHIP['processing_short']} · delivery is on us from {money(SHIP['free_over'])}</li>
-      <li>{ICON['lock']} Your payment details are protected at checkout</li>
-    </ul>
-    {details_block}
-    <details class="acc"><summary>Shipping</summary><p>Orders are made and sent out within {SHIP['processing']}. Standard U.S. delivery takes {SHIP['standard_time']} and costs {money(SHIP['standard_rate'])}, or nothing once your order reaches {money(SHIP['free_over'])}. <a href="../shipping.html">Full shipping policy</a>.</p></details>
-    <details class="acc"><summary>Returns &amp; refunds</summary><p>Every sale is final. If your piece turns up broken, faulty or not what you chose, write to us no later than {SHIP['claim_days']} days after it arrives and we'll send a new one or refund you in full. <a href="../returns.html">Returns &amp; refunds policy</a>.</p></details>
+    {spec_block}
+    <div class="perks">
+      <article class="perk">{ICON['truck']}<h3>Shipping</h3><p>Orders are made and sent out within {SHIP['processing']}. Standard U.S. delivery takes {SHIP['standard_time']} and costs {money(SHIP['standard_rate'])}, or nothing once your order reaches {money(SHIP['free_over'])}.</p><a href="../shipping.html">Shipping policy</a></article>
+      <article class="perk">{ICON['shield']}<h3>Final sale, covered</h3><p>Every sale is final. If your piece turns up broken, faulty or not what you chose, write to us no later than {SHIP['claim_days']} days after it arrives and we'll send a new one or refund you in full.</p><a href="../returns.html">Returns &amp; refunds</a></article>
+    </div>
   </div>
 </section>
 <section class="wrap block look" data-look>

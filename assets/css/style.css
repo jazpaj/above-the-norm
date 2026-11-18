@@ -1008,3 +1008,23 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 }
 .oc__actions .btn--ghost { color: var(--ink); border-color: var(--ink); }
 .oc__actions .btn--ghost:hover { background: var(--tile); }
+
+/* product page: build notes and shipping/returns cards */
+.buy__safe { display: flex; align-items: center; gap: 8px; margin: 4px 0 0; font-size: 12px; color: var(--muted); }
+.buy__safe svg { width: 14px; height: 14px; flex: none; color: var(--ink); }
+.notes { margin-top: 26px; background: var(--night); color: var(--bone); border-radius: 20px; overflow: hidden; }
+.notes__head { display: flex; align-items: center; gap: 12px; padding: 18px 22px; border-bottom: 1px dashed rgba(238, 243, 249, .25); }
+.notes__tag { padding: 4px 8px; border-radius: 6px; background: var(--beam); color: var(--night); font-family: var(--display); font-size: 10px; font-weight: 700; letter-spacing: .04em; }
+.notes__head h2 { flex: 1; font-size: 17px; letter-spacing: -.02em; color: var(--bone); }
+.notes__count { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: rgba(238, 243, 249, .55); }
+.notes__list { list-style: none; margin: 0; padding: 6px 22px 10px; }
+.notes__list li { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px; padding: 12px 0; font-size: 14px; line-height: 1.5; color: rgba(238, 243, 249, .9); }
+.notes__list li + li { border-top: 1px solid rgba(238, 243, 249, .1); }
+.notes__list b { font-family: var(--display); font-size: 12px; font-weight: 600; color: var(--beam); padding-top: 2px; }
+.perks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 12px; }
+.perk { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; }
+.perk svg { width: 22px; height: 22px; color: #B8890F; }
+.perk h3 { margin: 2px 0 0; font-family: var(--display); font-size: 13px; font-weight: 700; letter-spacing: -.01em; }
+.perk p { margin: 0; flex: 1; font-size: 13px; line-height: 1.55; color: var(--muted); }
+.perk a { font-size: 13px; font-weight: 600; color: var(--ink); text-underline-offset: 3px; }
+@media (max-width: 520px) { .perks { grid-template-columns: 1fr; } .notes__head, .notes__list { padding-left: 18px; padding-right: 18px; } }
