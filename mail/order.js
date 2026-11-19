@@ -112,7 +112,7 @@ async function graphToken() {
   return cachedToken.value;
 }
 
-async function sendMail({ to, subject, html, replyTo, bcc }) {
+async function sendMail({ to, subject, html, replyTo, bcc, saveToSent = true }) {
   const sender = process.env.MAIL_SENDER || "support@abovethenorm.us";
   const res = await fetch("https://graph.microsoft.com/v1.0/users/" + encodeURIComponent(sender) + "/sendMail", {
     method: "POST",
@@ -125,7 +125,7 @@ async function sendMail({ to, subject, html, replyTo, bcc }) {
         ...(replyTo ? { replyTo: [{ emailAddress: { address: replyTo } }] } : {}),
         ...(bcc ? { bccRecipients: [{ emailAddress: { address: bcc } }] } : {})
       },
-      saveToSentItems: true
+      saveToSentItems: saveToSent
     })
   });
   if (res.status !== 202) {
@@ -144,7 +144,10 @@ async function sendConfirmation(order) {
   let alertError = "";
   try {
     const alert = await renderAlert(order, number, now);
-    await sendMail({ to: process.env.ALERT_TO || process.env.MAIL_SENDER || "support@abovethenorm.us", subject: alert.subject, html: alert.html, replyTo: order.email });
+    await sendMail({ to: process.env.ALERT_TO || process.env.MAIL_SENDER || "support@abovethenorm.us", subject: alert.subject, html: alert.html, replyTo: order.email,
+      // The alert goes from the support mailbox to itself. A copy in Sent Items makes Exchange treat the
+      // delivered copy as a duplicate and drop it, so the alert would never reach the inbox.
+      saveToSent: false });
   } catch (err) {
     alertError = err.message || String(err);
     console.error("order alert for " + number + " failed:", alertError);
