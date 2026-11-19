@@ -100,7 +100,7 @@ async function graphToken() {
   return cachedToken.value;
 }
 
-async function sendMail({ to, subject, html, replyTo }) {
+async function sendMail({ to, subject, html, replyTo, bcc }) {
   const sender = process.env.MAIL_SENDER || "support@abovethenorm.us";
   const res = await fetch("https://graph.microsoft.com/v1.0/users/" + encodeURIComponent(sender) + "/sendMail", {
     method: "POST",
@@ -110,7 +110,8 @@ async function sendMail({ to, subject, html, replyTo }) {
         subject,
         body: { contentType: "HTML", content: html },
         toRecipients: [{ emailAddress: { address: to } }],
-        ...(replyTo ? { replyTo: [{ emailAddress: { address: replyTo } }] } : {})
+        ...(replyTo ? { replyTo: [{ emailAddress: { address: replyTo } }] } : {}),
+        ...(bcc ? { bccRecipients: [{ emailAddress: { address: bcc } }] } : {})
       },
       saveToSentItems: true
     })
@@ -125,7 +126,9 @@ async function sendConfirmation(order) {
   const now = new Date();
   const number = orderNumber(now);
   const mail = await renderEmail(order, number, now);
-  await sendMail({ to: order.email, subject: mail.subject, html: mail.html });
+  // Support gets a hidden copy of every confirmation, so each order also lands in its inbox.
+  const support = process.env.MAIL_SENDER || "support@abovethenorm.us";
+  await sendMail({ to: order.email, subject: mail.subject, html: mail.html, bcc: order.email.toLowerCase() === support.toLowerCase() ? undefined : support });
   return number;
 }
 
