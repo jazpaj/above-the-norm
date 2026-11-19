@@ -3,7 +3,6 @@ const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
 
-const TEMPLATE = fs.readFileSync(path.join(__dirname, "order-confirmation.html"), "utf8");
 const SITE_URL = () => (process.env.SITE_URL || "https://abovethenorm.us").replace(/\/$/, "");
 const money = (v) => "$" + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 const esc = (v) =>
@@ -27,7 +26,7 @@ function priceOrder(body, catalog) {
     const price = p && p.p && p.p[l.size];
     const qty = l && l.quantity;
     if (typeof price !== "number" || !Number.isInteger(qty) || qty < 1 || qty > 20) return { error: "An item in the order isn't available." };
-    items.push({ id: l.id, image: p.i, name: p.n, variant: [p.c, "Size " + l.size].filter(Boolean).join(" · "), qty, total: price * qty });
+    items.push({ id: l.id, image: p.i, name: p.n, color: p.c, size: l.size, variant: [p.c, "Size " + l.size].filter(Boolean).join(" · "), qty, unit: price, total: price * qty });
   }
   const subtotal = items.reduce((s, i) => s + i.total, 0);
   const coupon = catalog.coupon && body.welcome === true ? catalog.coupon : null;
@@ -38,7 +37,7 @@ function priceOrder(body, catalog) {
 
   return {
     email, first, name, phone, address1, address2: text(ship.line2, 200),
-    cityLine: city + ", " + state + " " + zip, country: "United States",
+    city, state, zip, cityLine: city + ", " + state + " " + zip, country: "United States",
     items, subtotal, discount, couponCode: coupon ? coupon.code : "", shipping, tax: 0, total: net + shipping, ship: express ? "express" : "standard",
     payment: "Card"
   };
@@ -57,34 +56,27 @@ function orderNumber(now) {
   return "ATN-" + d + "-" + crypto.randomBytes(2).toString("hex").toUpperCase();
 }
 
-function renderEmail(order, number, now) {
-  const fill = (tpl, vars) => tpl.replace(/\{\{(\w+)\}\}/g, (m, k) => (k in vars ? esc(vars[k]) : ""));
-  const block = (tpl, tag, show) =>
-    tpl.replace(new RegExp("<!--" + tag + "-->([\\s\\S]*?)<!--/" + tag + "-->"), show ? "$1" : "");
-  let html = TEMPLATE.replace(/<!--items-->([\s\S]*?)<!--\/items-->/, (m, row) =>
-    order.items.map((i) => fill(row, { item_image: itemImage(i), item_name: i.name, item_variant: i.variant, item_quantity: i.qty, item_total: money(i.total) })).join("")
-  );
-  html = block(html, "discount", order.discount > 0);
-  html = block(html, "line2", !!order.address2);
-  return fill(html, {
-    customer_name: order.first.toUpperCase(),
-    order_number: number,
-    order_date: orderDate(now),
-    subtotal: money(order.subtotal),
-    discount: money(order.discount),
-    coupon_code: order.couponCode,
-    shipping_cost: order.shipping ? money(order.shipping) : "Free",
-    tax_amount: money(order.tax),
-    order_total: money(order.total),
-    shipping_name: order.name,
-    shipping_address_line1: order.address1,
-    shipping_address_line2: order.address2,
-    shipping_city_state_zip: order.cityLine,
-    shipping_country: order.country,
-    payment_method: order.payment,
-    order_status_url: SITE_URL() + "/track/",
-    current_year: now.getFullYear()
-  });
+// The email design lives in confirmations.mjs (an ES module, loaded once on first use).
+let design = null;
+const cents = (v) => Math.round(v * 100);
+
+async function renderEmail(order, number, now) {
+  design = design || (await import("./confirmations.mjs"));
+  return design.orderConfirmation({
+    // "received": no payment gateway is connected yet, so the email never says the order was paid.
+    // Switch to status "paid" with payment details once the gateway confirms the charge.
+    reference: number, status: "received", currency: "USD", placedAt: now.toISOString(),
+    customer: { name: order.first, email: order.email, phone: order.phone || undefined },
+    items: order.items.map((i) => ({ name: i.name, color: i.color || undefined, size: i.size, quantity: i.qty, unitAmount: cents(i.unit), imageUrl: itemImage(i) })),
+    totals: { subtotal: cents(order.subtotal), discount: cents(order.discount), discountCode: order.couponCode || undefined, shipping: cents(order.shipping), tax: cents(order.tax), total: cents(order.total) },
+    payment: {},
+    shipping: {
+      method: order.ship === "express" ? "U.S. Express" : "U.S. Standard", status: "Preparing your order",
+      processingWindow: "7–14 business days",
+      transitWindow: (order.ship === "express" ? "1–3" : "3–7") + " working days after dispatch",
+      address: { name: order.name, line1: order.address1, line2: order.address2 || undefined, city: order.city, region: order.state, postalCode: order.zip, country: order.country }
+    }
+  }, { origin: SITE_URL(), logoUrl: SITE_URL() + "/assets/atn-mark.png", timeZone: "America/Chicago" });
 }
 
 let cachedToken = null;
@@ -132,11 +124,8 @@ async function sendMail({ to, subject, html, replyTo }) {
 async function sendConfirmation(order) {
   const now = new Date();
   const number = orderNumber(now);
-  await sendMail({
-    to: order.email,
-    subject: "Your Above The Norm order #" + number + " is confirmed",
-    html: renderEmail(order, number, now)
-  });
+  const mail = await renderEmail(order, number, now);
+  await sendMail({ to: order.email, subject: mail.subject, html: mail.html });
   return number;
 }
 
@@ -151,13 +140,13 @@ function notice(subject, rows) {
 function sampleOrder(to, first) {
   first = text(first, 80) || "Sample";
   return {
-    email: to, first, name: first + " Customer", address1: "6122 Sterling Ave", address2: "",
-    cityLine: "Raytown, MO 64133", country: "United States",
+    email: to, first, name: first + " Customer", phone: "", address1: "6122 Sterling Ave", address2: "",
+    city: "Raytown", state: "MO", zip: "64133", cityLine: "Raytown, MO 64133", country: "United States",
     items: [
-      { id: "atn-angels-hoodie-sky-blue", image: "assets/products/atn-angels-hoodie-sky-blue-1.webp", name: "ATN Angels Hoodie", variant: "Sky Blue · Size L", qty: 1, total: 75 },
-      { id: "sent-from-above-hoodie-black", image: "assets/products/sent-from-above-hoodie-black-1.webp", name: "Sent From Above Hoodie", variant: "Black · Size M", qty: 1, total: 75 }
+      { id: "atn-angels-hoodie-sky-blue", image: "assets/products/atn-angels-hoodie-sky-blue-1.webp", name: "ATN Angels Hoodie", color: "Sky Blue", size: "L", qty: 1, unit: 75, total: 75 },
+      { id: "sent-from-above-hoodie-black", image: "assets/products/sent-from-above-hoodie-black-1.webp", name: "Sent From Above Hoodie", color: "Black", size: "M", qty: 1, unit: 75, total: 75 }
     ],
-    subtotal: 150, discount: 15, couponCode: "ABOVE10", shipping: 0, tax: 0, total: 135, payment: "Visa ending 4242"
+    subtotal: 150, discount: 15, couponCode: "ABOVE10", shipping: 0, tax: 0, total: 135, ship: "standard"
   };
 }
 
