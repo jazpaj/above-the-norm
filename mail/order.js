@@ -126,10 +126,37 @@ async function sendConfirmation(order) {
   const now = new Date();
   const number = orderNumber(now);
   const mail = await renderEmail(order, number, now);
-  // Support gets a hidden copy of every confirmation, so each order also lands in its inbox.
-  const support = process.env.MAIL_SENDER || "support@abovethenorm.us";
-  await sendMail({ to: order.email, subject: mail.subject, html: mail.html, bcc: order.email.toLowerCase() === support.toLowerCase() ? undefined : support });
+  await sendMail({ to: order.email, subject: mail.subject, html: mail.html });
+  // A separate "new order" alert for the support inbox, with everything needed to fulfil it.
+  // A failure here is logged but doesn't fail the order: the customer already has their email.
+  try {
+    await sendMail(orderAlert(order, number, now));
+  } catch (err) {
+    console.error("order alert for " + number + " failed:", err.message);
+  }
   return number;
+}
+
+function orderAlert(order, number, now) {
+  const items = order.items.map((i) => i.qty + " × " + i.name + " (" + i.variant + ") — " + money(i.total)).join("\n");
+  const address = [order.name, order.address1, order.address2, order.cityLine, order.country].filter(Boolean).join("\n");
+  return {
+    ...notice("New order " + number + " — " + money(order.total) + " from " + order.name, [
+      ["Order number", number],
+      ["Placed", orderDate(now) + ", " + now.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "America/Chicago", timeZoneName: "short" })],
+      ["Customer", order.name],
+      ["Email", order.email],
+      ["Phone", order.phone],
+      ["Items", items],
+      ["Subtotal", money(order.subtotal)],
+      ["Discount", order.discount ? "−" + money(order.discount) + " (" + order.couponCode + ")" : ""],
+      ["Shipping", (order.ship === "express" ? "Express" : "Standard") + " — " + (order.shipping ? money(order.shipping) : "Free")],
+      ["Order total", money(order.total)],
+      ["Payment", "Not charged — no payment gateway is connected yet"],
+      ["Ship to", address]
+    ]),
+    replyTo: order.email
+  };
 }
 
 // A plain email to the support inbox for site forms (newsletter, partners, restock alerts).
@@ -137,7 +164,7 @@ function notice(subject, rows) {
   const to = process.env.MAIL_SENDER || "support@abovethenorm.us";
   const body = rows.filter((r) => r[1]).map(([k, v]) =>
     '<tr><td style="padding:6px 16px 6px 0;color:#52514a;vertical-align:top;white-space:nowrap;">' + esc(k) + '</td><td style="padding:6px 0;white-space:pre-wrap;">' + esc(v) + "</td></tr>").join("");
-  return { to, subject, html: '<div style="font:15px/1.5 Arial,sans-serif;color:#161614;"><p><strong>' + esc(subject) + '</strong></p><table role="presentation" cellspacing="0" cellpadding="0">' + body + "</table><p style=\"color:#52514a;font-size:12px;\">Sent from the form on abovethenorm.us.</p></div>" };
+  return { to, subject, html: '<div style="font:15px/1.5 Arial,sans-serif;color:#161614;"><p><strong>' + esc(subject) + '</strong></p><table role="presentation" cellspacing="0" cellpadding="0">' + body + "</table><p style=\"color:#52514a;font-size:12px;\">Sent automatically by abovethenorm.us.</p></div>" };
 }
 
 function sampleOrder(to, first) {
