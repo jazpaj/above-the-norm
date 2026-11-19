@@ -1,18 +1,26 @@
-# Order confirmation email
+# Site email
 
-Sends `order-confirmation.html` from the store mailbox through Microsoft Graph. `server.js` calls this.
+`server.js` sends three kinds of email: the customer's order confirmation and the support "New order" alert
+(both designed in `confirmations.mjs`), and plain notices for the newsletter, partner and restock forms.
+
+Email goes out through **Google Workspace** when `SMTP_PASS` is set, since support@abovethenorm.us lives there
+(the domain's MX points to Google). Without `SMTP_PASS` it falls back to the old Microsoft 365 account.
 
 ## Settings on the host (environment variables, never in this repo)
 
 | Name | Value |
 |---|---|
-| `MS_TENANT_ID` | Directory (tenant) ID of the Entra app |
-| `MS_CLIENT_ID` | Application (client) ID of the Entra app |
-| `MS_CLIENT_SECRET` | The client secret value |
-| `MAIL_SENDER` | Mailbox to send from. Defaults to support@abovethenorm.us |
-| `ALERT_TO` | Optional. Where the "New order" alert goes. Defaults to the `MAIL_SENDER` mailbox |
+| `SMTP_USER` | Google Workspace mailbox to send from. Defaults to support@abovethenorm.us |
+| `SMTP_PASS` | A Google App Password for that mailbox (16 letters, spaces removed) |
+| `ALERT_TO` | Optional. Where the "New order" alert goes. Defaults to the sending mailbox |
 | `SEND_TOKEN` | Long random string that protects the test send |
 | `TEST_RECIPIENT` | Where the test email goes |
+| `MS_TENANT_ID`, `MS_CLIENT_ID`, `MS_CLIENT_SECRET`, `MAIL_SENDER` | Old Microsoft 365 sender, used only when `SMTP_PASS` isn't set |
+
+## DNS for Google sending
+
+So mail sent through Google isn't marked as spam: the SPF record must include `include:_spf.google.com`, and DKIM
+must be turned on in Google Admin (Apps > Google Workspace > Gmail > Authenticate email), then its TXT record added.
 
 ## Test send
 
@@ -21,19 +29,3 @@ curl -X POST https://abovethenorm.us/api/test-email -H "X-Send-Token: YOUR_TOKEN
 ```
 
 Add `?first=Jazner` to the address to see the greeting with a given name. Real orders use the first name from checkout.
-
-## Fonts
-
-Gmail and Outlook ignore web fonts. The fixed headings are images in Unbounded, from `python3 _generator/email_headings.py`. Text that changes per order (names, prices, addresses) stays live: Unbounded and DM Sans where the mail app allows them, Helvetica or Arial elsewhere.
-
-## Product photos
-
-The email shows small JPEGs from `assets/img/email/products/`, because Outlook on Windows can't display the site's WebP photos. After adding products, run `python3 _generator/email_thumbs.py`. A product with no JPEG falls back to its WebP photo.
-
-## Going live
-
-`ORDERS_LIVE` in `_generator/data.py` is off, so checkout sends nothing and `/api/place-order` refuses orders.
-Turn it on only after a payment gateway is connected, and call the endpoint only once a charge is approved.
-The email says "Total paid", so it must never go out for an unpaid order.
-
-Orders aren't stored. The only record is the copy in the sender's Sent Items.

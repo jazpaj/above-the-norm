@@ -3,7 +3,7 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
-const { priceOrder, sendConfirmation, sampleOrder, orderDate, sendMail, notice } = require("./mail/order");
+const { priceOrder, sendConfirmation, sampleOrder, orderDate, sendMail, notice, alertTo } = require("./mail/order");
 
 const ROOT = __dirname;
 const PORT = process.env.PORT || 3000;
@@ -131,7 +131,7 @@ async function testEmail(req, res) {
   const to = process.env.TEST_RECIPIENT;
   if (!to) return json(res, 500, { ok: false, error: "TEST_RECIPIENT isn't set." });
   const sent = await sendConfirmation(sampleOrder(to, new URL(req.url, "http://x").searchParams.get("first")));
-  json(res, 200, { ok: true, to, order_number: sent.number, alert_to: process.env.ALERT_TO || process.env.MAIL_SENDER || "support@abovethenorm.us", alert_error: sent.alertError || null });
+  json(res, 200, { ok: true, to, order_number: sent.number, alert_to: alertTo(), sent_with: process.env.SMTP_PASS ? "Google Workspace" : "Microsoft 365", alert_error: sent.alertError || null });
 }
 
 // Site forms: each one emails the details to the support inbox through the same Microsoft account.

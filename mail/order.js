@@ -2,6 +2,7 @@
 const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
+const { sendSmtp } = require("./smtp");
 
 const SITE_URL = () => (process.env.SITE_URL || "https://abovethenorm.us").replace(/\/$/, "");
 const money = (v) => "$" + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -61,6 +62,8 @@ let design = null;
 const cents = (v) => Math.round(v * 100);
 
 // The fields both emails share, in the shape confirmations.mjs expects.
+const alertTo = () => process.env.ALERT_TO || process.env.SMTP_USER || process.env.MAIL_SENDER || "support@abovethenorm.us";
+
 function emailOrder(order, number, now) {
   return {
     reference: number, currency: "USD", placedAt: now.toISOString(),
@@ -112,7 +115,14 @@ async function graphToken() {
   return cachedToken.value;
 }
 
-async function sendMail({ to, subject, html, replyTo, bcc, saveToSent = true }) {
+// Sends through Google Workspace when SMTP_PASS is set (support@ lives there now), otherwise through
+// the Microsoft 365 account as before.
+async function sendMail(mail) {
+  if (process.env.SMTP_PASS) return sendSmtp(mail);
+  return sendGraph(mail);
+}
+
+async function sendGraph({ to, subject, html, replyTo, bcc, saveToSent = true }) {
   const sender = process.env.MAIL_SENDER || "support@abovethenorm.us";
   const res = await fetch("https://graph.microsoft.com/v1.0/users/" + encodeURIComponent(sender) + "/sendMail", {
     method: "POST",
@@ -138,13 +148,13 @@ async function sendConfirmation(order) {
   const now = new Date();
   const number = orderNumber(now);
   const mail = await renderEmail(order, number, now);
-  await sendMail({ to: order.email, subject: mail.subject, html: mail.html });
+  await sendMail({ to: order.email, subject: mail.subject, html: mail.html, text: mail.text });
   // A separate "new order" alert for the support inbox, with everything needed to fulfil it.
   // A failure here is logged but doesn't fail the order: the customer already has their email.
   let alertError = "";
   try {
     const alert = await renderAlert(order, number, now);
-    await sendMail({ to: process.env.ALERT_TO || process.env.MAIL_SENDER || "support@abovethenorm.us", subject: alert.subject, html: alert.html, replyTo: order.email,
+    await sendMail({ to: alertTo(), subject: alert.subject, html: alert.html, text: alert.text, replyTo: order.email,
       // The alert goes from the support mailbox to itself. A copy in Sent Items makes Exchange treat the
       // delivered copy as a duplicate and drop it, so the alert would never reach the inbox.
       saveToSent: false });
@@ -157,7 +167,7 @@ async function sendConfirmation(order) {
 
 // A plain email to the support inbox for site forms (newsletter, partners, restock alerts).
 function notice(subject, rows) {
-  const to = process.env.MAIL_SENDER || "support@abovethenorm.us";
+  const to = alertTo();
   const body = rows.filter((r) => r[1]).map(([k, v]) =>
     '<tr><td style="padding:6px 16px 6px 0;color:#52514a;vertical-align:top;white-space:nowrap;">' + esc(k) + '</td><td style="padding:6px 0;white-space:pre-wrap;">' + esc(v) + "</td></tr>").join("");
   return { to, subject, html: '<div style="font:15px/1.5 Arial,sans-serif;color:#161614;"><p><strong>' + esc(subject) + '</strong></p><table role="presentation" cellspacing="0" cellpadding="0">' + body + "</table><p style=\"color:#52514a;font-size:12px;\">Sent automatically by abovethenorm.us.</p></div>" };
@@ -176,4 +186,4 @@ function sampleOrder(to, first) {
   };
 }
 
-module.exports = { priceOrder, renderEmail, renderAlert, sendConfirmation, sampleOrder, orderDate, sendMail, notice };
+module.exports = { alertTo, priceOrder, renderEmail, renderAlert, sendConfirmation, sampleOrder, orderDate, sendMail, notice };
