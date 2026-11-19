@@ -34,7 +34,9 @@ function resolve(urlPath) {
   if (parts.length && BLOCKED_TOP.has(parts[0])) return null;
   const file = path.join(ROOT, ...parts);
   if (file !== ROOT && !file.startsWith(ROOT + path.sep)) return null;
-  for (const candidate of [file, file + ".html", path.join(file, "index.html")]) {
+  // A folder's index.html wins over a same-named .html file: the host can keep files from an
+  // older version of the site after a deploy, and those must never be served in place of a page.
+  for (const candidate of [file, path.join(file, "index.html"), file + ".html"]) {
     try {
       if (fs.statSync(candidate).isFile()) return candidate;
     } catch (e) {}
