@@ -3,6 +3,7 @@ const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
 const { sendSmtp } = require("./smtp");
+const { sendGmail } = require("./gmail");
 
 const SITE_URL = () => (process.env.SITE_URL || "https://abovethenorm.us").replace(/\/$/, "");
 const money = (v) => "$" + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -62,7 +63,7 @@ let design = null;
 const cents = (v) => Math.round(v * 100);
 
 // The fields both emails share, in the shape confirmations.mjs expects.
-const alertTo = () => process.env.ALERT_TO || process.env.SMTP_USER || process.env.MAIL_SENDER || "support@abovethenorm.us";
+const alertTo = () => process.env.ALERT_TO || process.env.MAIL_FROM || process.env.SMTP_USER || process.env.MAIL_SENDER || "support@abovethenorm.us";
 
 function emailOrder(order, number, now) {
   return {
@@ -115,9 +116,11 @@ async function graphToken() {
   return cachedToken.value;
 }
 
-// Sends through Google Workspace when SMTP_PASS is set (support@ lives there now), otherwise through
-// the Microsoft 365 account as before.
+// support@ lives on Google Workspace. Sends through the Gmail API when GOOGLE_SA_JSON is set, through
+// Gmail SMTP when SMTP_PASS is set, and otherwise through the old Microsoft 365 account.
+const mailService = () => (process.env.GOOGLE_SA_JSON ? "Google (Gmail API)" : process.env.SMTP_PASS ? "Google (SMTP)" : "Microsoft 365");
 async function sendMail(mail) {
+  if (process.env.GOOGLE_SA_JSON) return sendGmail(mail);
   if (process.env.SMTP_PASS) return sendSmtp(mail);
   return sendGraph(mail);
 }
@@ -186,4 +189,4 @@ function sampleOrder(to, first) {
   };
 }
 
-module.exports = { alertTo, priceOrder, renderEmail, renderAlert, sendConfirmation, sampleOrder, orderDate, sendMail, notice };
+module.exports = { mailService, alertTo, priceOrder, renderEmail, renderAlert, sendConfirmation, sampleOrder, orderDate, sendMail, notice };

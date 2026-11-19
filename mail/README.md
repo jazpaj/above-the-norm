@@ -3,13 +3,26 @@
 `server.js` sends three kinds of email: the customer's order confirmation and the support "New order" alert
 (both designed in `confirmations.mjs`), and plain notices for the newsletter, partner and restock forms.
 
-Email goes out through **Google Workspace** when `SMTP_PASS` is set, since support@abovethenorm.us lives there
-(the domain's MX points to Google). Without `SMTP_PASS` it falls back to the old Microsoft 365 account.
+Email goes out as support@abovethenorm.us, which lives on Google Workspace (the domain's MX points to Google):
+
+1. `GOOGLE_SA_JSON` set: Gmail API with a service account (recommended; no password).
+2. else `SMTP_PASS` set: Gmail SMTP with an App Password.
+3. else: the old Microsoft 365 account. Its mail to support@ stays inside Microsoft 365 and never reaches Gmail.
+
+## Service account setup (once)
+
+1. console.cloud.google.com, signed in as a Workspace admin: create a project, enable the **Gmail API**.
+2. IAM & Admin > Service Accounts > Create. Open it > Keys > Add key > JSON. Copy its **Client ID** (numbers).
+3. admin.google.com > Security > Access and data control > API controls > Manage Domain Wide Delegation > Add new:
+   that Client ID, scope `https://www.googleapis.com/auth/gmail.send`.
+4. On the host set `GOOGLE_SA_JSON` to the whole JSON file contents (or the file base64-encoded).
 
 ## Settings on the host (environment variables, never in this repo)
 
 | Name | Value |
 |---|---|
+| `GOOGLE_SA_JSON` | Service account JSON key (see above) |
+| `MAIL_FROM` | Optional. Mailbox the Gmail API sends as. Defaults to support@abovethenorm.us |
 | `SMTP_USER` | Google Workspace mailbox to send from. Defaults to support@abovethenorm.us |
 | `SMTP_PASS` | A Google App Password for that mailbox (16 letters, spaces removed) |
 | `ALERT_TO` | Optional. Where the "New order" alert goes. Defaults to the sending mailbox |

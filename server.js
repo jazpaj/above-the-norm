@@ -3,7 +3,7 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
-const { priceOrder, sendConfirmation, sampleOrder, orderDate, sendMail, notice, alertTo } = require("./mail/order");
+const { priceOrder, sendConfirmation, sampleOrder, orderDate, sendMail, notice, alertTo, mailService } = require("./mail/order");
 
 const ROOT = __dirname;
 const PORT = process.env.PORT || 3000;
@@ -122,7 +122,7 @@ async function placeOrder(req, res) {
   const order = priceOrder(body, CATALOG);
   if (order.error) return json(res, 422, { ok: false, error: order.error });
   const { number, alertError } = await sendConfirmation(order);
-  json(res, 200, { ok: true, order_number: number, alert_sent: !alertError, total: order.total, order: { ...order, number, date: orderDate(new Date()) } });
+  json(res, 200, { ok: true, order_number: number, alert_sent: !alertError, sent_with: mailService(), total: order.total, order: { ...order, number, date: orderDate(new Date()) } });
 }
 
 // Sends a sample email to TEST_RECIPIENT only. Needs the X-Send-Token header.
@@ -131,7 +131,7 @@ async function testEmail(req, res) {
   const to = process.env.TEST_RECIPIENT;
   if (!to) return json(res, 500, { ok: false, error: "TEST_RECIPIENT isn't set." });
   const sent = await sendConfirmation(sampleOrder(to, new URL(req.url, "http://x").searchParams.get("first")));
-  json(res, 200, { ok: true, to, order_number: sent.number, alert_to: alertTo(), sent_with: process.env.SMTP_PASS ? "Google Workspace" : "Microsoft 365", alert_error: sent.alertError || null });
+  json(res, 200, { ok: true, to, order_number: sent.number, alert_to: alertTo(), sent_with: mailService(), alert_error: sent.alertError || null });
 }
 
 // Site forms: each one emails the details to the support inbox through the same Microsoft account.
