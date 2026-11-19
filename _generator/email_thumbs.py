@@ -11,7 +11,7 @@ OUT = ROOT / "assets/img/email/products"
 SIZE = 168  # twice the size it shows at, for sharp phone screens
 TILE = "#DCE6F1"  # the site's product tile colour
 
-catalog = json.loads(re.search(r"window\.ATN = (\{.*\});", (ROOT / "assets/js/catalog.js").read_text()).group(1))
+catalog = json.loads((ROOT / "mail/catalog.json").read_text())  # written by build_site.mjs
 OUT.mkdir(parents=True, exist_ok=True)
 for pid, p in catalog["products"].items():
     # Some photos have transparent backgrounds, which a JPEG would turn black.

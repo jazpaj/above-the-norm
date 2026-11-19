@@ -14,32 +14,33 @@ const text = (v, max) => (typeof v === "string" ? v.replace(/[\r\n\t]+/g, " ").t
 function priceOrder(body, catalog) {
   const email = text(body.email, 200);
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return { error: "A valid email is required." };
-  const first = text(body.first, 80), last = text(body.last, 80), address1 = text(body.address1, 160);
-  const city = text(body.city, 80), state = text(body.state, 40), zip = text(body.zip, 20);
-  if (!first || !last || !address1 || !city || !state || !zip) return { error: "A complete shipping address is required." };
+  const ship = body.shippingAddress && typeof body.shippingAddress === "object" ? body.shippingAddress : {};
+  const name = text(body.name, 150), first = name.split(" ")[0], phone = text(body.phone, 40);
+  const address1 = text(ship.line1, 200), city = text(ship.city, 100), state = text(ship.state, 40), zip = text(ship.postalCode, 10);
+  if (!name || !address1 || !city || !state || !zip) return { error: "A complete shipping address is required." };
+  if (body.acceptedTerms !== true) return { error: "Please accept the Terms of Service." };
   if (!Array.isArray(body.items) || !body.items.length || body.items.length > 30) return { error: "The order has no items." };
 
   const items = [];
   for (const l of body.items) {
     const p = l && catalog.products[l.id];
     const price = p && p.p && p.p[l.size];
-    if (typeof price !== "number" || !Number.isInteger(l.qty) || l.qty < 1 || l.qty > 20) return { error: "An item in the order isn't available." };
-    items.push({ id: l.id, image: p.i, name: p.n, variant: [p.c, "Size " + l.size].filter(Boolean).join(" · "), qty: l.qty, total: price * l.qty });
+    const qty = l && l.quantity;
+    if (typeof price !== "number" || !Number.isInteger(qty) || qty < 1 || qty > 20) return { error: "An item in the order isn't available." };
+    items.push({ id: l.id, image: p.i, name: p.n, variant: [p.c, "Size " + l.size].filter(Boolean).join(" · "), qty, total: price * qty });
   }
   const subtotal = items.reduce((s, i) => s + i.total, 0);
-  const coupon = catalog.coupon && body.coupon === catalog.coupon.code ? catalog.coupon : null;
+  const coupon = catalog.coupon && body.welcome === true ? catalog.coupon : null;
   const discount = coupon ? Math.round(subtotal * coupon.pct) / 100 : 0;
   const net = subtotal - discount;
-  const express = body.ship === "express";
+  const express = body.shipping === "express";
   const shipping = express ? catalog.ship.express_rate : net >= catalog.ship.free_over ? 0 : catalog.ship.standard_rate;
-  const last4 = /^\d{4}$/.test(body.card_last4) ? body.card_last4 : "";
-  const brand = text(body.card_brand, 20);
 
   return {
-    email, first, name: first + " " + last, address1, address2: text(body.address2, 160),
-    cityLine: city + ", " + state + " " + zip, country: text(body.country, 60) || "United States",
+    email, first, name, phone, address1, address2: text(ship.line2, 200),
+    cityLine: city + ", " + state + " " + zip, country: "United States",
     items, subtotal, discount, couponCode: coupon ? coupon.code : "", shipping, tax: 0, total: net + shipping, ship: express ? "express" : "standard",
-    payment: last4 ? (brand || "Card") + " ending " + last4 : "Card"
+    payment: "Card"
   };
 }
 
@@ -81,7 +82,7 @@ function renderEmail(order, number, now) {
     shipping_city_state_zip: order.cityLine,
     shipping_country: order.country,
     payment_method: order.payment,
-    order_status_url: SITE_URL() + "/track",
+    order_status_url: SITE_URL() + "/track/",
     current_year: now.getFullYear()
   });
 }
@@ -107,7 +108,7 @@ async function graphToken() {
   return cachedToken.value;
 }
 
-async function sendMail({ to, subject, html }) {
+async function sendMail({ to, subject, html, replyTo }) {
   const sender = process.env.MAIL_SENDER || "support@abovethenorm.us";
   const res = await fetch("https://graph.microsoft.com/v1.0/users/" + encodeURIComponent(sender) + "/sendMail", {
     method: "POST",
@@ -116,7 +117,8 @@ async function sendMail({ to, subject, html }) {
       message: {
         subject,
         body: { contentType: "HTML", content: html },
-        toRecipients: [{ emailAddress: { address: to } }]
+        toRecipients: [{ emailAddress: { address: to } }],
+        ...(replyTo ? { replyTo: [{ emailAddress: { address: replyTo } }] } : {})
       },
       saveToSentItems: true
     })
@@ -138,17 +140,25 @@ async function sendConfirmation(order) {
   return number;
 }
 
+// A plain email to the support inbox for site forms (newsletter, partners, restock alerts).
+function notice(subject, rows) {
+  const to = process.env.MAIL_SENDER || "support@abovethenorm.us";
+  const body = rows.filter((r) => r[1]).map(([k, v]) =>
+    '<tr><td style="padding:6px 16px 6px 0;color:#52514a;vertical-align:top;white-space:nowrap;">' + esc(k) + '</td><td style="padding:6px 0;white-space:pre-wrap;">' + esc(v) + "</td></tr>").join("");
+  return { to, subject, html: '<div style="font:15px/1.5 Arial,sans-serif;color:#161614;"><p><strong>' + esc(subject) + '</strong></p><table role="presentation" cellspacing="0" cellpadding="0">' + body + "</table><p style=\"color:#52514a;font-size:12px;\">Sent from the form on abovethenorm.us.</p></div>" };
+}
+
 function sampleOrder(to, first) {
   first = text(first, 80) || "Sample";
   return {
     email: to, first, name: first + " Customer", address1: "6122 Sterling Ave", address2: "",
     cityLine: "Raytown, MO 64133", country: "United States",
     items: [
-      { id: "atn-angels-hoodie-sky-blue", image: "assets/img/products/atn-angels-hoodie-sky-blue-1.webp", name: "ATN Angels Hoodie", variant: "Sky Blue · Size L", qty: 1, total: 75 },
-      { id: "sent-from-above-hoodie-black", image: "assets/img/products/sent-from-above-hoodie-black-1.webp", name: "Sent From Above Hoodie", variant: "Black · Size M", qty: 1, total: 75 }
+      { id: "atn-angels-hoodie-sky-blue", image: "assets/products/atn-angels-hoodie-sky-blue-1.webp", name: "ATN Angels Hoodie", variant: "Sky Blue · Size L", qty: 1, total: 75 },
+      { id: "sent-from-above-hoodie-black", image: "assets/products/sent-from-above-hoodie-black-1.webp", name: "Sent From Above Hoodie", variant: "Black · Size M", qty: 1, total: 75 }
     ],
     subtotal: 150, discount: 15, couponCode: "ABOVE10", shipping: 0, tax: 0, total: 135, payment: "Visa ending 4242"
   };
 }
 
-module.exports = { priceOrder, renderEmail, sendConfirmation, sampleOrder, orderDate };
+module.exports = { priceOrder, renderEmail, sendConfirmation, sampleOrder, orderDate, sendMail, notice };

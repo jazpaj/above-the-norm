@@ -3,7 +3,7 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
-const { priceOrder, sendConfirmation, sampleOrder, orderDate } = require("./mail/order");
+const { priceOrder, sendConfirmation, sampleOrder, orderDate, sendMail, notice } = require("./mail/order");
 
 const ROOT = __dirname;
 const PORT = process.env.PORT || 3000;
@@ -22,10 +22,11 @@ const TYPES = {
   ".woff": "font/woff",
   ".woff2": "font/woff2",
   ".txt": "text/plain; charset=utf-8",
-  ".xml": "application/xml"
+  ".xml": "application/xml",
+  ".mp4": "video/mp4"
 };
 // Source and config files stay private: only the site itself is served.
-const BLOCKED_TOP = new Set(["_generator", "mail", "node_modules", "server.js", "package.json", "package-lock.json"]);
+const BLOCKED_TOP = new Set(["_generator", "mail", "node_modules", "server.js", "package.json", "package-lock.json", "README.md"]);
 
 function resolve(urlPath) {
   const parts = urlPath.split("/").filter(Boolean);
@@ -41,15 +42,26 @@ function resolve(urlPath) {
   return null;
 }
 
-function send(res, status, file, headOnly) {
-  res.writeHead(status, {
-    "Content-Type": TYPES[path.extname(file).toLowerCase()] || "application/octet-stream"
-  });
+function send(res, status, file, headOnly, range) {
+  const type = TYPES[path.extname(file).toLowerCase()] || "application/octet-stream";
+  const size = fs.statSync(file).size;
+  // Byte ranges let Safari and iPhones play the lookbook video.
+  const m = status === 200 && /^bytes=(\d*)-(\d*)$/.exec(range || "");
+  if (m && (m[1] || m[2])) {
+    let start = m[1] ? +m[1] : Math.max(0, size - +m[2]), end = m[1] && m[2] ? Math.min(+m[2], size - 1) : size - 1;
+    if (start > end || start >= size) {
+      res.writeHead(416, { "Content-Range": "bytes */" + size });
+      return res.end();
+    }
+    res.writeHead(206, { "Content-Type": type, "Content-Length": end - start + 1, "Content-Range": "bytes " + start + "-" + end + "/" + size, "Accept-Ranges": "bytes" });
+    return headOnly ? res.end() : fs.createReadStream(file, { start, end }).pipe(res);
+  }
+  res.writeHead(status, { "Content-Type": type, "Content-Length": size, "Accept-Ranges": "bytes" });
   if (headOnly) return res.end();
   fs.createReadStream(file).pipe(res);
 }
 
-const CATALOG = JSON.parse(fs.readFileSync(path.join(ROOT, "assets/js/catalog.js"), "utf8").match(/window\.ATN = (\{.*\});/)[1]);
+const CATALOG = JSON.parse(fs.readFileSync(path.join(ROOT, "mail/catalog.json"), "utf8"));
 
 function json(res, status, data) {
   res.writeHead(status, { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" });
@@ -70,15 +82,16 @@ function readJson(req) {
   });
 }
 
-// At most 5 orders per visitor every 10 minutes, so the form can't be used to send mail in bulk.
+// At most 5 orders (and 5 of each form) per visitor every 10 minutes, so the form can't be used to send mail in bulk.
 const recent = new Map();
-function tooMany(req) {
+function tooMany(req, bucket = "order") {
   const ip = req.headers["cf-connecting-ip"] || String(req.headers["x-forwarded-for"] || "").split(",")[0].trim() || req.socket.remoteAddress;
   const now = Date.now();
-  const hits = (recent.get(ip) || []).filter((t) => now - t < 600000);
+  const key = bucket + " " + ip;
+  const hits = (recent.get(key) || []).filter((t) => now - t < 600000);
   if (hits.length >= 5) return true;
   hits.push(now);
-  recent.set(ip, hits);
+  recent.set(key, hits);
   return false;
 }
 
@@ -118,7 +131,41 @@ async function testEmail(req, res) {
   json(res, 200, { ok: true, to, order_number: await sendConfirmation(sampleOrder(to, new URL(req.url, "http://x").searchParams.get("first"))) });
 }
 
-const API = { "/api/place-order": placeOrder, "/api/test-email": testEmail };
+// Site forms: each one emails the details to the support inbox through the same Microsoft account.
+const clean = (v, max) => (typeof v === "string" ? v.trim().slice(0, max) : "");
+const validEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+function form(bucket, handler) {
+  return async (req, res) => {
+    if (!sameOrigin(req)) return json(res, 403, { error: "Forbidden." });
+    if (tooMany(req, bucket)) return json(res, 429, { error: "Too many attempts. Please try again later." });
+    const body = await readJson(req).catch(() => null);
+    if (!body || typeof body !== "object") return json(res, 400, { error: "That request couldn't be read." });
+    return handler(body, res);
+  };
+}
+const newsletter = form("newsletter", async (b, res) => {
+  const email = clean(b.email, 254);
+  if (!validEmail(email) || b.consent !== true) return json(res, 422, { error: "Enter a valid email address." });
+  await sendMail(notice("New email list signup", [["Email", email], ["Consent", "Agreed to ATN marketing emails"]]));
+  json(res, 200, { ok: true, code: CATALOG.coupon.code, percent: CATALOG.coupon.pct });
+});
+const partner = form("partner", async (b, res) => {
+  const f = { name: clean(b.name, 100), company: clean(b.company, 160), email: clean(b.email, 254), website: clean(b.website, 255), kind: clean(b.kind, 60), message: clean(b.message, 3000) };
+  if (!f.name || !f.company || !validEmail(f.email) || !f.kind || !f.message) return json(res, 422, { error: "Please complete every required field." });
+  await sendMail({ ...notice("Partnership inquiry: " + f.company, [["Name", f.name], ["Company", f.company], ["Email", f.email], ["Website", f.website], ["Interested in", f.kind], ["Message", f.message]]), replyTo: f.email });
+  json(res, 200, { received: true });
+});
+const restock = form("restock", async (b, res) => {
+  const p = CATALOG.products[b.productId], email = clean(b.email, 254), size = clean(b.size, 10);
+  if (!p || !(size in p.p) || !validEmail(email) || b.consent !== true) return json(res, 422, { error: "Enter a valid email address." });
+  await sendMail({ ...notice("Restock alert request: " + p.n, [["Product", p.n + (p.c ? " (" + p.c + ")" : "")], ["Size", size], ["Email", email]]), replyTo: email });
+  json(res, 200, { received: true });
+});
+
+const API = { "/api/place-order": placeOrder, "/api/test-email": testEmail, "/api/newsletter": newsletter, "/api/partner-inquiries": partner, "/api/restock": restock };
+
+// Addresses from the previous version of the site, sent to their new pages.
+const MOVED = { "/about": "/story/", "/faq": "/help/", "/cart": "/shop/", "/order-confirmed": "/checkout/complete/" };
 
 http
   .createServer((req, res) => {
@@ -144,17 +191,19 @@ http
       res.writeHead(400);
       return res.end();
     }
-    const file = resolve(urlPath);
     const headOnly = req.method === "HEAD";
+    const search = new URL(req.url, "http://localhost").search;
+    const redirect = (to) => { res.writeHead(301, { Location: encodeURI(to) + search }); res.end(); };
+    // One address per page, ending in a slash: /shop, /shop.html and /shop/index.html -> /shop/
+    const bare = "/" + urlPath.split("/").filter(Boolean).join("/").replace(/\.html$/, "").replace(/(^|\/)index$/, "$1");
+    if (MOVED[bare.replace(/\/$/, "")]) return redirect(MOVED[bare.replace(/\/$/, "")]);
+    const file = resolve(urlPath) || (urlPath.endsWith(".html") ? resolve(bare) : null);
     if (file && file.endsWith(".html")) {
-      // One address per page: /shop.html, /shop/ -> /shop and /index.html -> /
-      const clean = "/" + urlPath.split("/").filter(Boolean).join("/").replace(/\.html$/, "").replace(/(^|\/)index$/, "$1");
-      if (clean !== urlPath) {
-        res.writeHead(301, { Location: encodeURI(clean) + new URL(req.url, "http://localhost").search });
-        return res.end();
-      }
+      const want = bare === "/" ? "/" : bare.replace(/\/$/, "") + "/";
+      if (want !== urlPath) return redirect(want);
     }
-    if (file) return send(res, 200, file, headOnly);
-    send(res, 404, path.join(ROOT, "404.html"), headOnly);
+    if (file) return send(res, 200, file, headOnly, req.headers.range);
+    // Unknown pages get the site shell, which shows a "not found" message.
+    send(res, 404, path.join(ROOT, "index.html"), headOnly);
   })
   .listen(PORT, () => console.log("Above The Norm running on port " + PORT));
