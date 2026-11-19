@@ -141,13 +141,15 @@ async function sendConfirmation(order) {
   await sendMail({ to: order.email, subject: mail.subject, html: mail.html });
   // A separate "new order" alert for the support inbox, with everything needed to fulfil it.
   // A failure here is logged but doesn't fail the order: the customer already has their email.
+  let alertError = "";
   try {
     const alert = await renderAlert(order, number, now);
-    await sendMail({ to: process.env.MAIL_SENDER || "support@abovethenorm.us", subject: alert.subject, html: alert.html, replyTo: order.email });
+    await sendMail({ to: process.env.ALERT_TO || process.env.MAIL_SENDER || "support@abovethenorm.us", subject: alert.subject, html: alert.html, replyTo: order.email });
   } catch (err) {
-    console.error("order alert for " + number + " failed:", err.message);
+    alertError = err.message || String(err);
+    console.error("order alert for " + number + " failed:", alertError);
   }
-  return number;
+  return { number, alertError };
 }
 
 // A plain email to the support inbox for site forms (newsletter, partners, restock alerts).

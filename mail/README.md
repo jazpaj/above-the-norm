@@ -10,6 +10,7 @@ Sends `order-confirmation.html` from the store mailbox through Microsoft Graph. 
 | `MS_CLIENT_ID` | Application (client) ID of the Entra app |
 | `MS_CLIENT_SECRET` | The client secret value |
 | `MAIL_SENDER` | Mailbox to send from. Defaults to support@abovethenorm.us |
+| `ALERT_TO` | Optional. Where the "New order" alert goes. Defaults to the `MAIL_SENDER` mailbox |
 | `SEND_TOKEN` | Long random string that protects the test send |
 | `TEST_RECIPIENT` | Where the test email goes |
 

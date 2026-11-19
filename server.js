@@ -121,8 +121,8 @@ async function placeOrder(req, res) {
   if (!body || typeof body !== "object") return json(res, 400, { ok: false, error: "That request couldn't be read." });
   const order = priceOrder(body, CATALOG);
   if (order.error) return json(res, 422, { ok: false, error: order.error });
-  const number = await sendConfirmation(order);
-  json(res, 200, { ok: true, order_number: number, total: order.total, order: { ...order, number, date: orderDate(new Date()) } });
+  const { number, alertError } = await sendConfirmation(order);
+  json(res, 200, { ok: true, order_number: number, alert_sent: !alertError, total: order.total, order: { ...order, number, date: orderDate(new Date()) } });
 }
 
 // Sends a sample email to TEST_RECIPIENT only. Needs the X-Send-Token header.
@@ -130,7 +130,8 @@ async function testEmail(req, res) {
   if (!tokenOk(req)) return json(res, 403, { ok: false, error: "Forbidden." });
   const to = process.env.TEST_RECIPIENT;
   if (!to) return json(res, 500, { ok: false, error: "TEST_RECIPIENT isn't set." });
-  json(res, 200, { ok: true, to, order_number: await sendConfirmation(sampleOrder(to, new URL(req.url, "http://x").searchParams.get("first"))) });
+  const sent = await sendConfirmation(sampleOrder(to, new URL(req.url, "http://x").searchParams.get("first")));
+  json(res, 200, { ok: true, to, order_number: sent.number, alert_to: process.env.ALERT_TO || process.env.MAIL_SENDER || "support@abovethenorm.us", alert_error: sent.alertError || null });
 }
 
 // Site forms: each one emails the details to the support inbox through the same Microsoft account.
