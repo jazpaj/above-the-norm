@@ -60,12 +60,10 @@ function orderNumber(now) {
 let design = null;
 const cents = (v) => Math.round(v * 100);
 
-async function renderEmail(order, number, now) {
-  design = design || (await import("./confirmations.mjs"));
-  return design.orderConfirmation({
-    // "received": no payment gateway is connected yet, so the email never says the order was paid.
-    // Switch to status "paid" with payment details once the gateway confirms the charge.
-    reference: number, status: "received", currency: "USD", placedAt: now.toISOString(),
+// The fields both emails share, in the shape confirmations.mjs expects.
+function emailOrder(order, number, now) {
+  return {
+    reference: number, currency: "USD", placedAt: now.toISOString(),
     customer: { name: order.first, email: order.email, phone: order.phone || undefined },
     items: order.items.map((i) => ({ name: i.name, color: i.color || undefined, size: i.size, quantity: i.qty, unitAmount: cents(i.unit), imageUrl: itemImage(i) })),
     totals: { subtotal: cents(order.subtotal), discount: cents(order.discount), discountCode: order.couponCode || undefined, shipping: cents(order.shipping), tax: cents(order.tax), total: cents(order.total) },
@@ -76,7 +74,21 @@ async function renderEmail(order, number, now) {
       transitWindow: (order.ship === "express" ? "1–3" : "3–7") + " working days after dispatch",
       address: { name: order.name, line1: order.address1, line2: order.address2 || undefined, city: order.city, region: order.state, postalCode: order.zip, country: order.country }
     }
-  }, { origin: SITE_URL(), logoUrl: SITE_URL() + "/assets/atn-mark.png", timeZone: "America/Chicago" });
+  };
+}
+const brand = () => ({ origin: SITE_URL(), logoUrl: SITE_URL() + "/assets/atn-mark.png", timeZone: "America/Chicago" });
+
+async function renderEmail(order, number, now) {
+  design = design || (await import("./confirmations.mjs"));
+  // "received": no payment gateway is connected yet, so the email never says the order was paid.
+  // Switch to status "paid" with payment details once the gateway confirms the charge.
+  return design.orderConfirmation({ ...emailOrder(order, number, now), status: "received" }, brand());
+}
+
+async function renderAlert(order, number, now) {
+  design = design || (await import("./confirmations.mjs"));
+  const data = emailOrder(order, number, now);
+  return design.orderAlert({ ...data, customer: { ...data.customer, name: order.name }, paymentNote: "Not charged. No payment gateway is connected yet." }, brand());
 }
 
 let cachedToken = null;
@@ -130,33 +142,12 @@ async function sendConfirmation(order) {
   // A separate "new order" alert for the support inbox, with everything needed to fulfil it.
   // A failure here is logged but doesn't fail the order: the customer already has their email.
   try {
-    await sendMail(orderAlert(order, number, now));
+    const alert = await renderAlert(order, number, now);
+    await sendMail({ to: process.env.MAIL_SENDER || "support@abovethenorm.us", subject: alert.subject, html: alert.html, replyTo: order.email });
   } catch (err) {
     console.error("order alert for " + number + " failed:", err.message);
   }
   return number;
-}
-
-function orderAlert(order, number, now) {
-  const items = order.items.map((i) => i.qty + " × " + i.name + " (" + i.variant + ") — " + money(i.total)).join("\n");
-  const address = [order.name, order.address1, order.address2, order.cityLine, order.country].filter(Boolean).join("\n");
-  return {
-    ...notice("New order " + number + " — " + money(order.total) + " from " + order.name, [
-      ["Order number", number],
-      ["Placed", orderDate(now) + ", " + now.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "America/Chicago", timeZoneName: "short" })],
-      ["Customer", order.name],
-      ["Email", order.email],
-      ["Phone", order.phone],
-      ["Items", items],
-      ["Subtotal", money(order.subtotal)],
-      ["Discount", order.discount ? "−" + money(order.discount) + " (" + order.couponCode + ")" : ""],
-      ["Shipping", (order.ship === "express" ? "Express" : "Standard") + " — " + (order.shipping ? money(order.shipping) : "Free")],
-      ["Order total", money(order.total)],
-      ["Payment", "Not charged — no payment gateway is connected yet"],
-      ["Ship to", address]
-    ]),
-    replyTo: order.email
-  };
 }
 
 // A plain email to the support inbox for site forms (newsletter, partners, restock alerts).
@@ -180,4 +171,4 @@ function sampleOrder(to, first) {
   };
 }
 
-module.exports = { priceOrder, renderEmail, sendConfirmation, sampleOrder, orderDate, sendMail, notice };
+module.exports = { priceOrder, renderEmail, renderAlert, sendConfirmation, sampleOrder, orderDate, sendMail, notice };

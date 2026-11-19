@@ -111,9 +111,10 @@ function render(model, options) {
     return '<tr><th scope="row" align="left" style="padding:9px 9px;'+style+'">'+escape(label)+'</th><td align="right" style="padding:9px 9px;white-space:nowrap;'+style+'">'+escape(value)+'</td></tr>';
   }).join('')+'</table>';
   const box = content => '<tr><td class="pad" style="padding:24px 30px 0;">'+content+'</td></tr>';
-  const heroInk = model.kind === 'refund' ? palette.ink : '#ffffff';
-  const heroPaper = model.kind === 'refund' ? palette.lime : palette.blue;
-  const heroTag = model.kind === 'refund' ? palette.ink : palette.lime;
+  const lime = model.kind === 'refund' || model.kind === 'alert';
+  const heroInk = lime ? palette.ink : '#ffffff';
+  const heroPaper = lime ? palette.lime : palette.blue;
+  const heroTag = lime ? palette.ink : palette.lime;
   const helpLabel = 'Contact customer care';
   const cta = model.action?.url ? model.action : {label:helpLabel,url:shop+'/contact/'};
   const ctaSecondary = cta.label === helpLabel ? '' : ' &nbsp;·&nbsp; <a href="'+shop+'/contact/" style="color:'+palette.ink+';">Customer care</a>';
@@ -123,7 +124,7 @@ function render(model, options) {
   const previewTag = preview ? '<tr><td class="pad" style="background:'+palette.ink+';color:'+palette.lime+';padding:9px 30px;font:700 12px/1.4 '+mono+';">DESIGN PREVIEW · SAMPLE DATA</td></tr>' : '';
   const wordmark = '<span style="font:900 18px/1 '+display+';letter-spacing:-.4px;color:'+palette.ink+';">ABOVE THE NORM®</span>';
   const logoCell = logo ? '<td width="42" style="padding-right:8px;"><img width="34" height="34" alt="" src="'+escape(logo)+'" style="display:block;border:0;"></td>' : '';
-  const receiptStamp = model.kind === 'refund' ? 'REFUND RECEIPT' : 'ORDER RECEIPT';
+  const receiptStamp = model.kind === 'alert' ? 'STORE ALERT' : model.kind === 'refund' ? 'REFUND RECEIPT' : 'ORDER RECEIPT';
   const heroTitle = model.title.split(' ').map(escape).join('<br class="hero-break">');
   const html = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><meta name="supported-color-schemes" content="light"><title>'+escape(model.subject)+'</title>'+
   '<style>a:hover{text-decoration:underline!important} a:focus-visible{outline:2px solid #2437ce;outline-offset:3px} @media(max-width:480px){.outer{padding:0!important}.pad{padding-left:17px!important;padding-right:17px!important}.headline{font-size:40px!important}.stamp{font-size:10px!important}}</style></head>'+
@@ -139,7 +140,8 @@ function render(model, options) {
   model.sections.map(section => box(section.items ? items(section) : section.money ? amounts(section) : fields(section))).join('')+
   box((model.note ? '<p style="margin:0 0 18px;font:400 15px/1.55 '+type+';">'+escape(model.note)+'</p>' : '')+
   '<table role="presentation" cellspacing="0" cellpadding="0" border="0"><tr><td bgcolor="'+palette.ink+'" style="mso-padding-alt:12px 16px;"><a href="'+escape(cta.url)+'" style="display:inline-block;background:'+palette.ink+';color:#ffffff;padding:12px 16px;text-decoration:none;font:800 14px/1.2 '+type+';">'+escape(cta.label)+'</a></td></tr></table>'+
-  '<p style="margin:15px 0 24px;font:400 14px/1.6 '+type+';">Questions? <a href="'+escape(emailHref)+'" style="color:'+palette.ink+';word-break:break-word;">'+escape(supportEmail)+'</a>'+ctaSecondary+'</p>')+
+  (model.kind === 'alert' ? '<p style="margin:15px 0 24px;font:400 14px/1.6 '+type+';color:'+palette.muted+';">Sent automatically by '+escape(new URL(shop).host)+' when an order is placed.</p>'
+    : '<p style="margin:15px 0 24px;font:400 14px/1.6 '+type+';">Questions? <a href="'+escape(emailHref)+'" style="color:'+palette.ink+';word-break:break-word;">'+escape(supportEmail)+'</a>'+ctaSecondary+'</p>'))+
   '<tr><td class="pad" bgcolor="'+palette.ink+'" style="padding:18px 30px;color:#ffffff;"><p style="margin:0 0 8px;font:700 12px/1.35 '+mono+';letter-spacing:.65px;color:'+palette.lime+';">REFUSE TO BE NORMAL.</p>'+
   '<p style="margin:0;font:400 13px/1.6 '+type+';">Above The Norm LLC &nbsp;·&nbsp; <a href="'+shop+'/privacy/" style="color:#ffffff;">Privacy</a> &nbsp;·&nbsp; <a href="'+shop+'/terms/" style="color:#ffffff;">Terms</a></p></td></tr></table><!--[if mso]></td></tr></table><![endif]--></td></tr></table></body></html>\n';
   const sectionText = section => section.title+'\n'+(section.items
@@ -217,5 +219,47 @@ export function orderConfirmation(order, options) {
       : 'thanks for your order. Here’s your receipt and delivery information.',
     sections,
     action:orderUrl ? {label:'View order',url:orderUrl} : trackingUrl ? {label:'Track shipment',url:trackingUrl} : null
+  }, options);
+}
+
+// Internal "new order" alert for the support inbox, in the same design as the customer receipt.
+export function orderAlert(order, options) {
+  const reference = required(order.reference, 'Order reference');
+  const formatMoney = moneyFormat(order.currency);
+  const timeZone = options.timeZone ?? 'America/New_York';
+  const pricing = order.totals;
+  const cards = itemCards(order.items, formatMoney, options.preview, false);
+  const shipping = order.shipping;
+  const customerName = required(order.customer.name, 'Customer name');
+  const email = required(order.customer.email, 'Customer email');
+  const sections = [
+    {title:'Customer', rows:labeled([
+      valueRow('Name',customerName),
+      valueRow('Email',email),
+      valueRow('Phone',order.customer.phone),
+      valueRow('Order placed',dateText(order.placedAt,timeZone))
+    ])},
+    {title:'Items to pack', items:cards},
+    {title:'Order summary', money:true, rows:labeled([
+      valueRow('Subtotal',formatMoney(pricing.subtotal)),
+      valueRow(pricing.discountCode ? 'Discount · '+pricing.discountCode : 'Discount',pricing.discount ? '−'+formatMoney(pricing.discount):''),
+      valueRow('Shipping',pricing.shipping ? formatMoney(pricing.shipping) : 'Free'),
+      valueRow('Sales tax',formatMoney(pricing.tax)),
+      ['Order total',formatMoney(pricing.total)+' '+order.currency,true]
+    ])},
+    {title:'Payment', rows:labeled([valueRow('Status',required(order.paymentNote,'Payment note'))])},
+    {title:'Ship to', rows:labeled([
+      valueRow('Shipping method',required(shipping.method,'Shipping method')),
+      valueRow('Address',addressText(shipping.address) || required('', 'Shipping address'))
+    ])}
+  ];
+  return render({
+    kind:'alert',title:'New order',status:'Order placed on the store',name:'ATN team',reference,at:order.placedAt,
+    heroAmount:formatMoney(pricing.total)+' '+order.currency,
+    subject:'New order '+reference+' · '+formatMoney(pricing.total)+' from '+customerName,
+    preheader:customerName+' placed order '+reference+' for '+formatMoney(pricing.total)+'.',
+    message:customerName+' just placed an order. Here’s everything needed to pack and ship it.',
+    sections,
+    action:{label:'Reply to '+customerName.split(' ')[0],url:'mailto:'+email+'?subject='+encodeURIComponent('Your Above The Norm order '+reference)}
   }, options);
 }
